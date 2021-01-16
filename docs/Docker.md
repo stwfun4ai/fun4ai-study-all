@@ -40,7 +40,7 @@ docker commit -a="fun4ai" -m="add webapps" 容器id 提交镜像名称:版本号
 
 
 
-![image-20201114223654259](D:\Java\document\study\images\docker commandLine.png)
+![image-20201114223654259](images\docker commandLine.png)
 
 
 
@@ -243,13 +243,13 @@ docker run -d -p 3306:3306 -e MYSQL_ROOT_PASSWORD=root --name mysql02 --volume-f
 
 
 
-![image-20201115130622102](D:\Java\document\study\images\dockerfile1.png)
+![image-20201115130622102](images\dockerfile1.png)
 
 ## DockerFile指令
 
 
 
-![image-20201115130854739](D:\Java\document\study\images\dockerfile指令.png)
+![image-20201115130854739](images\dockerfile指令.png)
 
 ```bash
 CMD			#指定容器启动时运行命令，之后最后一个会生效，可被替代
@@ -263,7 +263,7 @@ ENV			#构建时候设置环境变量
 
 ​	1、构建centos添加vim net
 
-![image-20201115132506197](D:\Java\document\study\images\dockerfile-build-centos.png)
+![image-20201115132506197](images\dockerfile-build-centos.png)
 
 ```bash
 docker history 镜像id	#查看镜像构建步骤历史
@@ -363,7 +363,7 @@ ping xxx.xxx.xxx.xxx
 
 3、docker容器之间可以互相ping通
 
-![image-20201115230634080](D:\Java\document\study\images\idocker net.png)
+![image-20201115230634080](images\idocker net.png)
 
 > 结论：所有容器不指定网络的情况下，都是docker0路由的， 分配一个默认可用IP
 

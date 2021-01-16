@@ -72,7 +72,7 @@
 */
 ```
 
-![image-20210111011145251](D:\Java\document\study\images\spring bean lifecycle.png)
+![image-20210111011145251](images\spring bean lifecycle.png)
 
 
 

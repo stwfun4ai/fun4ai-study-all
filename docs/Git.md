@@ -27,9 +27,9 @@ git config --global user.email "7lfun4ai@gmail.com"
 
 > 工作区域
 
-![image-20201116174658548](D:\Java\document\study\images\git workspace.png)
+![image-20201116174658548](images\git workspace.png)
 
-![''](D:\Java\document\study\images\git-command.jpg)
+![''](images\git-command.jpg)
 
 - workspace：工作区
 - staging area：暂存区/缓存区

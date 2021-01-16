@@ -1,6 +1,7 @@
 # 1 工作流程
 
-<img src="D:\Java\document\study\images\SpringMVC流程.png" alt="img" style="zoom:200%;" />
+
+![](images/SpringMVC流程.png)
 
 1、用户发送请求至前端控制器DispatcherServlet。
 

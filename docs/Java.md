@@ -31,7 +31,7 @@
 
 
 
-![1](D:\Java\document\study\images\jdk7_hashmap.png)
+![1](images\jdk7_hashmap.png)
 
 HashMap 里面是一个==**数组**==，然后数组中每个元素是一个==**单向链表**==。
 
@@ -248,7 +248,7 @@ final Entry<K,V> getEntry(Object key) {
 
 ## JDK7 ConcurrentHahMap
 
-![3](D:\Java\document\study\images\jdk7_ConcurrentHashMap.png)
+![3](images\jdk7_ConcurrentHashMap.png)
 
 **concurrencyLevel**：并行级别、并发数、Segment 数，怎么翻译不重要，理解它。默认是 `16`，也就是说 ConcurrentHashMap 有 16 个 Segments，所以理论上，这个时候，最多可以同时支持 16 个线程并发写，只要它们的操作分别分布在不同的 Segment 上。这个值可以在初始化的时候设置为其他值，但是一旦初始化以后，它是不可以扩容的。
 
@@ -625,7 +625,7 @@ public V get(Object key) {
 
 ## JDK8 HashMap
 
-![img](D:\Java\document\study\images\jdk8_HashMap.png)
+![img](images\jdk8_HashMap.png)
 
 ​		Java8 对 HashMap 进行了一些修改，最大的不同就是利用了红黑树，所以其由 ==**数组+链表+红黑树**== 组成。
 
@@ -862,7 +862,7 @@ final Node<K,V>[] resize() {
 
 ​		时间复杂度 **O(log n)**
 
-![img](D:\Java\document\study\images\red black tree.jpg)
+![img](images\red black tree.jpg)
 
 ==性质：==
 
@@ -933,7 +933,7 @@ final Node<K,V> getNode(int hash, Object key) {
 
 ## JDK8 ConcurrentHahMap
 
-![image-20201122173120097](D:\Java\document\study\images\jdk8_ConcurrentHashMap.png)
+![image-20201122173120097](images\jdk8_ConcurrentHashMap.png)
 
 
 
@@ -1511,7 +1511,7 @@ public V get(Object key) {
 
 Mark Word在32位JVM中的长度是32bit，在64位JVM（**未开启压缩指针**）中长度是64bit。在32位JVM中是这么存的：
 
-![image-20201209212714411](D:\Java\document\study\images\32bit JVM mark word.png)
+![image-20201209212714411](images\32bit JVM mark word.png)
 
 指向类的指针在32位JVM中的长度是32bit，在64位JVM中长度是64bit。
 
@@ -1783,7 +1783,7 @@ as-if-serial 不管如何重排序，单线程执行结果不会改变
 
 数据结构图：
 
-![img](D:\Java\document\study\images\AQS数据结构.png)
+![img](images\AQS数据结构.png)
 
 ```java
 private volatile int state;// 共享变量，使用volatile修饰保证线程可见性
@@ -1887,7 +1887,7 @@ tryReleaseShared(int) //共享方式。尝试释放资源，如果释放后允�
 
 ​		默认抛出UnsupportedOperationException`。
 
-![image-20201125215144340](D:\Java\document\study\images\test_need_del.png)
+![image-20201125215144340](images\test_need_del.png)
 
 
 
@@ -2771,15 +2771,15 @@ JVM 堆 栈 方法栈分配 GC基本原理  GC Roots
 
 
 
-<img src="D:\Java\document\study\images\jvm1.7.png" style="zoom: 200%;" />
+<img src="images\jvm1.7.png" style="zoom: 200%;" />
 
 
 
-![img](D:\Java\document\study\images\jvm1.7_1.png)
+![img](images\jvm1.7_1.png)
 
-![img](D:\Java\document\study\images\jvm1.7_2.png)
+![img](images\jvm1.7_2.png)
 
-![img](D:\Java\document\study\images\classFile.png)
+![img](images\classFile.png)
 
 
 
@@ -2818,15 +2818,15 @@ JVM 堆 栈 方法栈分配 GC基本原理  GC Roots
 
 ### 垃圾回收器
 
-![image-20201211002824201](D:\Java\document\study\images\garbage collectors.png)
+![image-20201211002824201](images\garbage collectors.png)
 
-![image-20201211003919122](D:\Java\document\study\images\heap logic part.png)
+![image-20201211003919122](images\heap logic part.png)
 
-![image-20201211004729078](D:\Java\document\study\images\gc-some.png)
+![image-20201211004729078](images\gc-some.png)
 
 
 
-![image-20201211005637055](D:\Java\document\study\images\new object summary.png)
+![image-20201211005637055](images\new object summary.png)
 
 TLAB:Thread Local Allocation Buffer
 

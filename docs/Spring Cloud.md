@@ -2,7 +2,7 @@
 
 ------
 
-<img src="D:\Java\document\study\images\spring cloud升级.png" alt="images/" style="zoom:200%;" />
+<img src="images\spring cloud升级.png" alt="images/" style="zoom:200%;" />
 
 - 服务注册与发现中心
   - ~~Eureka~~	（AP）

@@ -354,7 +354,7 @@ yum -y install nc
 - **信号驱动IO模型（signal-driven IO）**
 - **异步IO模型（asynchronous IO）**
 
-<img src="D:\Java\document\study\images\io理论实质.jpg" style="zoom:200%;" />
+<img src="images\io理论实质.jpg" style="zoom:200%;" />
 
 ## 4.1 基本概念
 
@@ -399,7 +399,7 @@ select系统调用允许程序同时在多个底层文件描述符上，等待�
 
 阻塞IO的执行过程是进程进行**系统调用**，**等待内核**将数据准备好并复制到用户态缓冲区后，进程**放弃使用CPU**并**一直阻塞**在此，直到数据准备好。
 
-![输入图片说明](D:\Java\document\study\images\blocking io.png)
+![输入图片说明](images\blocking io.png)
 
 
 
@@ -416,7 +416,7 @@ select系统调用允许程序同时在多个底层文件描述符上，等待�
 
 在这两个阶段中，用户进程只有在数据复制阶段被阻塞了，而等待数据阶段没有阻塞，但是用户进程需要盲等，不停地轮询内核，看数据是否准备好。
 
-![输入图片说明](D:\Java\document\study\images\non-blocking io.png)
+![输入图片说明](images\non-blocking io.png)
 
 
 
@@ -448,7 +448,7 @@ select负责**轮询等待**，recvfrom负责**拷贝**。当用户进程调用�
 
 
 
-![输入图片说明](D:\Java\document\study\images\multiplexing io.png)
+![输入图片说明](images\multiplexing io.png)
 
 ## 4.5 信号驱动IO模型
 
@@ -456,7 +456,7 @@ select负责**轮询等待**，recvfrom负责**拷贝**。当用户进程调用�
 
 信号驱动式I/O：首先我们允许Socket进行信号驱动IO,并安装一个信号处理函数，进程继续运行并不阻塞。当数据准备好时，进程会收到一个SIGIO信号，可以在信号处理函数中调用I/O操作函数处理数据。
 
-![输入图片说明](D:\Java\document\study\images\signal-driven IO.png)
+![输入图片说明](images\signal-driven IO.png)
 
 ## 4.6 异步IO模型
 
@@ -466,7 +466,7 @@ select负责**轮询等待**，recvfrom负责**拷贝**。当用户进程调用�
 
 
 
-![输入图片说明](D:\Java\document\study\images\asynchronous IO.png)
+![输入图片说明](images\asynchronous IO.png)
 
 
 
@@ -524,7 +524,7 @@ select负责**轮询等待**，recvfrom负责**拷贝**。当用户进程调用�
 
 ## 4.8 总结
 
-![输入图片说明](D:\Java\document\study\images\5种io比较.png)
+![输入图片说明](images\5种io比较.png)
 
 
 
@@ -556,7 +556,7 @@ IO多路复用是指，在一个操作里同时监听多个输入输出源，在
 
 epoll的核心是3个API，核心数据结构是：1个红黑树和1个链表
 
-![image-20201217221908687](D:\Java\document\study\images\image-20201217221908687.png)
+![image-20201217221908687](images\image-20201217221908687.png)
 
 ### int epoll_create(int size)
 
