@@ -80,25 +80,25 @@ I/O 多路复用程序可以监听多个套接字的ae.h/AE_READABLE事件和ae.
 - 当套接字变得可读时（客户端对套接字执行write操作，或者执行close操作），或者有新的可应答（acceptable）套接字出现时（客户端对服务器的监听套接字执行connect操作），套接字产生AE_READABLE 事件。
 - 当套接字变得可写时（客户端对套接字执行read操作），套接字产生AE_WRITABLE事件。I/O多路复用程序允许服务器同时监听套接字的AE_READABLE事件和AE_WRITABLE事件，如果一个套接字同时产生了这两种事件，那么文件事件分派器会优先处理AE_READABLE事件，等到AE_READABLE事件处理完之后，才处理AE_WRITABLE 事件。这也就是说，如果一个套接字又可读又可写的话，那么服务器将先读套接字，后写套接字。
 
-![image-20201217213912234](images\redis线程模型1.png)
+![image-20201217213912234](images/redis线程模型1.png)
 
 ## 工作流程及原理
 
-<img src="images\Redis线程模型2.png" alt="img" style="zoom:200%;" />
+<img src="images/Redis线程模型2.png" alt="img" style="zoom:200%;" />
 
 客户端与redis进行通信大致流程：
 1、首先在redis启动初始化的时候，redis会先将事件处理器中的连接应答处理器和AE_READABLE事件关联起来;
 2、如果客户端向redis发起连接，会产生AE_READABLE事件(步骤A)，产生该事件后会被IO多路复用程序监听到(步骤B)，然后IO多路复用程序会把监听到的socket信息放入到队列中(步骤C)，事件分配器每次从队列中取出一个socket(步骤D)，然后事件分派器把socket给对应的事件处理器(步骤E)。由于连接应答处理器和AE_READABLE事件在redis初始化的时候已经关联起来，所以由连接应答处理器来处理跟客户端建立连接，然后通过ServerSocket创建一个与客户端一对一对应的socket，如叫socket01，同时将这个socket01的AE_READABLE事件和命令请求处理器关联起来。
 
-![img](images\20190615185708852.png)
+![img](images/20190615185708852.png)
 
 4、当客户端向redis发生请求时(读、写操作)，首先就会在对应的socket如socket01上会产生AE_READABLE事件(步骤A)，产生该事件后会被IO多路复用程序监听到(步骤B)，然后IO多路复用程序会把监听到的socket信息放入到队列中(步骤C)，事件分配器每次从队列中取出一个socket(步骤D)，然后事件分派器把socket给对应的事件处理器(步骤E)。由于命令处理器和socket01的AE_READABLE事件关联起来了，然后对应的命令请求处理器来处理。这个命令请求处理器会从事件分配器传递过来的socket01上读取相关的数据，如何执行相应的读写处理。操作执行完之后，redis就会将准备好相应的响应数据(如你在redis客户端输入 set a 123回车时会看到响应ok)，并将socket01的AE_WRITABLE事件和命令回复处理器关联起来。
 
-![img](images\20190615191107315.png)
+![img](images/20190615191107315.png)
 
 5、当客户端会查询redis是否完成相应的操作，就会在socket01上产生一个AE_WRITABLE事件，会由对应的命令回复处理器来处理，就是将准备好的相应数据写入socket01(由于socket连接是双向的),返回给客户端，如读操作，客户端会显示ok。
 
-![在这里插入图片描述](images\20190615193213901.png)
+![在这里插入图片描述](images/20190615193213901.png)
 
 6、如果命令回复处理器执行完成后，就会删除这个socket01的AE_WRITABLE事件和命令回复处理器的关联。
 7、这样客户端就和redis进行了一次通信。由于连接应答处理器执行一次就够了，如果客户端在次进行操作就会由命令请求处理器来处理，反复执行。
@@ -116,7 +116,7 @@ Redis的I/O多路复用程序的所有功能是通过包装select、epoll、evpo
 
 因为Redis为每个I/O多路复用函数库都实现了相同的API，所以I/O多路复用程序的底层实现是可以互换的，如下图所示。
 
-![640?wx_fmt=png](images\redis_io多路复用底层实现.png)
+![640?wx_fmt=png](images/redis_io多路复用底层实现.png)
 
 > 有关epoll的详细讲解，可以点击查看java-io-epoll，彻底搞懂epoll高效运行的原理
 
@@ -306,7 +306,7 @@ zreverange
 
 **Redis数据结构**
 
-![img](images\redis数据结构.png)
+![img](images/redis数据结构.png)
 
 ## **各个数据类型应用场景：**
 
@@ -508,7 +508,7 @@ Redis的内存淘汰策略是指在Redis的用于缓存的内存不足时，怎�
 
 # redis集群
 
-![image-20201222003929607](images\redis集群.png)
+![image-20201222003929607](images/redis集群.png)
 
 主从复制 速度 AP 同步不清准-> ==大厂tradoff 用一台redis实例（成本）==
 
@@ -629,7 +629,7 @@ redis内部 槽位16384
 
 ## AKF
 
-![image-20201222190854463](images\redis-afk.png)
+![image-20201222190854463](images/redis-afk.png)
 
 
 

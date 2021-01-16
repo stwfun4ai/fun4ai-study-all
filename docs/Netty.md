@@ -12,7 +12,7 @@
 
 netty 推荐使用`主从Reactor模型`，Netty 主线程组`BossGroup`用于客户端的监听，并将监听到的客户端`Channel`注册到从线程组`WorkGroup`上的一个`NIOEventLoop`的`Selector`上，这个`NIOEventLoop`主要用于和客户端数据的 `Read / Write`，客户端和服务端会在数据传输的管道`ChannelPipeline`中调用`InboundHandler`/`OutboundHandler`对数据进行处理。
 
-![img](images\netty 工作流程图.png)
+![img](images/netty 工作流程图.png)
 
 
 
@@ -20,7 +20,7 @@ netty 推荐使用`主从Reactor模型`，Netty 主线程组`BossGroup`用于客
 
 ## Channel
 
-![img](images\netty channel.png)
+![img](images/netty channel.png)
 
 数据传输流
 
@@ -49,7 +49,7 @@ netty 推荐使用`主从Reactor模型`，Netty 主线程组`BossGroup`用于客
 
 ByteBuf是一个存储字节的容器，最大特点就是**使用方便**，它既有自己的读索引和写索引，方便你对整段字节缓存进行读写，也支持get/set，方便你对其中每一个字节进行读写，他的数据结构如下图所示：
 
-![](images\netty bytebuf.png)
+![](images/netty bytebuf.png)
 
 - Heap Buffer 堆缓冲区
   堆缓冲区是ByteBuf最常用的模式，他将数据存储在堆空间。
@@ -462,13 +462,13 @@ pipeline.addLast("decoder", new ProrobufDecoder(StudentPOJO.Student.getDefaultIn
 
 ## 传统阻塞IO服务模型
 
-![高性能网络编程(六)：一文读懂高性能网络编程中的线程模型_1.jpeg](images\netty 传统阻塞IO服务模型.jpeg)
+![高性能网络编程(六)：一文读懂高性能网络编程中的线程模型_1.jpeg](images/netty 传统阻塞IO服务模型.jpeg)
 
 
 
 ## Reactor模式
 
-![高性能网络编程(六)：一文读懂高性能网络编程中的线程模型_2.jpeg](images\netty reactor模式.jpeg)
+![高性能网络编程(六)：一文读懂高性能网络编程中的线程模型_2.jpeg](images/netty reactor模式.jpeg)
 
 **I/O 复用结合线程池，这就是 Reactor 模式基本设计思想。**
 
@@ -493,25 +493,25 @@ Reactor 模式，是指通过一个或多个输入同时传递给服务处理器
 
 ### 单Reactor单线程
 
-![img](images\netty 单reactor单线程模型.png)
+![img](images/netty 单reactor单线程模型.png)
 
-![](images\netty 单reactor单线程2.jpeg)
+![](images/netty 单reactor单线程2.jpeg)
 
 
 
 ### 单Reactor多线程模型
 
-![img](images\netty 单reactor多线程模型.png)
+![img](images/netty 单reactor多线程模型.png)
 
-![](images\netty 单reactor多线程2.jpeg)
+![](images/netty 单reactor多线程2.jpeg)
 
 
 
 ### 主从reactor多线程模型
 
-​		![img](images\netty 主从reactor多线程模型.jpeg)
+​		![img](images/netty 主从reactor多线程模型.jpeg)
 
-![](images\netty 主从reactor多线程2.jpeg)
+![](images/netty 主从reactor多线程2.jpeg)
 
 SubReactor可多个
 
@@ -525,7 +525,7 @@ SubReactor可多个
 
 ## Proactor 模型
 
-![](images\netty proactor模型.jpeg)
+![](images/netty proactor模型.jpeg)
 
 
 
