@@ -1,0 +1,12 @@
+dontinline,*.*_all_jmhStub
+dontinline,*.*_avgt_jmhStub
+dontinline,*.*_sample_jmhStub
+dontinline,*.*_ss_jmhStub
+dontinline,*.*_thrpt_jmhStub
+inline,com/ly/hashmap/TraversalPerformanceTest.entrySet
+inline,com/ly/hashmap/TraversalPerformanceTest.forEachEntrySet
+inline,com/ly/hashmap/TraversalPerformanceTest.forEachKeySet
+inline,com/ly/hashmap/TraversalPerformanceTest.keySet
+inline,com/ly/hashmap/TraversalPerformanceTest.lambda
+inline,com/ly/hashmap/TraversalPerformanceTest.parallelStreamApi
+inline,com/ly/hashmap/TraversalPerformanceTest.streamApi

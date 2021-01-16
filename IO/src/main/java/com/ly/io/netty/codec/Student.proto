@@ -1,0 +1,14 @@
+//指定protobuf语法版本
+syntax = "proto3";
+
+//包名
+option java_package = "com.ly.io.netty.codec";
+//源文件类名
+option java_outer_classname = "StudentPOJO";
+
+// class Student
+message Student {
+  //int32 对应java中的int 1代表属性序号不代表值
+  int32 id = 1;
+  string name = 2;
+}

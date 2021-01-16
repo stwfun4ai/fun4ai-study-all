@@ -1,0 +1,474 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="388b4114-94a6-4130-adf5-4c6d1c4551c1" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CoverageViewManager">
+    <option name="myElementSize" value="275" />
+  </component>
+  <component name="DatabaseView">
+    <option name="SHOW_INTERMEDIATE" value="true" />
+    <option name="GROUP_DATA_SOURCES" value="true" />
+    <option name="GROUP_SCHEMA" value="true" />
+    <option name="GROUP_CONTENTS" value="false" />
+    <option name="SORT_POSITIONED" value="false" />
+    <option name="SHOW_EMPTY_GROUPS" value="false" />
+    <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
+    <option name="HIDDEN_KINDS">
+      <set />
+    </option>
+    <expand />
+    <select />
+  </component>
+  <component name="FavoritesManager">
+    <favorites_list name="fun4ai-study-all" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="AnnotationType" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="localRepository" value="D:\Java\app\maven\repository" />
+        <option name="mavenHome" value="$PROJECT_DIR$/../../../app/maven/apache-maven-3.6.3" />
+        <option name="userSettingsFile" value="D:\Java\app\maven\repository\settings.xml" />
+      </MavenGeneralSettings>
+    </option>
+    <option name="importingSettings">
+      <MavenImportingSettings>
+        <option name="downloadAnnotationsAutomatically" value="true" />
+        <option name="downloadDocsAutomatically" value="true" />
+        <option name="downloadSourcesAutomatically" value="true" />
+        <option name="vmOptionsForImporter" value="-Xmx768m" />
+      </MavenImportingSettings>
+    </option>
+  </component>
+  <component name="ProjectId" id="1kS3VqKQBjUxPIjywaLEKVNmFAX" />
+  <component name="ProjectViewState">
+    <option name="autoscrollFromSource" value="true" />
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RequestMappingsPanelOrder0" value="0" />
+    <property name="RequestMappingsPanelOrder1" value="1" />
+    <property name="RequestMappingsPanelWidth0" value="75" />
+    <property name="RequestMappingsPanelWidth1" value="75" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="ToolWindowAnt.ShowToolbar" value="false" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/IO/src/main/java/com/ly/io/rpc" />
+    <property name="project.structure.last.edited" value="Libraries" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.27432078" />
+    <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
+    <property name="settings.editor.selected.configurable" value="yiiguxing.plugin.translate" />
+    <property name="settings.editor.splitter.proportion" value="0.2332815" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Java\Workspaces\IdeaProjects\fun4ai-study-all\IO\src\main\java\com\ly\io\netty\source" />
+      <recent name="D:\Java\Workspaces\IdeaProjects\fun4ai-study-all\IO\src\main\resources" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="com.ly" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Java\Workspaces\IdeaProjects\fun4ai-study-all\IO\src\main\java\com\ly\io\rpc" />
+      <recent name="D:\Java\Workspaces\IdeaProjects\fun4ai-study-all\IO\src\main\java\com\ly\io\netty" />
+      <recent name="D:\Java\Workspaces\IdeaProjects\fun4ai-study-all\IO\src\main\java\com\ly\io\netty\source" />
+      <recent name="D:\Java\Workspaces\IdeaProjects\fun4ai-study-all\IO\src\main\java\com\ly\io\netty\websocket" />
+      <recent name="D:\Java\Workspaces\IdeaProjects\fun4ai-study-all\IO\src\main\resources" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.ly.io.rpc.consumer" />
+      <recent name="com.ly.io.netty.tcp.protocol" />
+      <recent name="com.ly.io.netty.tcp" />
+    </key>
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="com.ly.reflect" />
+      <recent name="com.ly.io.netty.rpc.test2.netty" />
+      <recent name="com.ly.io.netty.rpc.netty" />
+      <recent name="com.ly.io.netty.tcp" />
+      <recent name="com.ly.io.netty.websocket" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="configurationTypes">
+      <set>
+        <option value="SpringBootApplicationConfigurationType" />
+      </set>
+    </option>
+  </component>
+  <component name="RunManager" selected="Application.Test (2)">
+    <configuration name="ConsumerMain" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.ly.io.netty.rpc.test2.consumer.ConsumerMain" />
+      <module name="IO" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.ly.io.netty.rpc.test2.consumer.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ObjectMemoryUsageTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.ly.objectmemory.ObjectMemoryUsageTest" />
+      <module name="java-all" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.ly.objectmemory.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Test (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.ly.reflect.Test" />
+      <module name="java-all" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.ly.reflect.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Test (2)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.ly.Test" />
+      <module name="memery-object-useage" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.ly.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Test" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.ly.io.netty.echo.Test" />
+      <module name="IO" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.ly.io.netty.echo.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="DemoApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="demo" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.demo.DemoApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="DemoaApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="demoa" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.demoa.DemoaApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MainSpringBoot" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="IO" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.ly.io.MainSpringBoot" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="RedisMain" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="redis" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.ly.RedisMain" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="Application.ConsumerMain" />
+      <item itemvalue="Application.Test" />
+      <item itemvalue="Application.Test (1)" />
+      <item itemvalue="Spring Boot.DemoaApplication" />
+      <item itemvalue="Spring Boot.DemoApplication" />
+      <item itemvalue="Spring Boot.RedisMain" />
+      <item itemvalue="Spring Boot.MainSpringBoot" />
+      <item itemvalue="Application.ObjectMemoryUsageTest" />
+      <item itemvalue="Application.Test (2)" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Test (2)" />
+        <item itemvalue="Application.ObjectMemoryUsageTest" />
+        <item itemvalue="Application.Test (1)" />
+        <item itemvalue="Application.Test" />
+        <item itemvalue="Application.ConsumerMain" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="ServiceViewManager">
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <option name="contentProportion" value="0.20295405" />
+          <treeState>
+            <expand>
+              <path>
+                <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
+                <item name="Spring Boot" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+              </path>
+              <path>
+                <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
+                <item name="Spring Boot" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+                <item name="Not Started" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+              </path>
+            </expand>
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
+    </option>
+  </component>
+  <component name="StructureViewFactory">
+    <option name="AUTOSCROLL_FROM_SOURCE" value="true" />
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="388b4114-94a6-4130-adf5-4c6d1c4551c1" name="Default Changelist" comment="" />
+      <created>1605680191437</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1605680191437</updated>
+      <workItem from="1605680194270" duration="7542000" />
+      <workItem from="1605714106003" duration="6417000" />
+      <workItem from="1605762175309" duration="1519000" />
+      <workItem from="1605894664669" duration="2714000" />
+      <workItem from="1605977050682" duration="5345000" />
+      <workItem from="1606032414426" duration="11306000" />
+      <workItem from="1606113208341" duration="643000" />
+      <workItem from="1606202765183" duration="12741000" />
+      <workItem from="1606290637205" duration="6712000" />
+      <workItem from="1608364329929" duration="5783000" />
+      <workItem from="1608622200560" duration="2131000" />
+      <workItem from="1608792950139" duration="19470000" />
+      <workItem from="1608873524682" duration="18308000" />
+      <workItem from="1608971375947" duration="2070000" />
+      <workItem from="1609053243266" duration="12286000" />
+      <workItem from="1609313956256" duration="3069000" />
+      <workItem from="1609317108480" duration="12807000" />
+      <workItem from="1609400316877" duration="15821000" />
+      <workItem from="1609532695632" duration="1919000" />
+      <workItem from="1609575490194" duration="1755000" />
+      <workItem from="1609577309552" duration="193000" />
+      <workItem from="1609577545964" duration="6434000" />
+      <workItem from="1609593445609" duration="3248000" />
+      <workItem from="1609657657436" duration="9923000" />
+      <workItem from="1609685375876" duration="3136000" />
+      <workItem from="1609725341870" duration="17073000" />
+      <workItem from="1609836403695" duration="9314000" />
+      <workItem from="1609923037530" duration="17738000" />
+      <workItem from="1609996071213" duration="8906000" />
+      <workItem from="1610093676565" duration="9348000" />
+      <workItem from="1610120412701" duration="8708000" />
+      <workItem from="1610293849796" duration="5742000" />
+      <workItem from="1610301655032" duration="297000" />
+      <workItem from="1610346239968" duration="6925000" />
+      <workItem from="1610433546881" duration="4078000" />
+      <workItem from="1610468168165" duration="3620000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="84" y="147" key="#Custom_Plugin_Repositories" timestamp="1610300345942">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="84" y="147" key="#Custom_Plugin_Repositories/0.0.1920.1040@0.0.1920.1040" timestamp="1610300345942" />
+    <state x="549" y="98" key="#HTTP_Proxy" timestamp="1610301925125">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="549" y="98" key="#HTTP_Proxy/0.0.1920.1040@0.0.1920.1040" timestamp="1610301925125" />
+    <state x="452" y="98" key="#Inspections" timestamp="1609327176863">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="452" y="98" key="#Inspections/0.0.1920.1040@0.0.1920.1040" timestamp="1609327176863" />
+    <state x="452" y="100" width="1016" height="906" key="#Intentions" timestamp="1609952755818">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="452" y="100" width="1016" height="906" key="#Intentions/0.0.1920.1040@0.0.1920.1040" timestamp="1609952755818" />
+    <state x="531" y="121" key="#NettyClient" timestamp="1609083298926">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="531" y="121" key="#NettyClient/0.0.1920.1040@0.0.1920.1040" timestamp="1609083298926" />
+    <state x="452" y="98" key="#Project_Structure" timestamp="1610295286390">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="452" y="98" key="#Project_Structure/0.0.1920.1040@0.0.1920.1040" timestamp="1610295286390" />
+    <state x="166" y="161" width="1172" height="698" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1609749578966">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="166" y="161" width="1172" height="698" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1609749578966" />
+    <state x="521" y="312" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1609684613567">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="521" y="312" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1609684613567" />
+    <state x="1214" y="235" key="#com.intellij.ide.util.MemberChooser" timestamp="1610294873440">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="1214" y="235" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1610294873440" />
+    <state x="627" y="264" key="#com.intellij.ide.util.TreeClassChooserDialog" timestamp="1609083039785">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="627" y="264" key="#com.intellij.ide.util.TreeClassChooserDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1609083039785" />
+    <state x="460" y="441" key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog" timestamp="1610301684471">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="460" y="441" key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1610301684471" />
+    <state x="655" y="361" width="609" height="326" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes" timestamp="1605698219535">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="655" y="361" width="609" height="326" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes/0.0.1920.1040@0.0.1920.1040" timestamp="1605698219535" />
+    <state x="1168" y="320" key="#xdebugger.evaluate" timestamp="1609950004632">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="1168" y="320" key="#xdebugger.evaluate/0.0.1920.1040@0.0.1920.1040" timestamp="1609950004632" />
+    <state x="629" y="346" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1" timestamp="1605718694725">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="629" y="346" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.0.1920.1040@0.0.1920.1040" timestamp="1605718694725" />
+    <state width="568" height="582" key="DebuggerActiveHint" timestamp="1609949438632">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="568" height="582" key="DebuggerActiveHint/0.0.1920.1040@0.0.1920.1040" timestamp="1609949438632" />
+    <state x="549" y="254" width="710" height="595" key="FileChooserDialogImpl" timestamp="1609753254638">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="549" y="254" width="710" height="595" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1609753254638" />
+    <state width="1864" height="252" key="GridCell.Tab.0.bottom" timestamp="1610472708398">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1864" height="252" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1610472708398" />
+    <state width="1864" height="252" key="GridCell.Tab.0.center" timestamp="1610472708397">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1864" height="252" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1610472708397" />
+    <state width="1864" height="252" key="GridCell.Tab.0.left" timestamp="1610472708397">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1864" height="252" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1610472708397" />
+    <state width="1864" height="252" key="GridCell.Tab.0.right" timestamp="1610472708398">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1864" height="252" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1610472708398" />
+    <state width="1864" height="252" key="GridCell.Tab.1.bottom" timestamp="1610472708399">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1864" height="252" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1610472708399" />
+    <state width="1864" height="252" key="GridCell.Tab.1.center" timestamp="1610472708398">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1864" height="252" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1610472708398" />
+    <state width="1864" height="252" key="GridCell.Tab.1.left" timestamp="1610472708398">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1864" height="252" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1610472708398" />
+    <state width="1864" height="252" key="GridCell.Tab.1.right" timestamp="1610472708399">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1864" height="252" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1610472708399" />
+    <state x="395" y="101" width="1359" height="914" key="SettingsEditor" timestamp="1610470458947">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="395" y="101" width="1359" height="914" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1610470458947" />
+    <state x="614" y="198" width="786" height="655" key="StructurePopup" timestamp="1610471111432">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="614" y="198" width="786" height="655" key="StructurePopup/0.0.1920.1040@0.0.1920.1040" timestamp="1610471111432" />
+    <state x="701" y="288" key="chooseDestDirectoryDialog" timestamp="1609951556206">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="701" y="288" key="chooseDestDirectoryDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1609951556206" />
+    <state width="1230" height="1038" key="com.intellij.byteCodeViewer.ShowByteCodeAction" timestamp="1609316801342">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1230" height="1038" key="com.intellij.byteCodeViewer.ShowByteCodeAction/0.0.1920.1040@0.0.1920.1040" timestamp="1609316801342" />
+    <state x="536" y="306" key="com.intellij.ide.util.TipDialog" timestamp="1610468170884">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="536" y="306" key="com.intellij.ide.util.TipDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1610468170884" />
+    <state x="388" y="34" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1605696734765">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="388" y="34" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1605696734765" />
+    <state x="383" y="199" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2" timestamp="1609950051607">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="383" y="199" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2/0.0.1920.1040@0.0.1920.1040" timestamp="1609950051607" />
+    <state x="627" y="239" key="extract.method.dialog" timestamp="1609745670761">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="627" y="239" key="extract.method.dialog/0.0.1920.1040@0.0.1920.1040" timestamp="1609745670761" />
+    <state x="551" y="208" width="818" height="624" key="find.popup" timestamp="1609079719119">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="551" y="208" width="818" height="624" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1609079719119" />
+    <state width="750" height="530" key="javadoc.popup" timestamp="1609945980642">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="750" height="530" key="javadoc.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1609945980642" />
+    <state x="417" y="247" width="1120" height="697" key="new project wizard" timestamp="1609314216469">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="417" y="247" width="1120" height="697" key="new project wizard/0.0.1920.1040@0.0.1920.1040" timestamp="1609314216469" />
+    <state x="532" y="237" key="run.anything.popup" timestamp="1610017145453">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="532" y="237" key="run.anything.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1610017145453" />
+    <state x="539" y="5" width="840" height="1034" key="search.everywhere.popup" timestamp="1610471049283">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="539" y="5" width="840" height="1034" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1610471049283" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/java-all/src/main/java/com/ly/reflect/Test.java</url>
+          <line>11</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/fun4ai_study_all$NettyClient.ic" NAME="NettyClient Coverage Results" MODIFIED="1609082975139" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>com.ly.io.netty.*</FILTER>
+    </SUITE>
+  </component>
+</project>
