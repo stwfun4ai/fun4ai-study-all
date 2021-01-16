@@ -1,0 +1,184 @@
+=======================================
+
+
+
+
+
+学习技术
+=======================================
+学习规划文档
+项目地址：https://github.com/Snailclimb/JavaGuide
+点击下载：https://github.com/Snailclimb/JavaGuide/archive/master.zip
+
+
+分布式服务架构
+
+
+SpringMVC
+Spring Boot
+Spring Cloud	各个组件:
+		Eureka 服务发现框架
+		Ribbon 进程内负载均衡器
+		Open Feign 服务调用映射
+		Hystrix 服务降级熔断器
+		Zuul 微服务网关
+		Config 微服务统一配置中心
+		Bus 消息总线
+MyBatis			1#{}${} 2缓存实现 3Executor 4分页实现 5
+ElasticSearch
+Redis	key-value类型NoSQL存储系统
+fastjson ？安全漏洞 alibaba
+mongo DB
+JFinal
+jna
+jsonp
+Apache Shiro
+Hadoop	分布式数据存储的首选
+postman
+git
+ognl
+
+docker
+
+disruptor 环形缓冲区         缓存行64字节
+
+
+
+=================================JAVA=============================================
+lambda
+hashMap
+
+数据库	sql join union
+JDK 8改变  7数字带下划线增强可读性
+abstract interface 区别 java8之后
+集合 arrayList 扩容1.5倍 collection
+spring ioc 原理
+io nio
+
+debug 	conditional breakpoint		evaluate expression
+
+
+JVM 堆 栈 方法栈分配 GC基本原理  GC Roots
+线程	多线程	线程池 参数含义		threadLocals源代码	sleep方法是不会释放当前的锁的，而wait方法会
+
+Synchronized与ReentrantLock区别
+设计模式	单例
+
+Class反射 代码编写测试
+代理模式 静态代理 动态代理（JDK/CGLIB--类和方法不能声明为final）	代码编写测试
+		jdk动态代理必须实现接口 否则只能用cglibProxy  enhancer字节码增强 		need再看看！！！
+
+ 
+
+java 中的 length属性是针对数组说的,比如说你声明了一个数组,想知道这个数组的长度则用到了 length 这个属性.
+java 中的 length() 方法是针对字符串说的,如果想看这个字符串的长度则用到 length() 这个方法.
+java 中的 size() 方法是针对泛型集合说的,如果想看这个泛型有多少个元素,就调用此方法来查看! 
+=================================待搜索了解========================================
+for iterator循环差异 了解？？？
+Arrays.asList 异常
+== equals 针对String 封装数据类型 Object的比较知识点
+lambda		final
+lombok	通过一些注解，消除样板式代码 如getter setter	编译时通过操作AST(抽象语法树)改变字节码生成
+
+
+
+
+
+
+Java性能问题 模拟测试分析解决
+
+
+
+===================================书========================================
+Effective Java Third Edition
+Java Concurrency In Practice		深入浅出Java多线程 网页版
+
+
+
+
+
+
+
+^异或 就是找不同 0^0=0 0^1=1 1^0=1 1^1=0
+try-with-resources	JDK1.7后 须实现autoClose()
+浮点数计算	BigDecimal防止进度丢失
+
+2019:	1128	1031	1025	1016	108		927		924		917		912		826	89	717	
+
+2020:	7-24	6-19	3-12	1-13
+
+
+
+
+================================
+进阶提升
+================================
+JVM
+泛型
+二叉树 红黑树 递归
+kotlin语言
+java 设计模式
+yml
+docker
+Linux命令 
+redis
+
+
+JavaGuide =>并发 万字图文深度解析ThreadLocal
+		->设计模式系列文章
+		->Docker
+------------------------------------------------------------------------------
+Idea/Java/Linux/docker
+------------------------------------------------------------------------------
+
+光标移到下一新增行						shift + Enter
+补全声明if while try					ctrl + shift + Enter
+转换大小写								ctrl + shift + U
+预览									ctrl + shift + I
+层级结构								F4
+扩展选择块								Alt+Shift+向上箭头
+
+
+
+
+java -XX:+PrintCommandLineFlags -version
+
+================================docker========================================
+一般先看下https://hub.docker.com/ 具体环境的description有启动带参命令
+
+###待玩集群mysql nginx
+docker pull nacos/nacos-server
+docker run --name nacos-standalone -e MODE=standalone -p 8848:8848 -d nacos/nacos-server:latest
+
+docker pull bladex/sentinel-dashboard
+docker run --name sentinel  -d -p 8858:8858 -d  bladex/sentinel-dashboard
+
+
+docker pull openzipkin/zipkin:latest
+docker run -d -p 9411:9411 openzipkin/zipkin
+
+docker pull rabbitmq:3.7.7-management	(带management管理界面)
+docker run -d --name rabbitmq3.7.7 -p 5672:5672 -p 15672:15672  --hostname myRabbit  -e RABBITMQ_DEFAULT_USER=admin -e RABBITMQ_DEFAULT_PASS=admin rabbitmq:3.7.7-management
+
+------------------------------------------------------------------------------
+Windows 10系统重装
+------------------------------------------------------------------------------
+
+myeclipse---
+maven nexus？？？
+gradle
+git		ssh .gitconfig
+svn visualSVN
+mysql	navicat
+
+mat
+xshell/putty
+
+
+adobe pr2018
+
+
+
+
+
+
