@@ -3236,7 +3236,7 @@ public class StreamParallelDemo {
 
 # Design patterns
 
-[详见Design patterns.md](Design patterns.md)
+[详见Design patterns.md](DesignPatterns.md)
 
 
 
