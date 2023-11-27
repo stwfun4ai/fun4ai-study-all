@@ -8,7 +8,7 @@ import java.nio.channels.SocketChannel;
 import java.util.LinkedList;
 
 /**
- * @Description 测试Non-blocking IO
+ * @Description 测试系统内核IO模型 Non-blocking IO
  * @Created by fun4ai
  * @Date 2020/12/24 16:55
  */

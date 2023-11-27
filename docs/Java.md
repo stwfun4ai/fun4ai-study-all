@@ -62,8 +62,6 @@
 
 **==简历==**
 
-
-
 English
 
 
@@ -77,6 +75,16 @@ English
 1101 = 1 × 2^3^ + 1 × 2^2^ + 0 × 2^1^ +1 × 2^0^ = 13
 
 最低位为2的0次方。
+
+## 对数logN  O(logN)
+
+​		对数运算是幂运算的逆运算。如10*10=100即log~10~100=2。**==讨论运行时间时log都是指log~2~==**
+
+​		简单查找法时间复杂度O(N)，二分查找法为O(logN)。如8个数字在最糟情况下简单查找法需要查8次，而二分查找法时需查log8=3次。
+
+> 计算机中只有log(以10为底和ln(以e为底)，可根据公式替换。
+>
+> 如求以2为底8的对数，可替换为log8 / log2 = log~2~8 = 3
 
 ## 编码方式
 
@@ -103,7 +111,7 @@ English
 
   - UTF-16
 
-    具体定义了 Unicode 字符在计算机中存取方法。UTF-16 用两个字节来表示 Unicode 转化格式，这个是定长的表示方法，不论什么字符均可以用两个字节表示，两个字节是 16 个 bit，因此叫 UTF-16。UTF-16 表示字符很是方便，每两个字节表示一个字符，这个在字符串操做时就大大简化了操做，这也是 Java 以 UTF-16 做为内存的字符存储格式的一个很重要的缘由。
+    具体定义了 Unicode 字符在计算机中存取方法。UTF-16 用两个字节来表示 Unicode 转化格式，这个是定长的表示方法，不论什么字符均可以用两个字节表示，两个字节是 16 个 bit，因此叫 UTF-16。UTF-16 表示字符很是方便，每两个字节表示一个字符，这个在字符串操做时就大大简化了操做**，这也是 Java 以 UTF-16 做为内存的字符存储格式**的一个很重要的缘由。
 
   - UTF-8	(8-bit Unicode Transformation Format)
 
@@ -159,16 +167,31 @@ English
 
 缓存具体见 [**基本类型包装常量池**](#基本类型包装常量池)
 
+### 取值范围详解
+
+​		Java 中，byte 占一个字节，取值范围为何是 -128\~127？（-2^7^~2^7^-1）
+
+​		计算机是用二进制来表示数据的，一个字节也就是 8 个比特位，其中最高位表示符号位（0 正 1 负）。
+
+​		故 byte 的取值范围为 1000 0000 到 0111 1111。
+
+​		在 Java 中，是采用补码来表示数据的。
+
+​		正数的补码和原码相同，负数的补码是在原码的基础上各位取反然后加 1。
+
+​		1000 000 是补码，减一然后按位取反得到其原码 1000 0000。（减一得 0111 1111，再按位取反得 1000 0000）
+
+​		因为是负数，所以最小的 byte 值为 -2^7^=-128。
+
+​		0111 1111 的十进制为 2^7^-1=127（等比序列求和）。
+
+​		byte 是一个字节，共有 2^8^=256 种可能性，也就是 -128~127。
+
+其他基本数据类型同理：
+
+​		char 没有负值，占两个字节，所以取值范围是 0~2^16^-1（65535）。
 
 
-## 值传递 引用传递
-
-- **值传递**（Pass By Value/Call By Value）是指在调用方法(或者函数)时，将实际参数复制一份传递到方法(或者函数)中，这样在函数中如果对形式参数进行修改，将不会影响到实参。
-- **引用传递**（Pass By Reference/Call By Reference）在调用方法(函数)时，将实参的地址直接传递到函数中，那么在函数中对形参进行修改，将影响到实参。
-
-
-
-​		==**Java中只有值传递，没有引用传递**。==不论是基本数据类型还是引用数据类型，基本数据类型传递的是基本数据类型的“值”，而引用数据类型传递的是“地址值”，两种数据类型传递的都是值，只是值的数据类型不同而已。
 
 
 
@@ -215,6 +238,34 @@ class Aa{
 >
 > `publc static final int VALUE_ONE = 1;`
 
+### transient
+
+​		序列化的对象包含被 transient 修饰的实例变量时，java 虚拟机(JVM)跳过该特定的变量。
+
+​		该修饰符包含在定义变量的语句中，用来预处理类和变量的数据类型。
+
+### volatile
+
+- **线程可见性** 
+- **禁止指令重排**
+
+> 详见 并发->volatile
+
+### synchronized
+
+
+
+
+
+## 值传递 引用传递
+
+- **值传递**（Pass By Value/Call By Value）是指在调用方法(或者函数)时，将实际参数复制一份传递到方法(或者函数)中，这样在函数中如果对形式参数进行修改，将不会影响到实参。
+- **引用传递**（Pass By Reference/Call By Reference）在调用方法(函数)时，将实参的地址直接传递到函数中，那么在函数中对形参进行修改，将影响到实参。
+
+
+
+​		==**Java中只有值传递，没有引用传递**。==不论是基本数据类型还是引用数据类型，基本数据类型传递的是基本数据类型的“值”，而引用数据类型传递的是“地址值”，两种数据类型传递的都是值，只是值的数据类型不同而已。
+
 
 
 ## ==和equals()
@@ -238,7 +289,7 @@ class Aa{
 
     **等价于通过==比较两个对象的堆内存地址是否相等。**使用的默认是Object.equals()方法
 
-  - **类重写了equals()方法** （如String、Date、File、包装类等都重写了equals()方法）
+  - **类重写了equals()方法** （如String、Date、**包装类**、File等都重写了equals()方法）(也需重写hashCode())
 
     **一般我们都重写equals()方法来比较两个对象中的内容是否相等**
 
@@ -319,7 +370,7 @@ class Aa{
 > **优先级：==静态代码块/静态变量 > 构造代码块 > 构造器> 普通代码块==**
 
 - **静态代码块/静态变量**：**在类加载时执行且只执行一次，多个则按声明顺序依次执行且只执行一次。**优先级最高。
-- **构造代码块**：**任何一个构造器被调用的时候，都会==先==执行构造代码块**，优先级低于静态代码块。可用于统计创建对象的次数等功能。
+- **构造代码块**：**==任何一个构造器被调用的时候，都会先执行构造代码块==**，优先级低于静态代码块。可用于统计创建对象的次数等功能。
 - **构造器**：优先级低于构造代码块
 - **普通代码块**：构造代码块是在类中定义的，而普通代码块是在方法体中定义的。且普通代码块的执行顺序和书写顺序一致。
 
@@ -418,6 +469,47 @@ public class Son extends Father{
 
 ```
 
+## 对象创建过程
+
+```java
+//  1.在堆中给对象分配内存并设置实例变量默认零值。	m=0				(≈类加载准备阶段)
+//  2.调用对象<init>方法初始化实例变量。	m=8				(≈类加载初始化阶段)
+//  3.把对象引用指向堆内对象实例。
+class T {
+    int m = 8;
+}
+T t = new T();
+```
+
+​		跑一下后idea->View->Show Bytecode with Jclasslib
+
+```assembly
+#汇编码	0 4 8 对应创建3步
+0 new #2 <T>
+3 dup
+4 invokespecial #3 <T.<init>>
+7 astore_1
+8 return
+```
+
+
+
+## 初始化和实例化（Java、Spring）
+
+Java对象的创建过程往往包括类初始化和类实例化两个阶段。类的初始化在前、类的实例化在后。
+
+> 注意：这与spring的bean正好相反，spring的bean的生命周期，主要是先进行实例化java对象，然后再进行操作属性、最后进行初始化，这里初始化并不是java对象的初始化，而是spring的参数的初始化（initMethod、afterPropertiesSet）等。（@PostConstruct是前置拦截初始化方法）
+
+具体见：[类加载过程](#过程/生命周期)
+
+- 加载：在硬盘上查找并通过IO读入字节码文件，使用到类时才会加载，例如调用类的main()方法，new对象等等
+- 验证：校验字节码文件的正确性
+- 准备：为类变量（静态变量）分配内存并设置其初始值。**类变量==初始值设为零值==，常量直接赋值。**
+- 解析：将常量池内的符号引用替换为直接引用的过程，该阶段会把一些静态方法(符号引用，比如main()方法)替换为指向数据所存内存的指针或句柄等(直接引用)，这是所谓的静态链接过程(类加载期间完成)，动态链接是在程序运行期间完成的将符号引用替换为直接引用（运行时常量池）。
+- 初始化：执行类构造器`<clinit>()`方法的过程，初始化类变量（静态变量）、静态代码块等资源为指定值。
+- 使用
+- 卸载
+
 
 
 ## 内部类==///todo==
@@ -463,18 +555,122 @@ public class Son extends Father{
 
 ## length、length()和size()
 
-- java 中的 length属性是针对数组说的，比如说你声明了一个数组，想知道这个数组的长度则用到了 length 这个属性。
-- java 中的 length() 方法是针对字符串说的，如果想看这个字符串的长度则用到 length() 这个方法。
-- java 中的 size() 方法是针对泛型集合说的，如果想看这个泛型有多少个元素，就调用此方法来查看！
+- java 中的 length属性是针对**数组**说的，比如说你声明了一个数组，想知道这个数组的长度则用到了 length 这个属性。
+- java 中的 length() 方法是针对**字符串**说的，如果想看这个字符串的长度则用到 length() 这个方法。
+- java 中的 size() 方法是针对**泛型集合**说的，如果想看这个泛型有多少个元素，就调用此方法来查看！
+
+
+
+## 同步 异步 阻塞 非阻塞
+
+同步和异步是针对应用程序和内核交互而言的，也可理解为被**被调用者（操作系统）**的角度来说。
+
+- 同步是用户进程触发IO操作并等待或轮询的去查看是否就绪
+- 异步是指用户进程触发IO操作以后便开始做自己的事情，而当IO操作已经完成的时候会得到IO完成的通知，需要CPU支持。
+
+> **同步** ： 自己亲自出马持银行卡到银行取钱（使用同步 IO 时，Java 自己处理IO 读写）；
+>
+> **异步** ： 委托一小弟拿银行卡到银行取钱，然后给你（使用异步IO 时，Java 将 IO 读写委托给OS 处理，需要将数据缓冲区地址和大小传给OS(银行卡和密码)，OS 需要支持异步IO操作API）；
+
+阻塞和非阻塞是针对于进程/线程在访问数据时候的状态，也可理解为**调用者（程序）**角度来说。根据IO操作的就绪状态来采取的不同的方式，即一种读取或写入操作方法的实现方式。
+
+- 阻塞方式下读取或写入方法将一直等待，
+- 非阻塞方式下读取或写入方法会立即返回一个状态值。
+
+> **阻塞** ： ATM排队取款，你只能等待（使用阻塞IO时，Java调用会一直阻塞到读写完成才返回）；
+>
+> **非阻塞** ： 柜台取款，取个号，然后坐在椅子上做其它事，等号广播会通知你办理，没到号你就不能去，你可以不断问大堂经理排到了没有，大堂经理如果说还没到你就不能去（使用非阻塞IO时，如果不能读写Java调用会马上返回，当IO事件分发器通知可读写时再继续进行读写，不断循环直到读写完成）
+
+
+
+## 深拷贝 浅拷贝==//todo==
+
+- Class实现 Cloneable 接口后调用object.clone()是浅拷贝，对象内属性引用的对象只会拷贝引用地址，而不会将引用的对象重新分配内存，相对应的深拷贝则会连引用的对象也重新创建。
+- 实现Serializable接口，通过对象的序列化和反序列化实现克隆，可以实现真正的深拷贝
+
+
+
+## 运算符
+
+### << <<< >> >>> ==//todo==
+
+> 加法运算可能导致整数越界。如二分查找计算中间位置应用low+(high-low)/2 或low+(high-low)>>1或low+(high-low)>>>1
+
+ 	byte、short、int 类型的右移操作都是先将左操作数转换为int类型，然后执行右移操作，结果也是int类型。
+ 	>>> 逻辑右移，不带符号。对左边空位补0。
+ 	>>操作对左边空位补符号位
+
+### ^异或 exclusive OR(xor)
+
+​	**就是找不同为1！**如果相对应位值相同，则结果为0，否则为1。
+
+​	 0^0=0	0^1=1	1^0=1	1^1=0
+
+### 三目运算
+
+​	a ? b: c ? d : e	即为 **a ? b : (c ? d : e)**
+
+## ==String需好好研究==
+
+**==字面量！==**
+
+[==具体见String字符串操作规则==](#String字符串操作规则)
+
+> 编译时**字面量**(或它的“+”连接)会存放到常量池中；若是**引用**/concat/其他方式则会到运行时运算且常量池新开辟空间来存储该字面量结果并引用！
+
+```java
+String a = "a";
+String b = "b";
+String c = a + b;
+//相当于如下。字符串的加运算，编译为class文件时会自动编译为StringBuffer进行连接操作。
+String c = new StringBuffer().append(a).append(b).toString();
+
+//对于字符串常量池：当一个字符串是字面量时会放到常量池中等待复用。
+String a = "saff";
+String b = "saff";
+String c = new String("saff");
+System.out.println(a.equal(b));  // true	比较值
+System.out.println(a.equal(c));  // true
+```
+
+```java
+String s1 = "abc";            // 编译期生成了字面量和符号引用，字面常量"abc"存储在运行时常量池	
+String s2 = new String("abc");     // 堆内存中
+System.out.println(s1==s2);        // false两个对象的地址值不一样。
+System.out.println(s1.equals(s2)); // true
+```
+
+```java
+String s1="a"+"b"+"c";
+String s2="abc";
+System.out.println(s1==s2);	//true 地址相同
+System.out.println(s1.equals(s2));	//true 值相同
+//java 中常量优化机制，编译时s1已经成为abc在常量池中查找创建，s2不需要再创建。
+```
+
+```java
+String s1="ab";
+String s2="abc";
+String s3=s1+"c";
+System.out.println(s3==s2);         // false
+System.out.println(s3.equals(s2));  // true
+//先在常量池中创建ab，地址指向s1, 再创建abc，指向s2。对于s3，先创建StringBuilder（或 StringBuffer）对象，通过 append 连接得到 abc ,再调用 toString() 转换得到的地址指向s3。故 (s3==s2) 为 false。
+```
+
+
 
 
 
 # 集合==//todo==
 
+<img src="images\java-collections.gif" alt="java集合框架图" style="zoom:200%;" />
+
 - Collection
   - List	有序的、可重复的
     - ArrayList
     - LinkedList
+      - 单向链表	包含2个值（当前节点的值、指向下一个节点的链接）
+      - 双向链表	包含3个值（数值、向后的节点链接、向前的节点链接）
     - Vector
     - Stack
   - Set	无序的、不可重复的
@@ -496,11 +692,11 @@ public class Son extends Father{
 |   Vector   |                         数组                          | 线程同步安全 | 随机查找快，增删慢 |  首创长度为10，扩容2倍  |
 | LinkedLIst | 双向链表<br />（JDK1.6循环链表，<br />1.7取消了循环） |  线程不安全  | 增删快，随机查找慢 |       不主动扩容        |
 
-|     名称      |     底层     | 线程安全性 |              备注               |
-| :-----------: | :----------: | :--------: | :-----------------------------: |
-|    HashSet    |   HashMap    | 线程不安全 |     注意hashCode和equals()      |
-| LinkedHashSet | 链表和哈希表 | 线程不安全 | HashSet的子类，元素顺序满足FIFO |
-|    TreeSet    |    红黑树    | 线程不安全 |    支持对元素自定义排序规则     |
+|     名称      |           底层            | 线程安全性 |              备注               |
+| :-----------: | :-----------------------: | :--------: | :-----------------------------: |
+|    HashSet    | HashMap(so允许一个null值) | 线程不安全 |     注意hashCode和equals()      |
+| LinkedHashSet |       链表和哈希表        | 线程不安全 | HashSet的子类，元素顺序满足FIFO |
+|    TreeSet    |          红黑树           | 线程不安全 |    支持对元素自定义排序规则     |
 
 - queue:单向队列
 - deque:双向队列，接口实现ArrayDeque
@@ -516,15 +712,43 @@ public class Son extends Father{
 
 
 
+## Collections工具类
 
+**Collections是Java集合框架为了方便我们进行集合开发，为我们提供的一个操作Set、List和Map等集合的**工具类，**位于java.util包中**。该类提供了一系列的静态方法，可以实现对集合进行**排序、查找、替换、复制、线程安全化等**操作。
+
+- **创建空白集合：** emptyList()、emptyMap()、emptySet()：返回对应的不可变的空集合，无法向其中添加或删除元素；
+- **创建单个元素的集合**：singletonList(T o)、singletonMap(K key, V value)、singleton(T o)：返回的是不可变的单元素集合，无法向其中添加或删除元素；
+- **排序方法**：sort 升序、reverse 降序、shuffle 洗牌、swap、rotate；
+- **查找方法**：binarySearch；
+- **替换方法**：replaceAll、fill；
+- **复制方法**：copy；
+- **同步方法**：synchronizedCollection、synchronizedList、synchronizedMap等；
+- **不可修改方法**：unmodifiableCollection、unmodifiableList、unmodifiableMap等；
+- **其他方法**：frequency、max、min、disjoint、frequency 频次、indexOfSubList、lastIndexOfSubList等。
 
 
 
 ## HashMap
 
+> HashMap知识点：
+>
+> - JDK7
+>   - **==数组+单向链表==**
+>   - 初始数组大小保持 2^n^，默认`16`，扩容`2倍`；负载因子默认 `0.75`；扩容的阈值，等于 capacity * loadFactor（即初始为16*0.75=`12`）
+>   - 数组为什么必须为2的幂，取hash值的低n位作为数组下标，如16-1(0000 1111)取低4位为数组下标`hash & (length-1);`；如何保证？int capacity = roundUpToPowerOf2(toSize); // Find a power of 2 >= toSize 保证数组大小一定是 2 的 n 次方。 如这样初始化：new HashMap(20)，那么处理成初始数组大小是 32。
+>   - 可存储null key，放在table[0]，只有一个，新值将覆盖。
+>   - 扩容时机：存储元素大于等于阈值，并且将要插入到的数组位置不为空时，先扩容再插值。
+>   - 扩容后元素位置：新容量为2倍即（如length-1=...0000 1111变为...0001 1111），与hash &运算后原值要么存储在新数组原下标处，要么原下标+原数组长度（如table[0]分配到newTable[0]和newTable[16]中）
+>   -  插入数据到链表上使用==头插==；扩容后链表依然使用头插，所以扩容后原链表顺序反转
+> - JDK8
+>   - **==数组+单向链表+红黑树==**
+>   - **当链表中的元素达到了 8 个且当前数组长度大于64时，会将链表转换为==红黑树==**，否则是进行扩容。在红黑树位置进行查找的时候可以降低时间复杂度为 **O(logN)**
+>   - null key存放在tab[0]处，只有一个，新值将覆盖。
+>   - 扩容时机：存储元素大于阈值，先插值再扩容。
+>   - 扩容后元素位置：单个元素直接原i处或移动；链表拆成2个链表放到新数组中并保留原来顺序。位置都为 i 与  i+oldCap(原数组长度)；红黑树待定研究？
+>   - 插入数据到链表上使用==尾插==。
+
 ### JDK7 HashMap
-
-
 
 ![1](images/jdk7_hashmap.png)
 
@@ -548,7 +772,7 @@ public V put(K key, V value) {
     if (table == EMPTY_TABLE) {
         inflateTable(threshold);
     }
-    // 处理null key
+    // 处理null key 见下方
     if (key == null)
         return putForNullKey(value);
     // 1. 取得key的hash
@@ -575,9 +799,10 @@ public V put(K key, V value) {
 
 ```java
 private void inflateTable(int toSize) {
-    // Find a power of 2 >= toSize
+    // Find a power of 2 >= toSize 保证数组大小一定是 2 的 n 次方。
+    // 比如这样初始化：new HashMap(20)，那么处理成初始数组大小是 32
     int capacity = roundUpToPowerOf2(toSize);
-
+	// 计算扩容阈值：capacity * loadFactor
     threshold = (int) Math.min(capacity * loadFactor, MAXIMUM_CAPACITY + 1);
     table = new Entry[capacity];
     initHashSeedAsNeeded(capacity);
@@ -666,8 +891,9 @@ void resize(int newCapacity) {
         threshold = Integer.MAX_VALUE;
         return;
     }
-
+	// 新的数组
     Entry[] newTable = new Entry[newCapacity];
+    // 将原来数组中的值迁移到新的更大的数组中
     transfer(newTable, initHashSeedAsNeeded(newCapacity));
     table = newTable;
     threshold = (int)Math.min(newCapacity * loadFactor, MAXIMUM_CAPACITY + 1);
@@ -742,6 +968,8 @@ final Entry<K,V> getEntry(Object key) {
 
 
 ### JDK7 ConcurrentHahMap
+
+ConcurrentHashMap 是一个 Segment 数组，Segment 通过继承 ReentrantLock 来进行加锁，所以每次需要加锁的操作锁住的是一个 segment，这样只要保证每个 Segment 是线程安全的，也就实现了全局的线程安全。
 
 ![3](images/jdk7_ConcurrentHashMap.png)
 
@@ -1228,7 +1456,7 @@ static final int tableSizeFor(int cap) {
 }
 
 final void treeifyBin(Node<K,V>[] tab, int hash) {
-    int n, index; Node<K,V> e;
+    int n, index; Node<K,V> e; 
     // 数组为空或数组大小小于64时会先扩容；否则才会转红黑树
     if (tab == null || (n = tab.length) < MIN_TREEIFY_CAPACITY)
         resize();
@@ -1347,37 +1575,6 @@ final Node<K,V>[] resize() {
 }
 ```
 
-> 红黑树分析
-
-```java
-//TODO: 红黑树研究
-```
-
-==**自平衡二叉查找树**==
-
-​		时间复杂度 **O(log n)**
-
-![img](images/red black tree.jpg)
-
-==性质：==
-
-1. **每个节点要么是黑色，要么是红色。**
-2. **根节点是黑色。**
-3. **每个叶子节点（NIL）是黑色。 [注意：这里叶子节点，是指为空(NIL或NULL)的叶子节点！]**
-4. **每个红色节点的两个子节点都是黑色。（从每个叶子到根的所有路径上不能有两个连续的红色节点）**
-5. **从任一节点到其每个叶子的所有路径都包含相同数目的黑色节点。**
-   1. 如果一个结点存在黑子结点，那么该结点肯定有两个子结点
-
-
-
-==三种操作：左旋、右旋和变色。==
-
-- **左旋**：以某个结点作为支点(旋转结点)，其右子结点变为旋转结点的父结点，右子结点的左子结点变为旋转结点的右子结点，左子结点保持不变。如图3。
-- **右旋**：以某个结点作为支点(旋转结点)，其左子结点变为旋转结点的父结点，左子结点的右子结点变为旋转结点的左子结点，右子结点保持不变。如图4。
-- **变色**：结点的颜色由红变黑或由黑变红。
-
-
-
 
 
 #### get 过程分析
@@ -1428,7 +1625,7 @@ final Node<K,V> getNode(int hash, Object key) {
 
 ### JDK8 ConcurrentHahMap
 
-![image-20201122173120097](images/jdk8_ConcurrentHashMap.png)
+![image-20201122173120097](jdk8_ConcurrentHashMap.png)
 
 
 
@@ -1965,6 +2162,31 @@ public V get(Object key) {
 
 
 
+## 红黑树分析 ==/todo==
+
+==**自平衡二叉查找树**==
+
+​		时间复杂度 **O(log n)**
+
+![img](images/red black tree.jpg)
+
+==性质：==
+
+1. **每个节点要么是黑色，要么是红色。**
+2. **根节点是黑色。**
+3. **每个叶子节点（NIL）是黑色。 [注意：这里叶子节点，是指为空(NIL或NULL)的叶子节点！]**
+4. **每个红色节点的两个子节点都是黑色。（从每个叶子到根的所有路径上不能有两个连续的红色节点）**
+5. **从任一节点到其每个叶子的所有路径都包含相同数目的黑色节点。**
+   1. 如果一个结点存在黑子结点，那么该结点肯定有两个子结点
+
+
+
+==三种操作：左旋、右旋和变色。==
+
+- **左旋**：以某个结点作为支点(旋转结点)，其右子结点变为旋转结点的父结点，右子结点的左子结点变为旋转结点的右子结点，左子结点保持不变。如图3。
+- **右旋**：以某个结点作为支点(旋转结点)，其左子结点变为旋转结点的父结点，左子结点的右子结点变为旋转结点的左子结点，右子结点保持不变。如图4。
+- **变色**：结点的颜色由红变黑或由黑变红。
+
 
 
 
@@ -1977,15 +2199,17 @@ public V get(Object key) {
 
 ## 基础
 
-**进程是操作系统进行资源分配的基本单位，**
+**进程是操作系统进行==资源分配==的基本单位，**
 
-**线程是操作系统进行调度的基本单位**。
+**线程是操作系统进行==调度==的基本单位**。
 
 
 
 
 
 ## Java对象头
+
+[详见JVM-==对象的内存布局==](#对象的内存布局)
 
 - **对象头（ Header ）**
   - **MarkWord**
@@ -2018,13 +2242,17 @@ Mark Word在32位JVM中的长度是32bit，在64位JVM（**未开启压缩指针
 
 **==堆内存超过32G，压缩失效==**
 
-32位系统最大寻址空间2^32=4G，每个字节代表一个地址，中间不被打断，所以4G×8位=32G
+
+
+32位系统最大寻址空间2^32^=4G，每个对象大小一定是8字节的倍数，那么可以encode把地址0、8、16改为0、1、2记录，即左移3位来完成，那么就可以多出8倍的寻址空间，使用指针压缩使jvm可支持4G×8=32G内存访问。**==所以堆内存超过32G，压缩失效==**
 
 64位系统 现在最大48位寻址=256T内存	无良硬件厂商就造了48根地址总线？
 
 
 
 ### 64位系统测试
+
+**64位系统默认开启了指针压缩**
 
 pom.xml添加jol依赖
 
@@ -2036,9 +2264,8 @@ pom.xml添加jol依赖
 </dependency>
 ```
 
-**64位系统默认开启了指针压缩**
-
 - 空对象
+  其中Mark Word 8字节，类指针压缩后4字节，对齐4字节。总16字节。
 
 ```java
 public class Test {
@@ -2177,8 +2404,8 @@ public class Disorder{
 ### 对象创建过程
 
 ```java
-//  1.在堆中给对象分配内存并设置实例变量默认零值。	m=0
-//  2.调用对象<init>方法初始化实例变量。	m=8
+//  1.在堆中给对象分配内存并设置实例变量默认零值。	m=0				(≈类加载准备阶段)
+//  2.调用对象<init>方法初始化实例变量。	m=8				(≈类加载初始化阶段)
 //  3.把对象引用指向堆内对象实例。
 class T {
     int m = 8;
@@ -2196,8 +2423,6 @@ T t = new T();
 7 astore_1
 8 return
 ```
-
-
 
 
 
@@ -2234,7 +2459,7 @@ T t = new T();
 ---LoadStoreBarrier---
 ```
 
-happens-before原则
+**happens-before原则**
 
 as-if-serial 不管如何重排序，单线程执行结果不会改变
 
@@ -2258,12 +2483,12 @@ as-if-serial 不管如何重排序，单线程执行结果不会改变
 
 全路径：java.util.concurrent.locks.**AbstractQueuedSynchronizer** 
 
-​		AQS是一个用来构建锁和同步器的框架，使用AQS能简单且高效地构造出应用广泛的大量的同步器，比如我们提到的ReentrantLock，Semaphore，其他的诸如ReentrantReadWriteLock，SynchronousQueue，FutureTask等等皆是基于AQS的。当然，我也能利用AQS非常轻松地构造出符合我们自己需求的同步器。
+​		AQS是一个用来构建锁和同步器的框架，使用AQS能简单且高效地构造出应用广泛的大量的同步器，比如我们提到的ReentrantLock，Semaphore，ReentrantReadWriteLock，SynchronousQueue，FutureTask等等皆是基于AQS的。当然，我们也能利用AQS非常轻松地构造出符合我们自己需求的同步器。
 
 ### 2. 数据结构
 
-​		==**AQS核⼼思想是，如果被请求的共享资源空闲，则将当前请求资源的线程设置为有效的⼯作线程，并且**
-**将共享资源设置为锁定状态。如果被请求的共享资源被占⽤，那么就需要⼀套线程阻塞等待以及被唤醒**
+​		==**AQS核心思想是，如果被请求的共享资源空闲，则将当前请求资源的线程设置为有效的工作线程，并且**
+**将共享资源设置为锁定状态。如果被请求的共享资源被占用，那么就需要⼀套线程阻塞等待以及被唤醒**
 **时锁分配的机制，这个机制AQS是⽤CLH队列锁实现的，即将暂时获取不到锁的线程加⼊到队列中。**==
 
 ​		CLH(Craig, Landin, and Hagersten)队列是一个虚拟的双向队列（即不存在队列实例，仅存在节点之间的关联关系）。AQS是将每条请求共享资源的线程封装成一个CLH锁队列的一个节点（Node）来实现锁的分配。
@@ -2275,8 +2500,6 @@ as-if-serial 不管如何重排序，单线程执行结果不会改变
 ```java
 private volatile int state;// 共享变量，使用volatile修饰保证线程可见性
 ```
-
-
 
 
 
@@ -2358,7 +2581,7 @@ private Node addWaiter(Node mode) {
 }
 ```
 
-
+> 注意：通过Node我们可以实现两个队列，一是通过prev和next实现CLH队列(线程同步队列,双向队列)，二是nextWaiter实现Condition条件上的等待线程队列(单向队列)，这个Condition主要用在ReentrantLock类中。
 
 ### 4. 主要方法源码解析
 
@@ -2381,6 +2604,8 @@ tryReleaseShared(int) //共享方式。尝试释放资源，如果释放后允�
 ## 工具类
 
 ### CountDownLatch
+
+
 
 ```java
 package com.ly.concurrent.util;
@@ -2455,6 +2680,7 @@ import java.util.concurrent.CyclicBarrier;
 
 /**
  * @Description CyclicBarrier内部使用的是ReentrantLock + Condition实现的等待/通知模式
+ * 可查看private int dowait(boolean timed, long nanos)源码
  * @Created by Administrator
  * @Date 2020/10/12 15:19
  */
@@ -2482,7 +2708,7 @@ public class CyclicBarrierDemo {
                 } catch (InterruptedException | BrokenBarrierException e) {
                     e.printStackTrace();
                 }
-                cyclicBarrier.reset(); // 重置栅栏
+                cyclicBarrier.reset(); // 重置栅栏	?不需要？
             }
         }
     }
@@ -2503,17 +2729,26 @@ public class CyclicBarrierDemo {
 
 ### Exchanger
 
+**Exchanger类用于两个线程交换数据。它支持泛型，也就是说你可以在两个线程之间传送任何数据。**
+
+当一个线程调用exchange方法后，它是处于阻塞状态的，只有当另一个线程也调用了exchange方法，它才会继续向下执行。看源码可以发现它是使用park/unpark来实现等待状态的切换的，但是在使用park/unpark方法之前，使用了CAS检查，估计是为了提高性能。
+
+特性：
+
+- 此类提供对外的操作是同步的；
+- 用于成对出现的线程之间交换数据；
+- 可以视作双向的同步队列；
+- 可应用于基因算法、流水线设计等场景。
+
+> 需要注意的是，exchange是可以重复使用的。也就是说。两个线程可以使用Exchanger在内存中不断地再交换数据。(若是3个线程调用同一个实例的exchange()会有一个线程阻塞。)
+
 ```java
 package com.ly.concurrent.util;
 
 import java.util.concurrent.Exchanger;
 
 /**
- * @Description Exchanger类用于两个线程交换数据。它支持泛型，也就是说你可以在两个线程之间传送任何数据
- *      此类提供对外的操作是同步的；
- *      用于成对出现的线程之间交换数据；
- *      可以视作双向的同步队列；
- *      可应用于基因算法、流水线设计等场景。
+ * @Description Exchanger类用于两个线程交换数据。它支持泛型，也就是说你可以在两个线程之间传送任何数据。
  * @Created by Administrator
  * @Date 2020/10/12 15:13
  */
@@ -2625,6 +2860,7 @@ import java.util.concurrent.Semaphore;
 
 /**
  * @Description Semaphore往往用于资源有限的场景中，去限制线程的数量。
+ * 		如下限制同时只能有3个线程在工作。
  * @Created by Administrator
  * @Date 2020/10/12 15:10
  */
@@ -2674,17 +2910,21 @@ public class SemaphoreDemo {
 
 ​		这两种同步方式有很多相似之处，它们都是加锁方式同步，而且都是阻塞式的同步，也就是说当如果一个线程获得了对象锁，进入了同步块，其他访问该同步块的线程都必须阻塞在同步块外面等待，而进行线程阻塞和唤醒的代价是比较高的（操作系统需要在用户态与内核态之间来回切换，代价很高，不过可以通过对锁优化进行改善）。
 
+> 用户态：JVM可以自行执行的指令，不需要借助操作系统执行。
+>
+> 内核态：JVM不可以自行执行，需要操作系统才可以执行。
+
 ==功能区别：==
 
 ​		这两种方式最大区别就是对于**Synchronized**来说，它是java语言的关键字，是原生语法层面的互斥，需要**jvm**实现。而**ReentrantLock**它是JDK 1.5之后提供的**API层面**的互斥锁，需要lock()和unlock()方法配合try/finally语句块来完成
 
-- 便利性：很明显Synchronized的使用比较方便简洁，并且由编译器去保证锁的加锁和释放，而ReenTrantLock需要手工声明来加锁和释放锁，为了避免忘记手工释放锁造成死锁，所以最好在finally中声明释放锁。
+- 便利性：很明显Synchronized的使用比较方便简洁，并且由编译器去保证锁的加锁和释放，而ReentrantLock需要手工声明来加锁和释放锁，为了避免忘记手工释放锁造成死锁，所以最好在finally中声明释放锁。
 
-- 锁的细粒度和灵活度：很明显ReenTrantLock优于Synchronized
+- 锁的细粒度和灵活度：很明显ReentrantLock优于Synchronized
 
 ==性能的区别：==
 
-​		在Synchronized优化以前，synchronized的性能是比ReenTrantLock差很多的，但是自从Synchronized引入了偏向锁，轻量级锁（自旋锁）后，两者的性能就差不多了，在两种方法都可用的情况下，官方甚至建议使用synchronized，其实synchronized的优化我感觉就借鉴了ReenTrantLock中的CAS技术。都是试图在用户态就把加锁问题解决，避免进入内核态的线程阻塞。
+​		在Synchronized优化以前，synchronized的性能是比ReentrantLock差很多的，但是自从Synchronized引入了偏向锁，轻量级锁（自旋锁）后，两者的性能就差不多了，在两种方法都可用的情况下，官方甚至建议使用synchronized，其实synchronized的优化我感觉就借鉴了ReentrantLock中的CAS技术。都是试图在用户态就把加锁问题解决，避免进入内核态的线程阻塞。
 
 ### Synchronized
 
@@ -2709,7 +2949,8 @@ class MyThread implements Runnable {
 
 实现线程同步，让多个线程排队依次获取某个资源，保证数据不会出错。
 
-synchronized到底锁定的是什么元素？
+> synchronized到底锁定的是什么元素？
+>
 
 - 修饰代码块：锁定的是传入的对象
 - 修饰方法
@@ -2776,7 +3017,7 @@ package com.ly.concurrent.thread;
 import java.util.concurrent.*;
 
 /**
- * @Description	创建线程方式
+ * @Description	创建线程方式	全都是实现Runnable!
  * @Created by Administrator
  * @Date 2020/10/11 23:09
  */
@@ -2801,11 +3042,12 @@ public class CreateThreadDemo {
         // 所以实际编码中建议使用可以设置超时时间的重载get方法。
         System.out.println(future.get());
 
-        //4、使用FutureTask类
+        //3.1、使用FutureTask类
         FutureTask<Integer> futureTask = new FutureTask<>(new Task());
         executor.submit(futureTask);    //无返回值
         System.out.println(futureTask.get());
-
+		//4使用线程池创建工作线程 内部Worker也实现了Runnable
+        
         //关闭线程池
         executor.shutdown();
 
@@ -2819,7 +3061,6 @@ public class CreateThreadDemo {
     }
 
     public static class MyThread1 implements Runnable {
-
         @Override
         public void run() {
             System.out.println("MyThread implements Runnable.");
@@ -2827,7 +3068,6 @@ public class CreateThreadDemo {
     }
 
     public static class Task implements Callable<Integer> {
-
         @Override
         public Integer call() throws Exception {
             // 模拟计算需要一秒
@@ -2839,11 +3079,102 @@ public class CreateThreadDemo {
 }
 ```
 
+### 线程状态图
+
 ![img](images\thread status.png)
 
-> **说明：**其中Running表示运行状态，Runnable表示就绪状态（万事俱备，只欠CPU），Blocked表示阻塞状态，阻塞状态又有多种情况，可能是因为调用wait()方法进入等待池，也可能是执行同步方法或同步代码块进入等锁池，或者是调用了sleep()方法或join()方法等待休眠或其他线程结束，或是因为发生了I/O中断。
+> **说明：**New新建，Runnable表示就绪状态（万事俱备，只欠CPU），Running表示运行状态，Blocked表示阻塞状态，Terminated结束状态。**阻塞状态**又有多种情况，
+>
+> - 可能是因为调用wait()方法释放当前锁进入等待池，
+> - 也可能是执行同步方法或同步代码块获取对象的同步锁失败则进入等锁池，
+> - 或者是调用了sleep()或join()或发出I/O请求时，（等待休眠超时、等待线程结束或超时、I/O处理完毕。）
 
-sleep方法是不会释放当前的锁的，而wait方法会。
+#### 相关方法
+
+**==sleep方法是不会释放当前的锁的，而wait方法会。==**
+
+> 关于java的多线程，这里补充一下**Object**类的线程方法。
+>
+> notify() ：通知一个在对象上等待的线程，使其从wait()返回，而返回的前提是该线程获取到了对象的锁。
+>
+> notifyAll()： 通知所有等待在该对象上的线程。
+>
+> wait()：调用该方法的线程进入WAITING状态，只有等待另外线程的通知或被中断才会返回，需要注意，
+>
+> ​			**调用wait()方法后，会释放对象的锁。**
+>
+> wait(long) ：超时等待一段时间，这里的参数是毫秒，也就是等待长达n毫秒，如果没有通知就超时返回。
+>
+> wait(long, int) ： 对于超时时间更细粒度的控制，可以达到毫秒。
+
+> java.lang.**Thread**类的线程方法：
+>
+> join()：**等待这个线程死亡。**（同join(0)重载方法）作用是阻塞当前线程的执行，等到被调用join的线程对象执行完毕才执行继续执行当前线程。当thread.join()被调用时，如果调用的线程中持有了thread对象锁会被释放。
+>
+> sleep():静态方法，调用此方法会让当前线程暂停执行指定的时间，将执行机会（CPU）让给其他线程，但是**对象的锁依然保持**，因此休眠时间结束后会自动恢复就绪状态。可能需要处理InterruptedException
+>
+> yield():让当前线程从运行状态转为就绪状态，以允许具有相同优先级的其他线程获得运行机会。**无法保证达到让步目的。**
+
+LockSupport.park()	unpark()
+
+
+
+### ThreadLocal
+
+ThreadLocal为解决多线程程序的并发问题提供了一种新的思路。ThreadLocal，顾名思义是线程的一个本地化对象，当工作于多线程中的对象使用ThreadLocal维护变量时，ThreadLocal为每个使用该变量的线程分配一个独立的变量副本，所以每一个线程都可以独立的改变自己的副本，而不影响其他线程所对应的副本。从线程的角度看，这个变量就像是线程的本地变量。
+
+ThreadLocal类非常简单好用，只有四个方法，能用上的也就是下面三个方法：
+- void set(T value)：设置当前线程的线程局部变量的值。
+- T get()：获得当前线程所对应的线程局部变量的值。
+- void remove()：删除当前线程中线程局部变量的值。
+
+ThreadLocal是如何做到为每一个线程维护一份独立的变量副本的呢？在ThreadLocal类中有一个Map，键为线程对象，值是其线程对应的变量的副本，自己要模拟实现一个ThreadLocal类其实并不困难，代码如下所示：
+
+```java
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+
+public class MyThreadLocal<T> {
+    private Map<Thread, T> map = Collections.synchronizedMap(new HashMap<Thread, T>());
+
+    public void set(T newValue) {
+        map.put(Thread.currentThread(), newValue);
+    }
+
+    public T get() {
+        return map.get(Thread.currentThread());
+    }
+
+    public void remove() {
+        map.remove(Thread.currentThread());
+    }
+}
+```
+
+对于每一个线程来说，都有自己的独占数据。这些独占数据是进程来分配的，对于Java来说，独占数据很多都是在Thread类里面分配的，而每一个线程里面都有一个 ThreadLocalMap 的对象，它本身是一个哈希表，里面会放一些线程的局部变量（红色长方形）。ThreadLocal 的核心也是这个 ThreadLocalMap。
+
+```java
+// Thread类里的变量：
+ThreadLocal.ThreadLocalMap threadLocals = null;
+
+static class ThreadLocalMap {
+        //ThreadLocalMap真正存数据的是Entry，且Entry的key使用的是弱引用(WeakReferences)
+        static class Entry extends WeakReference<ThreadLocal<?>> {
+            /** The value associated with this ThreadLocal. */
+            Object value;
+
+            Entry(ThreadLocal<?> k, Object v) {
+                super(k);
+                value = v;
+            }
+
+
+            // ....省略
+        }
+```
+
+弱引用(WeakReferences) :如果某个对象**仅**剩下弱引用指向它，那么下一次GC的时候该对象就会被回收掉
 
 
 
@@ -2855,77 +3186,67 @@ sleep方法是不会释放当前的锁的，而wait方法会。
 2. **控制并发的数量**。并发数量过多，可能会导致资源消耗过多，从而造成服务器崩溃。（主要原因）
 3. **可以对线程做统一管理**。
 
+### 手动创建线程池
 
+- corePoolSize：线程池中核心线程数的最大值
+- maximumPoolSize：该线程池中线程总数最大值
+- keepAliveTime：表示非核心线程的存活时间。可设置allowCoreThreadTimeOut=true核心线程也会销毁。
+- unit：表示keepAliveTime的时间单位。如TimeUnit.SECONDS
+- workQueue：任务在没有核心线程处理时，先放到用于缓存任务的阻塞队列
+  - LinkedBlockingQueue 链式阻塞队列，底层数据结构是链表，默认大小是Integer.MAX_VALUE，也可以指定大小。
+  - ArrayBlockingQueue 数组阻塞队列，底层数据结构是数组，需要指定队列的大小。
+  - SynchronousQueue  同步队列，内部容量为0，每个put操作必须等待一个take操作，反之亦然。
+  -  DelayQueue 延迟队列，该队列中的元素只有当其指定的延迟时间到了，才能够从队列中获取到该元素 。
+- threadFactory：指定创建线程的工厂。（设置线程名、守护线程等）
+- handler：拒绝策略，表示当workQueue已满，且池中的线程数达到maximumPoolSize时，线程池拒绝添加新任务时采取的策略。
+  - ThreadPoolExecutor.AbortPolicy：默认拒绝处理策略，丢弃任务并抛出RejectedExecutionException异常。
+  - ThreadPoolExecutor.DiscardPolicy：丢弃新来的任务，但是不抛出异常。
+  - ThreadPoolExecutor.DiscardOldestPolicy：丢弃队列头部（最旧的）的任务，然后重新尝试执行程序（如果再次失败，重复此过程）。
+  - ThreadPoolExecutor.CallerRunsPolicy：由调用线程处理该任务。
 
 ```java
-package com.ly.concurrent.thread;
-
-import java.util.concurrent.*;
-
-import static java.util.concurrent.TimeUnit.NANOSECONDS;
-
-/**
- * @Description
- * @Created by Administrator
- * @Date 2020/10/8 21:16
- */
-public class MyThreadPool {
-    public static void main(String[] args) {
-        /**
-         *  ===前5个参数必需===
-         *  corePoolSize：线程池中核心线程数的最大值
-         *  maximumPoolSize：该线程池中线程总数最大值
-         *  keepAliveTime：表示非核心线程的存活时间。
-         *  timeUnit：表示keepAliveTime的单位。
-         *  workQueue：用于缓存任务的阻塞队列 常用：
-         *             LinkedBlockingQueue 链式阻塞队列，底层数据结构是链表，默认大小是Integer.MAX_VALUE，也可以指定大小。
-         *             ArrayBlockingQueue 数组阻塞队列，底层数据结构是数组，需要指定队列的大小。
-         *             SynchronousQueue  同步队列，内部容量为0，每个put操作必须等待一个take操作，反之亦然。
-         *             DelayQueue 延迟队列，该队列中的元素只有当其指定的延迟时间到了，才能够从队列中获取到该元素 。
-         *  threadFactory：指定创建线程的工厂
-         *  handler：表示当workQueue已满，且池中的线程数达到maximumPoolSize时，线程池拒绝添加新任务时采取的策略。
-         *            ThreadPoolExecutor.AbortPolicy：默认拒绝处理策略，丢弃任务并抛出RejectedExecutionException异常。
-         *            ThreadPoolExecutor.DiscardPolicy：丢弃新来的任务，但是不抛出异常。
-         *            ThreadPoolExecutor.DiscardOldestPolicy：丢弃队列头部（最旧的）的任务，然后重新尝试执行程序（如果再次失败，重复此过程）。
-         *            ThreadPoolExecutor.CallerRunsPolicy：由调用线程处理该任务。
-         */
-        ExecutorService executor = new ThreadPoolExecutor(
-                3,
-                5,
-                1L,
-                TimeUnit.SECONDS,
-                new ArrayBlockingQueue<>(3),
-                Executors.defaultThreadFactory(),
-                new ThreadPoolExecutor.AbortPolicy());
-
-        for (int i = 0; i < 9; i++) {
-            executor.execute(() -> {
-                System.out.println(Thread.currentThread().getName() + "====>执行任务");
-                try {
-                    TimeUnit.SECONDS.sleep(5L);
-                    //Thread.currentThread().sleep(5000L);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            });
-        }
-        executor.shutdown();
+	// ===前5个参数必需===
+	public ThreadPoolExecutor(int corePoolSize,
+                              int maximimPoolSize,
+                              long keepAliveTime,
+                              TimeUnit unit,
+                              BlockingQueue<Runnable> workQueue,
+                              ThreadFactory threadFactory,
+                              RejectedExecutionHandle handle){
+        //...   
+    }
+	//创建
+    ExecutorService executor = new ThreadPoolExecutor(
+        3,
+        5,
+        1L,
+        TimeUnit.SECONDS,
+        new ArrayBlockingQueue<>(3),
+        Executors.defaultThreadFactory(),
+        new ThreadPoolExecutor.AbortPolicy());
     }
 
+```
 
+### JDK提供的线程池
 
-    //四种常见线程池
+- 使用：`ExecutorService service = Executors.newFixedThreadPool(50);`
+- 执行：execute(Runnable r)；/ <T> Future<T> submit(Callable<T> task)有返回值等重载submit()方法
+- 结束：shutdown();
 
-    /**
-     *  当需要执行很多短时间的任务时，CacheThreadPool的线程复用率比较高， 会显著的提高性能。而且线程60s后会回收，意味着即使没有任务进来，CacheThreadPool并不会占用很多资源。
-     *  运行流程：
-     * 1、提交任务进线程池。
-     * 2、因为corePoolSize为0的关系，不创建核心线程，线程池最大为Integer.MAX_VALUE。
-     * 3、尝试将任务添加到SynchronousQueue队列。
-     * 4、如果SynchronousQueue入列成功，等待被当前运行的线程空闲后拉取执行。如果当前没有空闲线程，那么就创建一个非核心线程，然后从SynchronousQueue拉取任务并在当前线程执行。
-     * 5、如果SynchronousQueue已有任务在等待，入列操作将会阻塞。
-     * @return
-     */
+#### newCachedThreadPool
+
+当需要执行很多短时间的任务时，CacheThreadPool的线程复用率比较高， 会显著的提高性能。而且线程60s后会回收，意味着即使没有任务进来，CacheThreadPool并不会占用很多资源。
+
+运行流程：
+
+1. 提交任务进线程池。
+2. 因为corePoolSize为0的关系，不创建核心线程，线程池最大为Integer.MAX_VALUE。
+3. 尝试将任务添加到SynchronousQueue队列。
+4. 如果SynchronousQueue入列成功，等待被当前运行的线程空闲后拉取执行。如果当前没有空闲线程，那么就创建一个非核心线程，然后从SynchronousQueue拉取任务并在当前线程执行。
+5. 如果SynchronousQueue已有任务在等待，入列操作将会阻塞。
+
+```java
     public static ExecutorService newCachedThreadPool() {
         return new ThreadPoolExecutor(
                 0,
@@ -2934,13 +3255,12 @@ public class MyThreadPool {
                 TimeUnit.SECONDS,
                 new SynchronousQueue<Runnable>());
     }
+```
+#### newFixedThreadPool
 
-    /**
-     *  只能创建核心线程。无界队列LinkedBlockingQueue的默认大小是Integer.MAX_VALUE
-     *  没有任务的情况下， FixedThreadPool占用资源更多。
-     * @param nThreads
-     * @return
-     */
+**只能创建核心线程**。无界队列LinkedBlockingQueue的默认大小是Integer.MAX_VALUE。没有任务的情况下， FixedThreadPool占用资源更多。
+
+```java
     public static ExecutorService newFixedThreadPool(int nThreads) {
         return new ThreadPoolExecutor(
                 nThreads,
@@ -2949,28 +3269,28 @@ public class MyThreadPool {
                 TimeUnit.MILLISECONDS,
                 new LinkedBlockingQueue<Runnable>());
     }
+```
+#### newSingleThreadExecutor
 
-    /**
-     *  有且仅有一个核心线程（ corePoolSize == maximumPoolSize=1），使用了LinkedBlockingQueue（容量很大），
-     *  所以，不会创建非核心线程。所有任务按照先来先执行的顺序执行。如果这个唯一的线程不空闲，那么新来的任务会存储在任务队列里等待执行。
-     * @return
-     */
-    public static ExecutorService newSingleThreadExecutor() {
-        return
-                //new FinalizableDelegatedExecutorService
-                (new ThreadPoolExecutor(
-                        1,
-                        1,
-                        0L,
-                        TimeUnit.MILLISECONDS,
-                        new LinkedBlockingQueue<Runnable>()));
-    }
+**有且仅有一个核心线程**(corePoolSize == maximumPoolSize=1)，使用了LinkedBlockingQueue（容量很大），所以不会创建非核心线程。所有任务按照先来先执行的顺序执行。如果这个唯一的线程不空闲，那么新来的任务会存储在任务队列里等待执行。
 
-    /**
-     * 创建一个定长Integer.MAX_VALUE线程池，支持定时及周期性任务执行。
-     * @param corePoolSize
-     * @return
-     */
+```java
+	public static ExecutorService newSingleThreadExecutor() {
+    	return
+            //new FinalizableDelegatedExecutorService
+            (new ThreadPoolExecutor(
+                    1,
+                    1,
+                    0L,
+                    TimeUnit.MILLISECONDS,
+                    new LinkedBlockingQueue<Runnable>()));
+	}
+```
+#### newScheduledThreadPool
+
+创建一个定长Integer.MAX_VALUE线程池，支持定时及周期性任务执行。
+
+```java
     public static ScheduledExecutorService newScheduledThreadPool(int corePoolSize) {
         //return new ScheduledThreadPoolExecutor(corePoolSize);
         //return new ThreadPoolExecutor(
@@ -2980,14 +3300,35 @@ public class MyThreadPool {
         //        NANOSECONDS,
         //        new DelayedWorkQueue());
         return null;
-
     }
+```
+
+#### newWorkStealingPool
+
+基于ForkJoinPool实现，可将大任务拆分成多个小任务，放到当前线程的单独阻塞队列中（**每个线程都有单独的阻塞队列**）。其他的空闲线程可以去处理有任务的线程的阻塞队列中的任务。
+
+
+
+## @Contended
+
+```java
+//ConcurrenHashMap的addCount()的CounterCell		类似与LongAdder的Cell类
+@sun.misc.Contended static final class CounterCell{
+    //volatile修饰的value,并且外部基于CAS的方式修改
+    volatile long value;
+    ConterCell(long x){value = x;}
 }
 ```
 
+@sun.misc.Contended	(JDK1.8)：(如LongAdder的Cell、ConcurrenHashMap的addCount()的CounterCell)
 
+这个注解是为了解决伪共享的问题（解决缓存行同步带来的性能问题）。
 
+CPU在操作主内存变量前，会将主内存数据缓存到CPU缓存（L1,L2,L3）中，CPU缓存L1，是以缓存行为单位存储数据的，一般默认的大小为64字节。
 
+缓存行同步操作，影响CPU一定的性能。
+
+`@Contended`注解，**会将当前类中的属性独占一个缓存行，从而避免缓存行失效造成的性能问题。**就是将后面的7个位置填充无意义的数据。如long value; 缓存行long l1,l2,l3,l4,l5,l6,l7刚好64字节占满。
 
 
 
@@ -3014,15 +3355,15 @@ JVM 堆 栈 方法栈分配 GC基本原理  GC Roots
 
 ![img](images/jvm1.7_1.png)
 
-![img](images/jvm1.7_2.png)
+<img src="images/jvm1.7_2.png" alt="img" style="zoom:200%;" />
 
 #### 1.8
 
-<img src="images\jvm1.8.png" alt="jvm1.8"  />
+<img src="images\jvm1.8.png" alt="jvm1.8" style="zoom:200%;" />
 
 <img src="images\jvm1.8_1.png" alt="jvm1.8_1" style="zoom:200%;" />
 
-JDK1.7及以后字符串常量移至堆内存
+**JDK1.7及以后字符串常量池移至堆内存**
 
 其他内容包括类元信息、字段、静态属性‘、方法、常量等移动至元空间Metaspace。比如下面代码中的 java/lang/Object 类元信息、静态属性 System.out、整形常量 100000 等。图中显示在常量池中的String，其实际对象是被保存在堆内存中的。
 
@@ -3043,7 +3384,7 @@ Constant pool:
 
 ### 程序计数器
 
-
+(Program Counter Register）也叫PC寄存器，每个线程会通过程序计数器记录当前要执行的的字节码指令的地址
 
 ### 虚拟机栈 Stack
 
@@ -3053,22 +3394,71 @@ Constant pool:
 
 用于支持虚拟机进行方法调用和方法执行的数据结构，它是虚拟机运行时数据区中的虚拟机栈的栈元素，每个栈帧中包括：
 
-- **局部变量表 Local Variable Table**
-  用来存储方法中的局部变量（非静态变量、函数形参）。==当变量为基本数据类型时，直接存储值；当变量为引用类型时，存储的是指向具体对象的引用==
+##### 局部变量表 Local Variable Table
 
-  局部变量表存放了编译期可知的各种基本数据类型（ boolean 、byte 、char 、short 、int 、float 、long 、double ）、对象引用（ reference 类型，它不等同于对象本身，可能是一个指向对象起始地址的引用指针，也可能是指向一个代表对象的句柄或其他与此对象相关的位置）和returnAddress 类型（指向了一条字节码指令的地址） 。
+用来存储方法中的局部变量（非静态变量、函数形参）。==当变量为基本数据类型时，直接存储值；当变量为引用类型时，存储的是指向具体对象的引用==
 
-  其中64位长度的long和double类型的数据会占用2个局部变量空间（Slot），其余的数据类型只占用1个。局部变量表所需的内存空间在编译期间完成分配，当进入一个方法时，这个方法需要在帧中分配多大的局部变量空间是完全确定的，在方法运行期间不会改变局部变量表的大小。
+局部变量表存放了编译期可知的各种基本数据类型（ boolean 、byte 、char 、short 、int 、float 、long 、double ）、对象引用（ reference 类型，它不等同于对象本身，可能是一个指向对象起始地址的引用指针，也可能是指向一个代表对象的句柄或其他与此对象相关的位置）和returnAddress 类型（指向了一条字节码指令的地址） 。
 
-- **操作数栈 Operand Stack**
-  Java虚拟机的解释执行引擎被称为"基于栈的执行引擎"，其中的栈就是指操作数栈
+其中64位长度的long和double类型的数据会占用2个局部变量空间（Slot），其余的数据类型只占用1个。局部变量表所需的内存空间在编译期间完成分配，当进入一个方法时，这个方法需要在帧中分配多大的局部变量空间是完全确定的，在方法运行期间不会改变局部变量表的大小。
 
-- **动态链接**
 
-  指向运行时常量池的引用，存储程序执行时可能用到常量的引用
 
-- **方法返回地址 Return Address**
-  存储方法执行完成后的返回地址
+##### 操作数栈 Operand Stack
+
+Java虚拟机的解释执行引擎被称为"基于栈的执行引擎"，其中的栈就是指操作数栈。它是**栈帧中虚拟机在执行指令过程中用来存放临时数据的一块区域。**
+
+
+
+##### 动态链接
+
+指向运行时常量池的方法引用，存储程序执行时可能用到常量的引用
+
+？符号引用转变为直接引用。（a()调用b()调用c()）为了支持Java的多态。?(官网文档)
+
+> **方法重载（overload）实现的是编译时的多态性（也称为前绑定），而方法重写（override）实现的是运行时的多态性（也称为后绑定）。**
+
+[比较类加载-解析中的定义](#解析 Resolution)
+
+
+
+- **每一个栈帧内部都包含一个指向运行时常量池中该栈帧所属方法的引用**。包含这个引用的目的就是为了支持当前方法的代码能够实现动态链接(Dynamic Linking)。
+- 在 Java 源文件被编译到字节码文件中时，所有的变量和方法引用都作为**符号引用**（Symbolic Reference）保存在 Class 文件的常量池中。比如：描述一个方法调用了另外的其他方法时，就是通过常量池中指向方法的符号引用来表示的，那么**动态链接的作用就是为了将这些符号引用转换为调用方法的直接引用**
+
+> JVM 是如何执行方法调用的
+
+方法调用不同于方法执行，方法调用阶段的唯一任务就是确定被调用方法的版本（即调用哪一个方法），暂时还不涉及方法内部的具体运行过程。Class 文件的编译过程中不包括传统编译器中的连接步骤，一切方法调用在 Class文件里面存储的都是**符号引用**，而不是方法在实际运行时内存布局中的入口地址（**直接引用**）。也就是需要在类加载阶段，甚至到运行期才能确定目标方法的直接引用。
+
+【这一块内容，除了方法调用，还包括解析、分派（静态分派、动态分派、单分派与多分派），这里先不介绍，后续再挖】
+
+在 JVM 中，将符号引用转换为调用方法的直接引用与方法的绑定机制有关
+
+- **静态链接**：当一个字节码文件被装载进 JVM 内部时，如果被调用的**目标方法在编译期可知**，且运行期保持不变时。这种情况下将调用方法的符号引用转换为直接引用的过程称之为静态链接
+- **动态链接**：**==如果被调用的方法在编译期无法被确定下来，也就是说，只能在程序运行期将调用方法的符号引用转换为直接引用，由于这种引用转换过程具备动态性，因此也就被称之为动态链接==**
+
+对应的方法的绑定机制为：早期绑定（Early Binding）和晚期绑定（Late Binding）。**绑定是一个字段、方法或者类在符号引用被替换为直接引用的过程，这仅仅发生一次**。
+
+- **早期绑定**：**早期绑定就是指被调用的目标方法如果在编译期可知，且运行期保持不变时**，即可将这个方法与所属的类型进行绑定，这样一来，由于明确了被调用的目标方法究竟是哪一个，因此也就可以使用静态链接的方式将符号引用转换为直接引用。
+- **晚期绑定**：如果被调用的方法在编译器无法被确定下来，只能够在程序运行期根据实际的类型绑定相关的方法，这种绑定方式就被称为晚期绑定。
+
+
+
+##### 方法返回地址 Return Address
+
+存储方法执行完成后的返回地址
+
+#### 手动分配栈大小
+
+StackOverflowError
+
+如果我们不指定栈的大小，JVM 将创建一个具有默认大小的栈。大小取决于操作系统和计算机的体系结构。
+
+虚拟机参数 -Xss xxx	(栈大小 字节1024倍数、K/KB、M/MB...)
+
+配置堆栈大小。格式为： -XX:ThreadStackSize=1024
+
+> HotSpot JVM对栈大小的最大值和最小值有要求：
+> Windows（64位）下的JDK8测试最小值为180k，最大值为1024m。
 
 
 
@@ -3078,23 +3468,25 @@ Constant pool:
 
 ### Java堆 Heap
 
+所有Java虚拟机线程之间共享。是为所有类实例和数组分配内存的运行时数据区域。
 
+OutOfMemoryError
 
-### 方法区 Method Area / hotspot 永久代 Permanent Generation
+### 方法区 Method Area 
 
-​		方法区与Java 堆一样，是各个**线程共享**的内存区域，它用于**存储已被虚拟机加载的类信息、常量、静态变量、即时编译器编译后的代码等数据和[运行时常量池](#运行时常量池 Runtime Constant Pool)。**
+实现方式为：1.7 hotspot 永久代 Permanent Generation / 1.8+ MetaData 元数据区
 
+方法区与Java 堆一样，是各个**线程共享**的内存区域，它用于**存储已被虚拟机加载的类信息、常量、静态变量、即时编译器编译后的代码等数据和[运行时常量池](#运行时常量池 Runtime Constant Pool)。**
 
+OutOfMemoryError
 
 ### 运行时常量池 Runtime Constant Pool
 
-​		**运行时常量池是方法区的一部分**。Class 文件中除了有类的版本、接口、字段、方法、属性等描述信息外，还有一项信息是**[常量池（ Constant Pool Table）](#常量池)，用于存放编译期生成的各种字面量和符号引用，这部分内容将在类加载后进入方法区的运行时常量池中存放。**
+​		**运行时常量池是方法区的一部分**。Class 文件中除了有类的版本、接口、字段、方法、属性等描述信息外，还有一项信息是**[常量池(详见类文件结构中)](#常量池)，用于存放编译期生成的各种字面量和符号引用，这部分内容将在类加载后进入方法区的运行时常量池中存放。**
 
-​		Java 虚拟机对Class 文件每一部分（自然也包括常量池〉的格式都有严格规定，每一个字节用于存储哪种数据都必须符合规范上的要求才会被虚拟机认可、装载和执行，但对于运行时常量池， Java 虚拟机规范**没有做任何细节的要求**，不同的提供商实现的虚拟机可以按照自己的需要来实现这个内存区域。不过，一般来说，除了保存Class 文件中描述的符号引用外，**还会把翻译出来的直接引用也存储在运行时常量池中。**
+​		Java 虚拟机对Class 文件每一部分（自然也包括常量池〉的格式都有严格规定，每一个字节用于存储哪种数据都必须符合规范上的要求才会被虚拟机认可、装载和执行，但对于运行时常量池， Java 虚拟机规范**没有做任何细节的要求**，不同的提供商实现的虚拟机可以按照自己的需要来实现这个内存区域。不过，一般来说，除了保存Class 文件中描述的符号引用外，**还会把==翻译出来的直接引用==也存储在运行时常量池中。**
 
 ​		运行时常量池相对于Class文件常量池的另一个重要特征是具备**动态性**，Java语言并不要求常量一定只有在编译期才能产生，也就是并非预置如Class文件中常量池的内容才能进入方法区运行时常量池，运行期间也可能将新的常量放入池中，利用得比较多的便是`String.intern()`方法。
-
-
 
 
 
@@ -3114,13 +3506,12 @@ Constant pool:
 
    - 对象所需内存的大小在类加载完成后便可完全确定，为对象分配空间的任务等同于把一块确定大小的内存从Java 堆中划分出来。目前常用的有**两种分配方式**，选择哪种分配方式由Java堆是否规整决定，而Java堆是否规整又由所采用的的垃圾收集器是否带有压缩整理功能决定。
      - **指针碰撞（Bump the Pointer）**：Serial、ParNew等带Compact压缩整理过程的收集器
-
-     ​		假设Java堆中内存是绝对规整的，所有用过的内存都放在一边，空闲的内存放在另一边，中间放着一个指针作为分界点的指示器，那所分配内存就仅仅是把那个指针向空闲空间那边挪动一段与对象大小相等的距离。
+    假设Java堆中内存是绝对规整的，所有用过的内存都放在一边，空闲的内存放在另一边，中间放着一个指针作为分界点的指示器，那所分配内存就仅仅是把那个指针向空闲空间那边挪动一段与对象大小相等的距离。
+     
      - **空闲列表（Free List）**：CMS基于Mark-Sweep标记清除算法的收集器
-
-     ​		如果Java 堆中的内存并不是规整的，已使用的内存和空闲的内存相互交错，那就没有办法简单地进行指针碰撞了，虚拟机就必须维护一个列表，记录上哪些内存块是可用的，在分配的时候从列表中找到一块足够大的空间划分给对象实例，井更新列表上的记录。
-
-   - 除如何划分可用空间之外，还有另外一个需要考虑的问题是对象创建在虚拟机中是非常频繁的行为，即使是仅仅修改一个指针所指向的位置，在**并发情况**下也并不是**线程安全**的，可能出现正在给对象A 分配内存，指针还没来得及修改，对象B 又同时使用了原来的指针来分配内存的情况。解决这个问题有两种方案： 
+    如果Java 堆中的内存并不是规整的，已使用的内存和空闲的内存相互交错，那就没有办法简单地进行指针碰撞了，虚拟机就必须维护一个列表，记录上哪些内存块是可用的，在分配的时候从列表中找到一块足够大的空间划分给对象实例，井更新列表上的记录。
+     
+- 除如何划分可用空间之外，还有另外一个需要考虑的问题是对象创建在虚拟机中是非常频繁的行为，即使是仅仅修改一个指针所指向的位置，在**并发情况**下也并不是**线程安全**的，可能出现正在给对象A 分配内存，指针还没来得及修改，对象B 又同时使用了原来的指针来分配内存的情况。解决这个问题有两种方案： 
      - **对分配内存空间的动作进行同步处理**一一实际上虚拟机采用**CAS** 配上**失败重试**的方式**保证更新操作的原子性**；
      - **把内存分配的动作按照线程划分在不同的空间之中进行**，即**每个线程在Java 堆中预先分配一小块内存**，称为本地线程分配缓冲（ Thread Local Allocation Buffer, **TLAB** ）。哪个线程要分配内存，就在哪个线程的TLAB 上分配，只有TLAB 用完并分配新的TLAB 时，才需要同步锁定。虚拟机是否使用TLAB ，可以通过`-XX:+/-UseTLAB` 参数来设定。
 
@@ -3130,17 +3521,15 @@ Constant pool:
 
    > 在上面工作都完成之后，从虚拟机的视角来看，一个新的对象已经产生了，但从Java 程序的视角来看，对象创建才刚刚开始一一<init>方法还没有执行，所有的字段都还为零。所以， 一般来说（由字节码中是否跟随invokespecial 指令所决定）， 执行new 指令之后会接着执行<init>方法，把对象按照程序员的意愿进行初始化，这样一个真正可用的对象才算完全产生出来。
 
-5. **调用对象的init()方法** ,根据传入的属性值给对象属性赋值。始化实例变量。
+5. **调用对象的init()方法** ,根据传入的属性值给对象属性赋值。初始化实例变量。
 
 6. 在线程**栈中新建对象引用**，并指向堆中刚刚新建的对象实例。
 
-
-
-示例：
+#### 示例
 
 ```java
-//  1.在堆中给对象分配内存并设置实例变量默认零值。	m=0
-//  2.调用对象<init>方法初始化实例变量。	m=8
+//  1.在堆中给对象分配内存并设置实例变量默认零值。	m=0		(≈类加载准备阶段)
+//  2.调用对象<init>方法初始化实例变量。	m=8		(≈类加载初始化阶段)
 //  3.把对象引用指向堆内对象实例。
 class T {
     int m = 8;
@@ -3159,7 +3548,14 @@ T t = new T();
 8 return
 ```
 
+### 创建对象的几种方式
 
+- 使用new关键字
+- Class对象的newInstance()方法
+- 构造函数对象的newInstance()方法
+- 对象反序列化
+- Object对象的clone()方法
+- 使用Unsafe类创建对象
 
 
 
@@ -3203,7 +3599,7 @@ T t = new T();
 
 ##### 类型指针
 
-​		指向类的指针，即对象指向它的类元数据的指针，虚拟机通过这个指针来确定这个对象是哪个类的实例。并不是所有的虚拟机实现都必须在对象数据上保留类型指针，换句话说，查找对象的元数据信息并不一定要经过对象本身。（见对象的访问定位）
+​		指向类的指针，即对象指向它的类元数据的指针，虚拟机通过这个指针来确定这个对象是哪个类的实例。并不是所有的虚拟机实现都必须在对象数据上保留类型指针，换句话说，查找对象的元数据信息并不一定要经过对象本身。（[见对象的访问定位](#对象的访问定位)）
 
 ​		**类型指针在32位JVM中的长度是32bit(4字节)，在64位JVM中长度是64bit(8字节)。但jvm1.6后64位系统默认开启了指针压缩占32bit(4字节)。**
 
@@ -3236,6 +3632,7 @@ pom.xml添加jol依赖
 ```
 
 - 空对象
+  其中Mark Word 8字节，类指针压缩后4字节，对齐4字节。总16字节。
 
 ```java
 public class Test {
@@ -3260,8 +3657,9 @@ Instance size: 16 bytes
 - 有成员变量
 
   - 基本数据类型：byte、boolean 1字节；char、short 2字节；int、float 4字节；long、double 8字节。
+- **引用**数据类型，**指针压缩下占用4个字节；关闭指针压缩下占用8个字节**。
 
-  - **引用**数据类型，**指针压缩下占用4个字节；关闭指针压缩下占用8个字节**。
+其中Mark Word 8字节，类指针压缩后4字节，int4字节，char2字节，String4字节，对齐2字节。总24字节。
 
 ```java
 public class Test {
@@ -3293,13 +3691,15 @@ public class Test {
 Instance size: 24 bytes
 ```
 
-**VM options关闭指针压缩**
+> **VM options关闭指针压缩**
 
 ​		非基本数据类型，关闭指针压缩下占用8个字节
 
 ```bash
 -XX:-UseCompressedClassPointers -XX:-UseCompressedOops
 ```
+
+其中Mark Word 8字节，类指针8字节，int4字节，char2字节，String8字节，对齐2字节。总32字节。
 
 ```java
 OFFSET  SIZE               TYPE DESCRIPTION                     VALUE
@@ -3487,7 +3887,7 @@ CONSTANT_Utf8_info:
 
 ​		类从被加载到虚拟机内存中开始，到卸载出内存为止，它的整个生命周期包括：加载（ Loading ）、验证（ Verification ）、准备（ Preparation ）、解析（ Resolution ）、初始化（Initialization ）、使用（ Using ）和卸载（ Unloading）7个阶段。其中验证、准备、解析3个部分统称为连接（ Linking ）。
 
-​		加载、验证、准备、初始化和卸载这5 个阶段的顺序是确定的，类的加载过程必须按照这种顺序按部就班地开始，而解析阶段则不一定：它在某些情况下可以在初始化阶段之后再开始，这是为了支持Java 语言的运行时绑定（也称为动态绑定或晚期绑定） 。注意，这里笔者写的是按部就班地“开始”，而不是按部就班地“进行”或“完成”，强调这点是因为这些阶段通常都是互相交叉地混合式进行的，通常会在一个阶段执行的过程中调用、激活另外一个阶段。
+​		加载、验证、准备、初始化和卸载这5 个阶段的顺序是确定的，类的加载过程必须按照这种顺序按部就班地开始，而解析阶段则不一定：它在某些情况下可以在初始化阶段之后再开始，这是为了**支持Java 语言的运行时绑定（也称为动态绑定或晚期绑定）** 。注意，这里笔者写的是按部就班地“开始”，而不是按部就班地“进行”或“完成”，强调这点是因为这些阶段通常都是互相交叉地混合式进行的，通常会在一个阶段执行的过程中调用、激活另外一个阶段。
 
 ​		什么情况下需要开始类加载过程的第一个阶段：加载？ Java 虚拟机规范中并没有进行强制约束，这点可以交给虚拟机的具体实现来自由把握。但是对于==**初始化阶段，虚拟机规范则是严格规定了有且只有5 种情况必须立即对类进行“初始化”**==（而加载、验证、准备自然需要在此之前开始） ：
 
@@ -3548,6 +3948,10 @@ CONSTANT_Utf8_info:
 
 ​		解析动作主要针对类或接口、字段、类方法、接口方法、方法类型、方法句柄和调用点限定符等7类符号引用进行，分别对应与常量池的CONSTANT_Class_info、CONSTANT_Fieldref_info、CONSTANT_Methodref_info、CONSTANT_InterfaceMethodref_info、CONSTANT_MethodType_info、CONSTANT_MethodHandle_info 和CONSTANT_InvokeDynamic _info 7 种常量类型。
 
+
+
+
+
 #### 初始化 Initialization
 
 ​		到了初始化阶段，才真正开始执行类中定义的Java程序代码（或者说是字节码）。==**初始化阶段是执行类构造器`<clinit>()`方法的过程，初始化类变量、静态代码块等资源。**==
@@ -3588,7 +3992,7 @@ CONSTANT_Utf8_info:
 
 - 接口中不能使用静态语句块，但仍然有变量初始化赋值操作，因此接口与类一样都会生成<clinit>()方法。但接口与类不同的是，执行接口<clinit>()方法不需要先执行父接口的<clinit>()方法。只有当父接口中定义的变量使用时，父接口才会初始化。另外，接口的实现类在初始化时也一样不会执行接口的<clinit>()方法。
 
-- 虚拟机会保证一个类的<clinit>()方法在多线程环境中被正确地加锁、同步，如果多个线程同时去初始化一个类，那么只会有一个线程去执行这个类的<clinit>()方法，其他线程都需要阻塞等待，知道活动线程执行<clinit>()方法完毕。如果在一个类的<clinit>()方法中有耗时很长的操作，就可能造成多个进程阻塞（需要注意的是，其他线程虽然会被阻塞，但如果执行<clinit>()方法的那条线程退出<clinit>()方法后，其他线程唤醒之后不会再次进入<clinit>()方法。同一个类加载器下，一个类型只会初始化一次。），在实际应用中这种阻塞往往是很隐蔽的。
+- 虚拟机会保证一个类的<clinit>()方法在多线程环境中被正确地加锁、同步，如果多个线程同时去初始化一个类，那么只会有一个线程去执行这个类的<clinit>()方法，其他线程都需要阻塞等待，直到活动线程执行<clinit>()方法完毕。如果在一个类的<clinit>()方法中有耗时很长的操作，就可能造成多个进程阻塞（需要注意的是，其他线程虽然会被阻塞，但如果执行<clinit>()方法的那条线程退出<clinit>()方法后，其他线程唤醒之后不会再次进入<clinit>()方法。同一个类加载器下，一个类型只会初始化一次。），在实际应用中这种阻塞往往是很隐蔽的。
 
   ```java
   	static class DeadLoopClass {
@@ -3662,7 +4066,7 @@ CONSTANT_Utf8_info:
 
 ​		使用双亲委派模型来组织类加载器之间的关系，有一个显而易见的好处就是Java 类随着它的类加载器一起具备了一种带有优先级的层次关系。
 
-​		双亲委派模型对于保证Java 程序的稳定运作很重要，但它的实现却非常简单，实现双亲委派的代码都集中在java.lang. ClassLoader 的loadClass（）方法之中，如代码清单7-10 所示，逻辑清晰易懂：先检查是否已经被加载过，若没有加载则调用父加载器的loadClass()方法，若父加载器为空则默认使用启动类加载器作为父加载器。如果父类加载失败，抛出ClassNotFoundException 异常后，再调用自己的findClass()方法进行加载。
+​		双亲委派模型对于保证Java 程序的稳定运作很重要，但它的实现却非常简单，实现双亲委派的代码都集中在java.lang. ClassLoader 的loadClass())方法之中，如代码清单7-10 所示，逻辑清晰易懂：先检查是否已经被加载过，若没有加载则调用父加载器的loadClass()方法，若父加载器为空则默认使用启动类加载器作为父加载器。如果父类加载失败，抛出ClassNotFoundException 异常后，再调用自己的findClass()方法进行加载。
 
 ```java
 	protected synchronized Class<?> loadClass (String name , boolean resolve) throws ClassNotFoundException
@@ -3672,6 +4076,7 @@ CONSTANT_Utf8_info:
 	if (c == null) {
 		try {
 		if (parent != null ) {
+            //递归找到顶层Bootstrap
 			c =parent.loadClass(name, false);
 		} else {
 			c = findBootstrapClassOrNull(name);
@@ -3724,6 +4129,8 @@ ClassLoader.loadClass(name, false);
 
 ## GC
 
+GC 分代年龄15从Young进去Old：对象头里用4bit存储分代年龄最大为2^4^-1=15
+
 ### 判断对象已死
 
 #### 引用计数算法
@@ -3732,13 +4139,13 @@ ClassLoader.loadClass(name, false);
 
 #### 可达性分析算法
 
-​	**==GC Roots==**
+​	**==GC Roots==**	当一个对象到GC Roots没有引用链相连（不可达）时，证明此对象不可用
 
 - 虚拟机栈（栈帧中的本地变量表）中引用的对象
 - 方法区中静态属性和常量引用的对象
 - 本地方法栈中JNI(Native方法)引用的对象
 
-### 四种引用类型
+#### 四种引用类型
 
 - **强引用(FinalReference)**	new
 
@@ -3876,12 +4283,12 @@ thread
 
 ### GC常用参数
 
-| -Xmn -Xms -Xmx -Xss                                          | 年轻代 最小值 最大值 栈空间        |
+| -Xmn -Xms -Xmx -Xss                                          | 年轻代 堆最小值 堆最大值 栈空间    |
 | ------------------------------------------------------------ | ---------------------------------- |
 | -XX:+UseTLAB                                                 | 使用TLAB，默认打开                 |
 | -XX:+PrintTLAB                                               | 打印TLAB的使用情况                 |
 | -XX:+TLABSize                                                | 设置TLAB大小                       |
-| -XX:+DisableExplictGC                                        | System.gc()不管用，FGC             |
+| -XX:+DisableExplictGC                                        | 禁用显式System.gc()，FGC           |
 | -XX:+PrintGC                                                 |                                    |
 | -XX:+PrintGCDetails                                          |                                    |
 | -XX:+PrintHeapAtGC                                           |                                    |
@@ -4147,7 +4554,7 @@ i4=i5+i6   true
   3 、字符串常量池中的“a”;
   4 、new String(“b”);
   5 、字符串常量池中的“b”;
-  6 、StringBuilder中的toString方法里的 new String(char[]);
+  6 、StringBuilder中的toString方法里的 new String(char[]);		？即str指向堆内"ab"对象
 
   ```java
   @Override
@@ -4171,6 +4578,8 @@ i4=i5+i6   true
 #### String.intern()
 
 ​		String .intern() 是一个Native 方法，它的作用：如果字符串常量池中已经包含一个等于此String对象的字符串，则返回代表常量池中这个字符串的String对象；否则，将此String对象包含的字符串添加到常量池中，并且返回此String对象的引用。
+
+##### String字符串操作规则
 
 1. **new** String都是在**堆上**创建字符串对象。
 
@@ -4322,6 +4731,12 @@ System.out.println(s3 == s4);	//结果就是 s3 和 s4 的引用地址明显不�
 
 ### singleton
 
+> 注意：
+>
+> ①将构造器私有，不允许外界通过构造器创建对象；
+>
+> ②通过公开的静态方法向外界返回类的唯一实例。
+
 #### 饿汉模式
 
 ```java
@@ -4351,7 +4766,7 @@ package com.ly.designpattern.singleton;
 
 /**
  * @Description 单例模式-懒汉模式
- *  双重校验锁实现对象单例（线程安全）
+ *  双重校验锁实现对象单例（线程安全）(DCL, double checked locking)
  * @Created by Administrator
  * @Date 2020/10/12 23:29
  */
@@ -4367,9 +4782,10 @@ public class SingletonLazy {
         //多个线程到这直接判断不用进行锁竞争提升效率性能
         if (singleton == null) {    //DCL 双重检查锁double check lock
             synchronized (SingletonLazy.class) {
+                //第二层是为了在null的情况下创建实例，否则可能多个等待线程创建多个实例
                 if (singleton == null) {
-                    //  1.在堆中给对象分配内存并设置实例变量默认零值。	m=0
-					//  2.调用对象<init>方法初始化实例变量。	m=8
+                    //  1.在堆中给对象分配内存并设置实例变量默认零值。	m=0	(≈类加载准备阶段)
+					//  2.调用对象<init>方法初始化实例变量。	m=8			(≈类加载初始化阶段)
 					//  3.把对象引用指向堆内对象实例。
                     singleton = new SingletonLazy();
                 }
@@ -4412,6 +4828,7 @@ public class SingletonStaticInnerClass {
     private SingletonStaticInnerClass() {
     }
 
+    // 主要是使用了 嵌套类可以访问外部类的静态属性和静态方法 的特性
     private static class SingletonHolder {
         private static SingletonStaticInnerClass INSTANCE = new SingletonStaticInnerClass();
     }
@@ -4459,10 +4876,10 @@ public enum SingletonEnum {
 
 
 
-# 数据库
+# [数据库](Database.md)
 
-- [MySql](MySql.md)
-- [Redis](Redis.md)
+- [MySql](Database-MySql.md)
+- [Redis](Database-Redis.md)
 
 
 
@@ -4523,23 +4940,49 @@ public enum SingletonEnum {
 
 ## Class反射 
 
-获取Class类三种方式：
+### 获取Class类三种方式：
 
 - ==**通过类的路径获取**==
 
-  `Class class = Class.forName("com.ly.entry.User");`
+  `Class class = Class.forName("com.lang.String");`
 
-- ==**通过类获取**==
+- ==**通过类.class获取**==
 
-  `Class class = User.class;`
+  `Class class = String.class;`
 
-- ==**通过对象获取**==
+- ==**通过对象.getClass()获取**==
 
-  `User user = new User();`
-
-  `Class class = user.getClass();`
+  `Class class = "hello".getClass();`
 
 
+
+### 通过反射创建对象：
+
+- **通过类对象调用newInstance()方法**，例如：
+
+  `String.class.newInstance()`
+
+- **通过类对象的getConstructor()或getDeclaredConstructor()方法获得构造器（Constructor）对象并调用其newInstance()方法创建对象**，例如：
+
+  `String.class.getConstructor(String.class).newInstance("Hello");`
+
+### 通过反射获取和设置对象私有字段的值
+
+1. 通过类对象clazz的getDeclaredField()方法获取字段对象Field
+2. field.setAccessible(true)设置为可以访问
+3. get() set()
+
+### 通过反射调用对象的方法
+
+```java
+	String str = "hello";
+	Method m = str.getClass().getMethod("toUpperCase");
+	System.out.println(m.invoke(str));	//HELLO
+```
+
+
+
+### 示例：使用反射自己实现注解自动注入
 
 编写AutoWired注解
 
@@ -4804,9 +5247,92 @@ public class ProxyTest {
 
 
 
-# JAVA8
+# JAVA新特性
 
-## Lambda
+- try-with-resources	JDK1.7后 须实现autoClose() (许多外部资源类都间接实现了此接口故可用)
+
+  - 可以声明多个资源，方法是使用分号 **;** 分隔。（资源自动关闭顺序遵循先开后关）
+  - finally永远都会在catch的return前被执行！（catch 块中有退出系统的语句 System.exit(-1); finally就不会被执行？！）
+
+- java7钻石语法	编译器推断出右侧的类型信息
+
+  ```java
+  Map<Integer, Map<String, String>> usersLists =
+      new HashMap<Integer, Map<String, String>>(); 
+  //简写为：
+  Map<Integer, Map<String, String>> usersLists = new HashMap<>();
+  ```
+
+
+## JAVA8
+
+### Lambda 表达式
+
+Lambda 允许把函数作为一个方法的参数（函数作为参数传递到方法中）。 闭包？
+
+咱们首先来说说 **Lambda** 这个名字，**Lambda** 并不是一个什么的缩写，它是希腊第十一个字母 **λ** 的读音，同时它也是微积分函数中的一个概念，所表达的意思是一个函数入参和出参定义，在编程语言中其实是借用了数学中的 **λ**，并且多了一点含义，在编程语言中功能代表它具体功能的叫法是**匿名函数（Anonymous Function）**，根据百科的解释：
+
+> **匿名函数**（英语：Anonymous Function）在计算机编程中是指一类无需定义标识符（函数名）的函数或子程序。
+
+Lambda 在编程语言中往往是一个**匿名函数**，也就是说Lambda 是一个抽象概念，而编程语言提供了配套支持，比如在 Java 中其实为Lambda 进行配套的就是函数式接口，通过函数式接口生成匿名类和方法进行Lambda 式的处理。<br />那么，既然是这一套规则我们明白了，那么Lambda 所提供的好处在Java中就是函数式接口所提供的能力了，函数式接口往往则是提供了一些通用能力，这些函数式接口在JDK中也有一套完整的实践，那就是 **Stream**。
+
+```java
+//2种语法
+(parameters) -> expression
+(parameters) -> {statements;}
+```
+
+重要特征:
+
+- **可选类型声明：**不需要声明参数类型，编译器可以统一识别参数值。
+- **可选的参数圆括号：**一个参数无需定义圆括号，但多个参数需要定义圆括号。
+- **可选的大括号：**如果主体包含了一个语句，就不需要使用大括号。
+- **可选的返回关键字：**如果主体只有一个表达式返回值则编译器会自动返回值，大括号需要指定表达式返回了一个数值。
+
+lambda 表达式只能引用标记了 **final** 的外层局部变量，这就是说不能在 lambda 内部修改定义在域外的局部变量，否则会编译错误。
+
+lambda 表达式的局部变量可以不用声明为 final，但是必须不可被后面的代码修改（即隐性的具有 final 的语义）
+
+在 Lambda 表达式当中不允许声明一个与局部变量同名的参数或者局部变量。
+
+```java
+// 使用匿名内部类  
+new Thread(new Runnable() {  
+    @Override  
+    public void run() {  
+        System.out.println("Hello world !");  
+    }  
+}).start();  
+  
+// 使用 lambda expression  
+new Thread(() -> System.out.println("Hello world !")).start(); 
+```
+
+
+
+### 方法引用
+
+- 构造器引用  Class::new
+
+```java
+Supplier<List<String>> s = [ () -> new ArrayList<>(); <=> ArrayList::new; ]
+```
+
+- 静态方法引用  Class::static_method
+
+```java
+Consumer<String> c = [ (s) -> System.out.println(s);  <=>  System.out::println; ]
+```
+
+- 特定类的任意对象的方法引用 Class::method
+- 特定对象的方法引用  instance::method
+
+```java
+List<String> list = Lists.newArrayList();
+Consumer<String> c = [ (e) => list.add(e);  <=>  list::add; ]
+```
+
+
 
 ```java
 package com.ly.lambda;
@@ -4932,7 +5458,6 @@ public class DoubleColonsTest {
 
     Consumer<String> consumer = System.out::println;
     Consumer<String> consumer_1 = (String str) -> System.out.println(str);
-    ;
 
     public static void main(String[] args) {
         List<String> list = Arrays.asList("1", "2", "3");
@@ -4949,6 +5474,97 @@ public class DoubleColonsTest {
 
 
 
+### 原生函数式接口
+
+#### @FunctionalInterface注解
+
+有且只有一个抽象方法的接口被称为函数式接口，函数式接口适用于函数式编程的场景，Lambda就是Java中函数式编程的体现，可以使用Lambda表达式创建一个函数式接口的对象，一定要确保接口中有且只有一个抽象方法，这样Lambda才能顺利的进行推导。
+与@Override 注解的作用类似，Java 8中专门为函数式接口引入了一个新的注解：@FunctionalInterface 。该注解可用于一个接口的定义上,一旦使用该注解来定义接口，编译器将会强制检查该接口是否确实有且仅有一个抽象方法（equal和hashcode方法不算），否则将会报错。但是这个注解不是必须的，只要符合函数式接口的定义，那么这个接口就是函数式接口。
+
+
+
+#### Consumer: 消费性接口
+
+一个消费函数式接口，主要针对的是**消费（1..n 入参， 无返回）**这个场景。
+
+```java
+@FunctionalInterface
+public interface Consumer<T> {
+    void accept(T t);
+}
+```
+
+通过泛型 T 定义了一个入参，但是没有返回值，它代表你可以针对这个入参做一些自定义逻辑，比较典型的例子是 **==forEach==** 方法。
+
+```java
+List<String> list = Lists.newArrayList("1", "2", "3", "4", "5", "6");
+list.foreach(System.out::println); //打印数组
+```
+
+
+
+#### Supplier: 供给型接口
+
+一个供给函数式接口，它主要针对的是说**获取（无入参，有返回）**这个场景。
+
+```java
+@FunctionalInterface
+public interface Supplier<T> {
+    T get();
+}
+```
+
+通过泛型 T 定义了一个返回值类型，但是没有入参，它代表你可以针对调用方获取某个值，比较典型的例子是 Stream 中的 **==collect==** 方法，通过自定义传入我们想要取得的某种对象进行对象收集。
+
+```java
+List<String> list = Lists.newArrayList("1", "2", "3", "4", "5", "6");
+List<String> newList = list.stream().filter(x -> x >= 2).collect(Collectors.toList()); 
+// 将大于等于2的数重新收集成一个集合，其中Collectors.toList()的函数原型为 
+// new CollectorImpl<>((Supplier<List<T>>) ArrayList::new, List::add,(left, right) -> { left.addAll(right); return left; },CH_ID)
+// 原型中的ArrayList::new即为Supplier类型
+```
+
+
+
+#### Function<T,R>: 函数型接口
+
+接口的名字不太能轻易看出来它的场景，它主要针对的则是 **转换（有入参，有返回，其中T是入参，R是返回）**这个场景，其实说转换可能也不太正确，它是一个覆盖范围比较广的场景，你也可以理解为扩展版的Consumer。
+
+```java
+@FunctionalInterface
+public interface Function<T, R> {
+    R apply(T t);
+}
+```
+
+通过一个入参 T 进行自定义逻辑处理，最终得到一个出参 R，比较典型的例子是 Stream 中的 **==map==** 系列方法和 **==reduce==** 系列方法。
+
+```java
+List<String> list = Lists.newArrayList("1", "2", "3", "4", "5", "6");
+List<Integet> newList = list.stream().map(Integer::parseInt).collect(Collectors.toList());
+// map将list中所有的元素的类型由 String 通过 Integer.parseInt的方式转换为Intger。简单来说就是A => B;
+```
+
+
+
+#### Predicate: 断言型接口
+
+主要针对的是**判断**（有入参，有返回固定为Boolean。可以说Function 是包含Predicate的 ）这个场景。
+
+```java
+@FunctionalInterface
+public interface Predicate<T> {
+    boolean test(T t);
+}
+```
+
+通过泛型 T 定义了一个入参，返回了一个布尔值，它代表你可以传入一段判断逻辑的函数，比较典型的例子是 Stream 中的 **==filter==**方法。
+
+```java
+List<String> list = Lists.newArrayList("1", "2", "3", "4", "5", "6");
+List<String> newList = list.stream().filter(x -> x >= 2).collect(Collectors.toList()); 
+// 将大于等于2的数重新收集成一个集合，filter中的 x -> x >= 2就是Predicate接口
+```
 
 
 
@@ -4958,14 +5574,66 @@ public class DoubleColonsTest {
 
 
 
+### Stream API
+
+（java.util.stream） 把真正的函数式编程风格引入到Java中。
+
+Stream，就是JDK8又依托于函数式编程特性为集合类库做的一个类库，它其实就是jdk提供的函数式接口的最佳实践。它能让我们通过lambda表达式更简明扼要的以流水线的方式去处理集合内的数据，可以很轻松的完成诸如：过滤、分组、收集、归约这类操作。
+其中Stream的操作大致分为两类：
+
+- **中间型操作**	**返回值依旧是stream类型**
+  - 有状态  本次的结果需要依赖于前面的处理结果  不能调换位置
+  - 无状态  不依赖前面的处理结果  **可以互相调换位置**
+- **终结型操作**	**返回值是非stream类型** **内部迭代**
+
+在 Java 8 中, 集合接口有两个方法来生成流：
+
+- **stream()** − 为集合创建串行流。
+- **parallelStream()** − 为集合创建并行流。
 
 
 
+#### 中间型操作
+
+中间型操作就是**返回值依旧是stream类型**的方法。api如下：
+
+| API         | 功能说明                                                     | 无状态操作 |
+| ----------- | ------------------------------------------------------------ | ---------- |
+| filter()    | 按照条件过滤符合要求的元素， 返回新的stream流。              | 是         |
+| map()       | 将已有元素转换为另一个对象类型，一对一逻辑，返回新的stream流 | 是         |
+| peek()      | 对stream流中的每个元素进行逐个遍历处理，返回处理后的stream流 | 是         |
+| flatMap()   | 将已有元素转换为另一个对象类型，一对多逻辑，即原来一个元素对象可能会转换为1个或者多个新类型的元素，返回新的stream流 | 是         |
+| limit()     | 仅保留集合前面指定个数的元素，返回新的stream流               | 否         |
+| skip()      | 跳过集合前面指定个数的元素，返回新的stream流                 | 否         |
+| concat()    | 将两个流的数据合并起来为1个新的流，返回新的stream流          | 否         |
+| distinct()  | 对Stream中所有元素进行去重，返回新的stream流                 | 否         |
+| sorted()    | 对stream中所有的元素按照指定规则进行排序，返回新的stream流   | 否         |
+| takeWhile() | JDK9新增，传入一个断言参数当第一次断言为false时停止，返回前面断言为true的元素。 | 否         |
+| dropWhile() | JDK9新增，传入一个断言参数当第一次断言为false时停止，删除前面断言为true的元素。 | 否         |
+
+#### 终结型操作
+
+终结型操作与中间型相反，**返回值是非Stream类型**的。api如下：
+
+| API            | 功能说明                                                     |
+| -------------- | ------------------------------------------------------------ |
+| count()        | 返回stream处理后最终的元素个数                               |
+| max()          | 返回stream处理后的元素最大值                                 |
+| min()          | 返回stream处理后的元素最小值                                 |
+| findFirst()    | 找到第一个符合条件的元素时则终止流处理                       |
+| findAny()      | 找到任何一个符合条件的元素时则退出流处理，这个对于串行流时与findFirst相同，对于并行流时比较高效，任何分片中找到都会终止后续计算逻辑 |
+| anyMatch()     | 返回一个boolean值，类似于isContains(),用于判断是否有符合条件的元素 |
+| allMatch()     | 返回一个boolean值，用于判断是否所有元素都符合条件            |
+| noneMatch()    | 返回一个boolean值， 用于判断是否所有元素都不符合条件         |
+| ***collect**() | 将流转换为指定的类型，通过Collectors进行指定                 |
+| ***reduce**()  | 将一个Stream中的所有元素反复结合起来，得到一个结果           |
+| toArray()      | 将流转换为数组                                               |
+| iterator()     | 将流转换为Iterator对象                                       |
+| foreach()      | 无返回值，对元素进行逐个遍历，然后执行给定的处理逻辑         |
 
 
 
-
-## Stream
+多线程并行计算
 
 ```java
 public static void main(String[] args) {
@@ -5032,9 +5700,75 @@ public class StreamParallelDemo {
 
 
 
+### 接口默认方法
+
+- 新增默认方法（接口可以有实现方法，而且不需要实现类去实现其方法。**default** 关键字）
+
+- 可以有静态方法和方法体
+
+  ```java
+  public interface Vehicle {
+     	//默认方法 
+      default void print(){
+          System.out.println("我是一辆车!");
+      }
+      // 静态方法
+      static void blowHorn(){
+          System.out.println("按喇叭!!!");
+      }
+  }
+  ```
+
+> 一个接口有默认方法，若一个类实现了多个接口，且这些接口有相同的默认方法
+>
+> - 创建自己的默认方法，来覆盖重写接口的默认方法
+> - 使用 super 来调用指定接口的默认方法：如 `Vehicle.super.print();`
+
+> ==**JAVA9**==允许将接口方法定义为 private（私有方法、私有静态方法）
 
 
 
+### Optional 类
+
+Optional 类是一个可以为null的容器对象。如果值存在则isPresent()方法会返回true，调用get()方法会返回该对象。
+
+Optional 是个容器：它可以保存类型T的值，或者仅仅保存null。Optional提供很多有用的方法，这样我们就不用显式进行空值检测。
+
+Optional 类的引入很好的解决空指针异常。
+
+
+
+### 新的日期时间 API
+
+Java 8 在 **java.time** 包下提供了很多新的 API。以下为两个比较重要的 API：
+
+- **Local(本地)** − 简化了日期时间的处理，没有时区的问题。
+- **Zoned(时区)** − 通过制定的时区处理日期时间。
+
+新的java.time包涵盖了所有处理日期，时间，日期/时间，时区，时刻（instants），过程（during）与时钟（clock）的操作。
+
+### Base64
+
+在Java 8中，Base64编码已经成为Java类库的标准。
+
+Java 8 内置了 Base64 编码的编码器和解码器。
+
+Base64工具类提供了一套静态方法获取下面三种BASE64编解码器：
+
+- **基本：**输出被映射到一组字符A-Za-z0-9+/，编码不添加任何行标，输出的解码仅支持A-Za-z0-9+/。
+- **URL：**输出映射到一组字符A-Za-z0-9+_，输出是URL和文件。
+- **MIME：**输出隐射到MIME友好格式。输出每行不超过76字符，并且使用'\r'并跟随'\n'作为分割。编码输出最后没有行分割。
+
+```java
+	// 使用Base64基本编码
+	String string = Base64.getEncoder().encodeToString("runoob?java8".getBytes("utf-8"));
+	// 解码
+	byte[] base64decodedBytes = Base64.getDecoder().decode(string);
+	// URL编码
+	string = Base64.getUrlEncoder().encodeToString("runoob?java8".getBytes("utf-8"));
+	// MIME编码
+	 String string = Base64.getMimeEncoder().encodeToString(new Byte[]);
+```
 
 
 
@@ -5044,28 +5778,7 @@ public class StreamParallelDemo {
 
 # others
 
-## java特性
-
-- try-with-resources	JDK1.7后 须实现autoClose() 
-
-- java7钻石语法	编译器推断出右侧的类型信息
-
-  ```
-  Map<Integer, Map<String, String>> usersLists =
-      new HashMap<Integer, Map<String, String>>(); 
-  //简写为：
-  Map<Integer, Map<String, String>> usersLists = new HashMap<>();
-  ```
-
-  
-
-
-
-
-
 ## idea
-
-
 
 | 光标移到下一新增行   | shift + Enter                                                |
 | -------------------- | ------------------------------------------------------------ |
@@ -5125,41 +5838,8 @@ adobe pr2018
 
 
 
+## 快捷键
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+- 硬回车(Enter)  换行换段  `<p>...</p>`
+- 软回车(Shift+Enter)  换行不换段 `<br>`
 

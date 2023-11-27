@@ -16,16 +16,16 @@
   - **Upstart:** init,CentOS 6, 配置文件： /etc/inittab, /etc/init/*.conf。
   - **Systemd：** systemd, CentOS 7,配置文件： /usr/lib/systemd/system、 /etc/systemd/system。
 
-  | System V init 运行级别 | systemd 目标名称                    | 作用                                                        |
-  | ---------------------- | ----------------------------------- | ----------------------------------------------------------- |
-  | 0                      | runlevel0.target, poweroff.target   | 系统停机状态，系统默认运行级别不能设为0，否则不能正常启动   |
-  | 1                      | runlevel1.target, rescue.target     | 单用户模式，root权限，用于系统维护，禁止远程登陆            |
-  | 2                      | runlevel2.target, multi-user.target | 多用户状态（没有NFS，进入无网络服务）                       |
-  | 3                      | runlevel3.target, multi-user.target | 完全的多用户状态（有NFS），登陆后进入控制台命令行模式       |
-  | 4                      | runlevel4.target, multi-user.target | 系统未使用，保留                                            |
-  | 5                      | runlevel5.target, graphical.target  | X11控制台，登陆后进入图形GUI模式                            |
-  | 6                      | runlevel6.target, reboot.target     | 系统正常关闭并重启，默认运行级别不能设为6，否则不能正常启动 |
-  | emergency              | emergency.target                    | 紧急 Shell                                                  |
+| System V init 运行级别 | systemd 目标名称                    | 作用                                                        |
+| ---------------------- | ----------------------------------- | ----------------------------------------------------------- |
+| 0                      | runlevel0.target, poweroff.target   | 系统停机状态，系统默认运行级别不能设为0，否则不能正常启动   |
+| 1                      | runlevel1.target, rescue.target     | 单用户模式，root权限，用于系统维护，禁止远程登陆            |
+| 2                      | runlevel2.target, multi-user.target | 多用户状态（没有NFS，进入无网络服务）                       |
+| 3                      | runlevel3.target, multi-user.target | 完全的多用户状态（有NFS），登陆后进入控制台命令行模式       |
+| 4                      | runlevel4.target, multi-user.target | 系统未使用，保留                                            |
+| 5                      | runlevel5.target, graphical.target  | X11控制台，登陆后进入图形GUI模式                            |
+| 6                      | runlevel6.target, reboot.target     | 系统正常关闭并重启，默认运行级别不能设为6，否则不能正常启动 |
+| emergency              | emergency.target                    | 紧急 Shell                                                  |
 
   
 
@@ -1275,7 +1275,7 @@ select系统调用允许程序同时在多个底层文件描述符上，等待�
 
 > 多路复用的特点是**通过一种机制一个进程能同时等待IO文件描述符**，内核监视这些文件描述符（套接字描述符），其中的任意一个进入读就绪状态，select， poll，epoll函数就可以返回。对于监视的方式，又可以分为 select， poll， epoll三种方式。
 
-上面的图和blocking IO的图其实并没有太大的不同，事实上，还更差一些。**因为这里需要使用两个system call (select 和 recvfrom)，而blocking IO只调用了一个system call (recvfrom)**。但是，**用select的优势在于它可以同时处理多个connection**。
+下面的图和blocking IO的图其实并没有太大的不同，事实上，还更差一些。**因为这里需要使用两个system call (select 和 recvfrom)，而blocking IO只调用了一个system call (recvfrom)**。但是，**用select的优势在于它可以同时处理多个connection**。
 
 
 
@@ -1373,7 +1373,7 @@ select负责**轮询等待**，recvfrom负责**拷贝**。当用户进程调用�
 
 ## 概念
 
-epoll是一种I/O事件通知机制，是linux 内核实现IO多路复用的一个实现。
+epoll是一种I/O事件通知机制，是linux 内核实现==**IO多路复用的一个实现**==。
 IO多路复用是指，在一个操作里同时监听多个输入输出源，在其中一个或多个输入输出源可用的时候返回，然后对其的进行读写操作。
 
 ## I/O
@@ -1391,7 +1391,7 @@ IO多路复用是指，在一个操作里同时监听多个输入输出源，在
 
 ## epoll的通俗解释
 
-结合以上三条，epoll的通俗解释是一种当文件描述符的内核缓冲区非空的时候，发出可读信号进行通知，当写缓冲区不满的时候，发出可写信号通知的机制。
+结合以上三条，epoll的通俗解释是一种当文件描述符的内核读缓冲区非空的时候，发出可读信号进行通知，当写缓冲区不满的时候，发出可写信号通知的机制。
 
 ## API详解
 
@@ -1474,7 +1474,7 @@ epoll监控多个文件描述符的I/O事件。epoll支持边缘触发(edge trig
 1. 对于读操作，只要缓冲内容不为空，LT模式返回读就绪。
 2. 对于写操作，只要缓冲区还不满，LT模式会返回写就绪。
 
-当被监控的文件描述符上有可读写事件发生时，epoll_wait()会通知处理程序去读写。如果这次没有把数据一次性全部读写完(如读写缓冲区太小)，那么下次调用 epoll_wait()时，它还会通知你在上没读写完的文件描述符上继续读写，当然如果你一直不去读写，它会一直通知你。如果系统中有大量你不需要读写的就绪文件描述符，而它们每次都会返回，这样会大大降低处理程序检索自己关心的就绪文件描述符的效率。
+当被监控的文件描述符上有可读写事件发生时，epoll_wait()会通知处理程序去读写。如果这次没有把数据一次性全部读写完(如读写缓冲区太小)，那么下次调用 epoll_wait()时，它还会通知你在上次没读写完的文件描述符上继续读写，当然如果你一直不去读写，它会一直通知你。如果系统中有大量你不需要读写的就绪文件描述符，而它们每次都会返回，这样会大大降低处理程序检索自己关心的就绪文件描述符的效率。
 
 ### 边缘触发
 

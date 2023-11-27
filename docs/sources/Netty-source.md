@@ -1,3 +1,7 @@
+---
+typora-root-url: ..\images
+---
+
 # 源码
 
 ```xml
@@ -16,7 +20,7 @@ Netty 作为 NIO 的库，自然既可以作为服务端接受请求，也可以
 
 > 打开 netty-example 的源码，把 `echo` 包下面的代码复制出来玩一玩。
 
-![5](D:\Java\document\study\images\netty-5.png)
+![5](netty-5.png)
 
 > 左边是服务端代码，右边是客户端代码。
 
@@ -52,11 +56,11 @@ Netty 作为 NIO 的库，自然既可以作为服务端接受请求，也可以
 
 这节我们来看看 NioSocketChannel 是怎么和 JDK 底层的 SocketChannel 联系在一起的，它们是一对一的关系。NioServerSocketChannel 和 ServerSocketChannel 同理，也是一对一的关系。
 
-![3](D:\Java\document\study\images\netty-3.png)
+![3](netty-3.png)
 
 在 Bootstrap（客户端） 和 ServerBootstrap（服务端） 的启动过程中都会调用 channel(…) 方法：
 
-![10](D:\Java\document\study\images\netty-10.png)
+![10](netty-10.png)
 
 下面，我们来看 channel(…) 方法的源码：
 
@@ -72,7 +76,7 @@ public B channel(Class<? extends C> channelClass) {
 
 我们可以看到，这个方法只是设置了 channelFactory 为 ReflectiveChannelFactory 的一个实例，然后我们看下这里的 ReflectiveChannelFactory 到底是什么：
 
-![1](D:\Java\document\study\images\netty-1.png)
+![1](netty-1.png)
 
 **newChannel()** 方法是 ChannelFactory 接口中的唯一方法，**工厂模式**大家都很熟悉。我们可以看到，`ReflectiveChannelFactory#newChannel()` 方法中使用了反射调用 Channel 的无参构造方法来创建 Channel，我们只要知道，ChannelFactory 的 newChannel() 方法什么时候会被调用就可以了。
 
@@ -162,7 +166,7 @@ NioServerSocketChannel 同理，也非常简单，从 `ServerBootstrap#bind(...)
 
 所以我们知道了，NioSocketChannel 在实例化过程中，会先实例化 JDK 底层的 SocketChannel，NioServerSocketChannel 也一样，会先实例化 ServerSocketChannel 实例：
 
-![18](D:\Java\document\study\images\netty-18.png)
+![18](netty-18.png)
 
 说到这里，我们顺便再继续往里看一下 NioSocketChannel 的构造方法：
 
@@ -228,7 +232,7 @@ Netty 中非常多的异步调用，所以在介绍更多 NIO 相关的内容之
 
 前面我们在介绍 Echo 例子的时候，已经用过了 ChannelFuture 这个接口了：
 
-![6](D:\Java\document\study\images\netty-6.png)
+![6](netty-6.png)
 
 争取在看完本节后，读者能搞清楚上面的这几行划线部分是怎么走的。
 
@@ -400,7 +404,7 @@ public interface Promise<V> extends Future<V> {
 
 接下来，我们再来看下 **ChannelPromise**，它继承了前面介绍的 ChannelFuture 和 Promise 接口。
 
-![4](D:\Java\document\study\images\netty-4.png)
+![4](netty-4.png)
 
 ChannelPromise 接口在 Netty 中使用得比较多，因为它综合了 ChannelFuture 和 Promise 两个接口：
 
@@ -455,7 +459,7 @@ public interface ChannelPromise extends ChannelFuture, Promise<Void> {
 
 我把这几个接口的主要方法列在一起，这样大家看得清晰些：
 
-![4](D:\Java\document\study\images\netty-7.png)
+![4](netty-7.png)
 
 接下来，我们需要来一个实现类，这样才能比较直观地看出它们是怎么使用的，因为上面的这些都是接口定义，具体还得看实现类是怎么工作的。
 
@@ -488,7 +492,7 @@ public class DefaultPromise<V> extends AbstractFuture<V> implements Promise<V> {
 
 说完上面的属性以后，大家可以看下 `setSuccess(V result)` 、`trySuccess(V result)` 和 `setFailure(Throwable cause)` 、 `tryFailure(Throwable cause)` 这几个方法：
 
-![8](D:\Java\document\study\images\netty-8.png)
+![8](netty-8.png)
 
 > 看出 setSuccess(result) 和 trySuccess(result) 的区别了吗？
 
@@ -573,7 +577,7 @@ public Promise<V> sync() throws InterruptedException {
 
 这节就说这么多吧，我们回过头来再看一下这张图，看看大家是不是看懂了这节内容：
 
-![6](D:\Java\document\study\images\netty-6.png)
+![6](netty-6.png)
 
 我们就说说上图左边的部分吧，虽然我们还不知道 bind() 操作中具体会做什么工作，但是我们应该可以猜出一二。
 
@@ -593,7 +597,7 @@ channel.closeFuture() 也会返回一个 ChannelFuture，然后调用了 sync() 
 
 每个 Channel 内部都有一个 pipeline，pipeline 由多个 handler 组成，handler 之间的顺序是很重要的，因为 IO 事件将按照顺序顺次经过 pipeline 上的 handler，这样每个 handler 可以专注于做一点点小事，由多个 handler 组合来完成一些复杂的逻辑。
 
-![11](D:\Java\document\study\images\netty-11.png)
+![11](netty-11.png)
 
 从图中，我们知道这是一个双向链表。
 
@@ -644,7 +648,7 @@ channel.closeFuture() 也会返回一个 ChannelFuture，然后调用了 sync() 
 
 到这里，我想大家应该都知道 Inbound 和 Outbound 了吧？下面我们来介绍它们的接口使用。
 
-![9](D:\Java\document\study\images\netty-9.png)
+![9](netty-9.png)
 
 定义处理 Inbound 事件的 handler 需要实现 ChannelInboundHandler，定义处理 Outbound 事件的 handler 需要实现 ChannelOutboundHandler。最下面的三个类，是 Netty 提供的适配器，特别的，如果我们希望定义一个 handler 能同时处理 Inbound 和 Outbound 事件，可以通过继承中间的 **ChannelDuplexHandler** 的方式，比如 **LoggingHandler** 这种既可以用来处理 Inbound 也可以用来处理 Outbound 事件的 handler。
 
@@ -714,7 +718,7 @@ protected DefaultChannelPipeline(Channel channel) {
 
 这里实例化了 tail 和 head 这两个 handler。tail 实现了 ChannelInboundHandler 接口，而 head 实现了 ChannelOutboundHandler 和 ChannelInboundHandler 两个接口，并且最后两行代码将 tail 和 head 连接起来:
 
-![12](D:\Java\document\study\images\netty-12.png)
+![12](netty-12.png)
 
 > 注意，在不同的版本中，源码也略有差异，head 不一定是 in + out，大家知道这点就好了。
 >
@@ -722,7 +726,7 @@ protected DefaultChannelPipeline(Channel channel) {
 
 这里只是构造了 pipeline，并且添加了两个固定的 handler 到其中（head + tail），还不涉及到自定义的 handler 代码执行。我们回过头来看下面这段代码：
 
-![13](D:\Java\document\study\images\netty-13.png)
+![13](netty-13.png)
 
 > 我们说过 childHandler 中指定的 handler 不是给 NioServerSocketChannel 使用的，是给 NioSocketChannel 使用的，所以这里我们不看它。
 
@@ -788,7 +792,7 @@ void init(Channel channel) throws Exception {
 
 大家可以稍微看一下 ChannelInitializer 的 initChannel 方法，有个简单的认识就好，此时的 pipeline 应该是这样的：
 
-![14](D:\Java\document\study\images\netty-14.png)
+![14](netty-14.png)
 
 ChannelInitializer 的 initChannel(channel) 方法被调用的时候，会往 pipeline 中添加我们最开始指定的 **LoggingHandler** 和添加一个 **ServerBootstrapAcceptor**。但是我们现在还不知道这个 initChannel 方法何时会被调用。
 
@@ -802,11 +806,11 @@ void init(Channel channel) throws Exception {
 }
 ```
 
-![23](D:\Java\document\study\images\netty-23.png)
+![23](netty-23.png)
 
 它和服务端 ServerBootstrap 要添加 ServerBootstrapAcceptor 不一样，它只需要将 EchoClient 类中的 ChannelInitializer 实例加进来就可以了，它的 ChannelInitializer 中添加了两个 handler，LoggingHandler 和 EchoClientHandler：
 
-![16](D:\Java\document\study\images\netty-16.png)
+![16](netty-16.png)
 
 很显然，我们需要的是像 LoggingHandler 和 EchoClientHandler 这样的 handler，但是，它们现在还不在 pipeline 中，那么它们什么时候会真正进入到 pipeline 中呢？以后我们再揭晓。
 
@@ -818,7 +822,7 @@ void init(Channel channel) throws Exception {
 
 我们用下面这张图结束本节。下图展示了传播的方法，但我其实是更想让大家看一下，哪些事件是 Inbound 类型的，哪些是 Outbound 类型的：
 
-![19](D:\Java\document\study\images\netty-19.png)
+![19](netty-19.png)
 
 Outbound 类型的几个事件大家应该比较好认，注意 bind 也是 Outbound 类型的。
 
@@ -826,7 +830,7 @@ Outbound 类型的几个事件大家应该比较好认，注意 bind 也是 Outb
 
 接下来，我们来分析 Netty 中的线程池。Netty 中的线程池比较不好理解，因为它的类比较多，而且它们之间的关系错综复杂。看下图，感受下 NioEventLoop 类和 NioEventLoopGroup 类的继承结构：
 
-![2](D:\Java\document\study\images\netty-2.png)
+![2](netty-2.png)
 
 这张图我按照继承关系整理而来，大家仔细看一下就会发现，涉及到的类确实挺多的。本节来给大家理理清楚这部分内容。
 
@@ -1612,7 +1616,7 @@ protected void doRegister() throws Exception {
 
 我们重点来说说 **pipeline** 操作，我们之前在介绍 NioSocketChannel 的 pipeline 的时候介绍到，我们的 pipeline 现在长这个样子：
 
-![20](D:\Java\document\study\images\netty-20.png)
+![20](netty-20.png)
 
 > 现在，我们将看到这里会把 LoggingHandler 和 EchoClientHandler 添加到 pipeline。
 
@@ -1655,7 +1659,7 @@ private boolean initChannel(ChannelHandlerContext ctx) throws Exception {
 
 我们前面也说过，ChannelInitializer 的 init(channel) 被执行以后，那么其内部添加的 handlers 会进入到 pipeline 中，然后上面的 finally 块中将 ChannelInitializer 的实例从 pipeline 中删除，那么此时 pipeline 就算建立起来了，如下图：
 
-![21](D:\Java\document\study\images\netty-21.png)
+![21](netty-21.png)
 
 > 其实这里还有个问题，如果我们在 ChannelInitializer 中添加的是一个 ChannelInitializer 实例呢？大家可以考虑下这个情况。
 
@@ -1851,7 +1855,7 @@ public final ChannelFuture connect(SocketAddress remoteAddress, ChannelPromise p
 
 接下来就是 pipeline 的操作了，从 tail 开始，执行 pipeline 上的 Outbound 类型的 handlers 的 connect(...) 方法，那么真正的底层的 connect 的操作发生在哪里呢？还记得我们的 pipeline 的图吗？
 
-![22](D:\Java\document\study\images\netty-22.png)
+![22](netty-22.png)
 
 从 tail 开始往前找 out 类型的 handlers，每经过一个 handler，都执行里面的 connect() 方法，最后会到 head 中，因为 head 也是 Outbound 类型的，我们需要的 connect 操作就在 head 中，它会负责调用 unsafe 中提供的 connect 方法：
 

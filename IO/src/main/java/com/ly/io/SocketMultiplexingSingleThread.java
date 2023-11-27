@@ -36,7 +36,7 @@ public class SocketMultiplexingSingleThread {
 
             /**
              * server = fd3
-             *select poll: jvm里开辟一个数组
+             * select poll: jvm里开辟一个数组
              * epoll: epoll_ctl(7,ADD,3,accept)
              */
             // 将通道注册到选择器上，监听接收事件
@@ -97,23 +97,23 @@ public class SocketMultiplexingSingleThread {
 
     private void readHandler(SelectionKey key) {
         // 获取该选择器上的“读就绪”状态的通道
-        SocketChannel client = (SocketChannel) key.channel();
+        SocketChannel socketChannel = (SocketChannel) key.channel();
         ByteBuffer buffer = (ByteBuffer) key.attachment();
         buffer.clear();
         int read = 0;
         try {
             while (true) {
-                read = client.read(buffer);
+                read = socketChannel.read(buffer);
                 if (read > 0) {
                     buffer.flip();
                     while (buffer.hasRemaining()) {
-                        client.write(buffer);
+                        socketChannel.write(buffer);
                     }
                     buffer.clear();
                 } else if (read == 0) {
                     break;
                 } else {    //-1 close_wait bug 死循环 CPU 100%
-                    client.close();
+                    socketChannel.close();
                     break;
                 }
             }

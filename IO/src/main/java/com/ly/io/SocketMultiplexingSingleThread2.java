@@ -60,7 +60,7 @@ public class SocketMultiplexingSingleThread2 {
                                 byteBuffer.clear();
                             } else if (length == 0) {
                                 break;
-                            } else {
+                            } else { //-1 close_wait bug 死循环 CPU 100%
                                 socketChannel.close();
                                 break;
                             }

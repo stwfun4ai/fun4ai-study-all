@@ -1,5 +1,3 @@
-
-
 # 概念
 
 ## 主键（primary key）
@@ -20,8 +18,6 @@
 -  一个表中可以有多个唯一性索引，但只能有一个主键。
 - 主键列不允许空值，而唯一性索引列允许空值。
 - 主键可以被其他字段作外键引用，而索引不能作为外键引用。
-
-
 
 
 
@@ -88,8 +84,6 @@
 - **水平拆分**（技术层面的拆分）
 
   ​		**把一个表的数据给弄到多个库的多个表里去，但是每个库的表结构都一样，只不过每个库表放的数据是不同的，所有库表的数据加起来就是全部数据。**水平拆分的意义，就是将数据均匀放更多的库里，然后用多个库来扛更高的**并发**，还有就是用多个库的存储容量来进行**扩容**。
-
-  就是将数据均匀放更多的库里，然后用多个库来扛更高的并发，还有就是用多个库的存储容量来进行扩容。
 
   ![database-split-horizon](images/database-split-horizon.png)
 
@@ -166,14 +160,6 @@ https://adjava.netlify.app/docs/high-concurrency/images/database-shard-method-2.
 4. 由 DBA 负责将原先数据库服务器的库，迁移到新的数据库服务器上去，库迁移是有一些便捷的工具的。
 5. 我们这边就是修改一下配置，调整迁移的库所在数据库服务器的地址。
 6. 重新发布系统，上线，原先的路由规则变都不用变，直接可以基于 n 倍的数据库服务器的资源，继续进行线上系统的提供服务。
-
-
-
-
-
-
-
-
 
 
 
@@ -406,7 +392,7 @@ public class IdWorker {
 ​		我们通过 MySQL 命令：
 
 ```sql
-show slave statusCopy to clipboardErrorCopied
+show slave status
 ```
 
 ​		查看 `Seconds_Behind_Master` ，可以看到从库复制主库的数据落后了几 ms。
@@ -582,18 +568,5 @@ update t_user set age=10 where name='chackca';    	无索引，表锁。
 - 自适应哈希索引（ahi）
 
 - 预读（read ahead）
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
