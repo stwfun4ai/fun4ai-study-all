@@ -1,6 +1,10 @@
+---
+typora-root-url: images
+---
+
 # Java知识点
 
-<img src="images\java知识点.jpg" alt="java知识点" style="zoom:200%;" />
+<img src="java知识点.jpg" alt="java知识点" style="zoom:200%;" />
 
 **==先对知识点有一个宏观的认识，再着手从细节处深入研究知识点的原理。==**
 
@@ -217,6 +221,17 @@ class Aa{
 ```
 
 
+
+## 访问修饰符
+
+|  修饰符   | 当前类 | 同包 | 子类 | 其他包 |
+| :-------: | :----: | :--: | :--: | :----: |
+|  public   |   √    |  √   |  √   |   √    |
+| protected |   √    |  √   |  √   |   ×    |
+|  default  |   √    |  √   |  ×   |   ×    |
+|  private  |   √    |  ×   |  ×   |   ×    |
+
+类的成员不写访问修饰时默认为default。默认对于同一个包中的其他类相当于公开（public），对于不是同一个包中的其他类相当于私有（private）。受保护（protected）对子类相当于公开，对不是同一包中的没有父子关系的类相当于私有。Java中，外部类的修饰符只能是public或默认，类的成员（包括内部类）的修饰符可以是以上四种。
 
 ## 关键字
 
@@ -596,9 +611,13 @@ Java对象的创建过程往往包括类初始化和类实例化两个阶段。�
 
 > 加法运算可能导致整数越界。如二分查找计算中间位置应用low+(high-low)/2 或low+(high-low)>>1或low+(high-low)>>>1
 
- 	byte、short、int 类型的右移操作都是先将左操作数转换为int类型，然后执行右移操作，结果也是int类型。
- 	>>> 逻辑右移，不带符号。对左边空位补0。
- 	>>操作对左边空位补符号位
+- `<<` :左移运算符，向左移若干位，高位丢弃，低位补零。`x << 1`,相当于 x 乘以 2(不溢出的情况下)。
+- `>>` :带符号右移，向右移若干位，高位补符号位，低位丢弃。正数高位补 0,负数高位补 1。`x >> 1`,相当于 x 除以 2。
+- `>>>` :无符号右移，忽略符号位，空位都以 0 补齐。
+
+> 由于 `double`，`float` 在二进制中的表现比较特殊，因此不能来进行移位操作。
+>
+> 移位操作符实际上支持的类型只有`int`和`long`，编译器在对`short`、`byte`、`char`类型进行移位前，都会将其转换为`int`类型再操作。
 
 ### ^异或 exclusive OR(xor)
 
@@ -663,7 +682,7 @@ System.out.println(s3.equals(s2));  // true
 
 # 集合==//todo==
 
-<img src="images\java-collections.gif" alt="java集合框架图" style="zoom:200%;" />
+<img src="java-collections.gif" alt="java集合框架图" style="zoom:200%;" />
 
 - Collection
   - List	有序的、可重复的
@@ -3081,7 +3100,7 @@ public class CreateThreadDemo {
 
 ### 线程状态图
 
-![img](images\thread status.png)
+![img](thread status.png)
 
 > **说明：**New新建，Runnable表示就绪状态（万事俱备，只欠CPU），Running表示运行状态，Blocked表示阻塞状态，Terminated结束状态。**阻塞状态**又有多种情况，
 >
@@ -3121,7 +3140,7 @@ LockSupport.park()	unpark()
 
 ### ThreadLocal
 
-ThreadLocal为解决多线程程序的并发问题提供了一种新的思路。ThreadLocal，顾名思义是线程的一个本地化对象，当工作于多线程中的对象使用ThreadLocal维护变量时，ThreadLocal为每个使用该变量的线程分配一个独立的变量副本，所以每一个线程都可以独立的改变自己的副本，而不影响其他线程所对应的副本。从线程的角度看，这个变量就像是线程的本地变量。
+ThreadLocal为解决多线程程序的并发问题提供了一种新的思路。ThreadLocal，顾名思义是线程的一个本地化对象，当工作于多线程中的对象使用ThreadLocal维护变量时，ThreadLocal为每个使用该变量的线程分配一个独立的变量副本，所以每一个线程都可以独立的改变自己的副本，而不影响其他线程所对应的副本。从线程的角度看，这个变量就像是线程的本地变量。**共享变量在每个线程都有一个副本，每个线程操作的都是自己的副本，对另外的线程没有影响。**
 
 ThreadLocal类非常简单好用，只有四个方法，能用上的也就是下面三个方法：
 - void set(T value)：设置当前线程的线程局部变量的值。
@@ -3175,6 +3194,10 @@ static class ThreadLocalMap {
 ```
 
 弱引用(WeakReferences) :如果某个对象**仅**剩下弱引用指向它，那么下一次GC的时候该对象就会被回收掉
+
+Thread、ThreadLocal、ThreadLocalMap、Entry 的关系 如下图所示：
+
+![img](ThreadLocal概念图2.png)
 
 
 
@@ -3359,9 +3382,9 @@ JVM 堆 栈 方法栈分配 GC基本原理  GC Roots
 
 #### 1.8
 
-<img src="images\jvm1.8.png" alt="jvm1.8" style="zoom:200%;" />
+<img src="jvm1.8.png" alt="jvm1.8" style="zoom:200%;" />
 
-<img src="images\jvm1.8_1.png" alt="jvm1.8_1" style="zoom:200%;" />
+<img src="jvm1.8_1.png" alt="jvm1.8_1" style="zoom:200%;" />
 
 **JDK1.7及以后字符串常量池移至堆内存**
 
@@ -3589,11 +3612,11 @@ T t = new T();
 
 > 32位JVM中Mark Word：
 
-![img](images\32bit JVM Mark Word.png)
+![img](32bit JVM Mark Word.png)
 
 > 64位JVM中Mark Word：
 
-![img](images\64bit JVM Mark Word.png)
+![img](64bit JVM Mark Word.png)
 
 
 
@@ -3761,13 +3784,13 @@ Space losses: 0 bytes internal + 0 bytes external = 0 bytes total
 
   ​		如果使用句柄访问的话，那么Java堆中将会划分出一块内存来作为**句柄池**，reference中存储的就是**对象的句柄地址**，而句柄中包含了对象实例数据与类型数据各自的具体地址信息。
 
-  ![image-20220624163902158](images\通过句柄访问对象.png)
+  ![image-20220624163902158](通过句柄访问对象.png)
 
 - 直接指针
 
   ​		如果使用直接指针访问，那么Java堆对象的布局中就必须考虑如何防止访问类型数据的相关信息，而reference中存储的直接就是对象地址。
 
-  ![image-20220624164141820](D:\Java\Workspaces\IdeaProjects\fun4ai-study-all\docs\images\通过直接指针访问对象.png)
+  ![image-20220624164141820](D:\Java\Workspaces\IdeaProjects\fun4ai-study-all\docs\通过直接指针访问对象.png)
 
 > 这两种对象访问方式**各有优势**
 
@@ -3881,7 +3904,7 @@ CONSTANT_Utf8_info:
 
 ### 过程/生命周期
 
-![image-20220622132043557](D:\Java\Workspaces\IdeaProjects\fun4ai-study-all\docs\images\Class lifecycle.png)
+![image-20220622132043557](D:\Java\Workspaces\IdeaProjects\fun4ai-study-all\docs\Class lifecycle.png)
 
 
 
@@ -4394,7 +4417,7 @@ thread
 
 ### 基本类型包装常量池
 
-​		Java 基本类型的包装类的大部分都实现了常量池技术。**Byte,Short,Integer,Long**这 4 种包装类默认创建了数值 **[-128,127]** 的相应类型的缓存数据，**Character创建了数值在[0,127]**范围的缓存数据，Boolean直接返回True或False，如果超出对应范围就会去创建新的对象。两种浮点数类型的包装类Float,Double并没有实现常量池技术。
+​		Java 基本类型的包装类的大部分都实现了常量池技术。**Byte,Short,Integer,Long**这 4 种包装类默认创建了数值 **[-128,127]** 的相应类型的缓存数据，**`Character`创建了数值在[0,127]**范围的缓存数据，`Boolean`直接返回`True`或`False`，如果超出对应范围就会去创建新的对象。两种浮点数类型的包装类Float,Double并没有实现常量池技术。
 
 **Integer 缓存源码：**
 
@@ -5785,9 +5808,20 @@ Base64工具类提供了一套静态方法获取下面三种BASE64编解码器�
 | 补全声明if while try | ctrl + shift + Enter                                         |
 | 转换大小写           | ctrl + shift + U                                             |
 | 预览                 | ctrl + shift + I                                             |
+| 找到使用的地方       | ctrl + G                                                     |
+| 声明/用法            | F3                                                           |
+| 文件结构             | ctrl + F3 /ctrl + O                                          |
 | 层级结构             | F4                                                           |
+| Recent File          | ctrl + E                                                     |
+| 接口                 | ctrl + T                                                     |
 | 扩展选择块           | Alt+Shift+向上箭头                                           |
 | 选择重写或实现方法   | 菜单项Code->Override Methods 或 Alt+Insert->Override Methods |
+| 生成...              | Alt+Insert                                                   |
+| surround with补全    | Alt+Shift+Z                                                  |
+| format               | ctrl+alt+L                                                   |
+| 跳转行               | ctrl+L                                                       |
+| 复制行               | ctrl+alt+下箭头                                              |
+| 删除行               | ctrl+D                                                       |
 
 
 

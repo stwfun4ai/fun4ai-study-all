@@ -4,7 +4,7 @@ import org.openjdk.jol.info.ClassLayout;
 
 /**
  * @Description 对象在内存中使用情况测试分析
- *              需添加jol依赖
+ * 需添加jol依赖
  * @Created by fun4ai
  * @Date 1/13 0013 0:46
  */
@@ -25,6 +25,7 @@ public class ObjectMemoryUsageTest {
         // -XX:-UseCompressedClassPointers -XX:-UseCompressedOops
         System.out.println(ClassLayout.parseInstance(d).toPrintable());
         //dog数组int[]数组测试
+
     }
 
 }

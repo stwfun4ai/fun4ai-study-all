@@ -263,9 +263,9 @@ Environment 调用系统环境的属性值
 一般使用`@Autowired` 注解自动装配bean，要想把类标识成可用于@Autowired注解自动装配的bean的类，可用以下注解：（标注需要由Spring IoC容器进行对象托管的类）
 
 - `@Component` ：通用注解，可标注任意类为Spring组件。如果一个bean不知道属于哪一层，可使用该注解标注。
-- `@Controller` ：对应Spring MVC 控制层，主要用于接受用户请求并调用Service层返回数据给前端页面。
-- `@Service` ：对应服务层，主要涉及一些复杂的逻辑，需要用到Dao层。
-- `@Repository` ：对应持久层即Dao层，主要用于数据库相关操作。使未经检查的异常有资格转换为Spring DataAccessException
+  - `@Controller` ：对应Spring MVC 控制层，主要用于接受用户请求并调用Service层返回数据给前端页面。
+  - `@Service` ：对应业务层，主要涉及一些复杂的逻辑，需要用到Dao层。
+  - `@Repository` ：对应持久层即Dao层，主要用于数据库相关操作。使未经检查的异常有资格转换为Spring DataAccessException
 
 ## Spring配置Bean的方式
 
@@ -653,6 +653,13 @@ DelegatingFilterProxy,整合Shiro,SpringSecurity的时候都有用到。
 @Resource按照byName注入，J2EE提供。默认
 name:Spring解析为bean名字
 type:bean类型
+
+## 注入bean的三个注解
+
+- @Autowired是spring自带的，@Inject是JSR330规范实现的，@Resource是JSR250规范实现的，需要导入不同的包
+- @Autowired、@Inject用法基本一样，不同的是@Autowired有一个request属性
+- @Autowired、@Inject是默认按照类型匹配的，@Resource是按照名称匹配的
+- @Autowired如果需要按照名称匹配需要和@Qualifier一起使用，@Inject和@Name一起使用
 
 # 常用注解
 
