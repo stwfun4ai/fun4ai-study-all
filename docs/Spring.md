@@ -41,9 +41,9 @@
 
 # IOC
 
-IOC（Inversion Of Control，控制反转）是一种设计思想，就是将原本在程序中⼿动创建对象的控制权，交由Spring框架来管理。IoC 容器是 Spring⽤来实现 IoC 的载体， IoC 容器实际上就是个Map（key，value）,Map 中存放的是各种对象。
+IOC（Inversion Of Control，控制反转）**是一种设计思想，就是将原本在程序中⼿动创建对象的控制权，交由Spring框架来管理。**IoC 容器是 Spring⽤来实现 IoC 的载体， IoC 容器实际上就是个Map（key，value）,Map 中存放的是各种对象。
 
-DI（Dependency Injection，依赖注入）：DI是对IoC更准确的描述，容器动态的将某种依赖关系注入到组件之中。
+DI（Dependency Injection，依赖注入）：DI是对IoC更准确的描述/实现方式，**容器动态的将某种依赖关系注入到组件之中。**
 
 - set方法注入
 
@@ -57,7 +57,7 @@ DI（Dependency Injection，依赖注入）：DI是对IoC更准确的描述，�
 
 # AOP
 
-​		AOP（Aspect Oriented Programming，面向切面编程）能够将那些与业务无关，却为业务模块所共同调⽤的逻辑或责任（例如事务处理、⽇志管理、权限控制等）封装起来，便于减少系统的重复代码，降低模块间的耦合度，有利于未来的可拓展性和可维护性。
+​		AOP（Aspect Oriented Programming，面向切面编程）**能够将那些与业务无关，却为业务模块所共同调用的逻辑或责任（例如事务处理、日志管理、权限控制等）封装起来，便于减少系统的重复代码，降低模块间的耦合度，有利于未来的可拓展性和可维护性。**
 
 ​		Spring AOP是基于动态代理(Proxying)的，如果要代理的对象实现了某个接口，那么Spring AOP会适用JDK Proxy去创建代理对象，而对于没有实现接口的对象会适用Cglib生成一个被代理对象的子类来作为代理。**运行时增强**。
 
@@ -286,14 +286,16 @@ Environment 调用系统环境的属性值
 - 隔离性(Isolated)：并发执行的事务彼此无法看到对方的中间状态；
 - 持久性(Durable)：事务完成后所做的改动都会被持久化，即使发生灾难性的失败。通过日志和同步备份可以在故障发生后重建数据。
 
+> **只有保证了事务的持久性、原子性、隔离性之后，一致性才能得到保障。也就是说 A、I、D 是手段，C 是目的！**
+
 ## 事务隔离级别
 
 一个事务对数据的修改与另一个并行的事务的隔离程度，当多个事务同时访问相同数据时，若没有采取必要的隔离机制，就可能会发生以下问题：
 
 - 3类数据读取问题：
   - 脏读（Dirty Read）：A事务读取B事务尚未提交的数据并在此基础上操作，而B事务执行回滚，那么A读取到的数据就是脏数据。
-  - 幻读（Phantom Read）：事务A重新执行一个查询，返回一系列符合查询条件的行，发现其中插入了被事务B提交的行。
-  - 不可重复读（Unrepeatable Read）：事务A重新读取前面读取过的数据，发现该数据已经被另一个已提交的事务B修改过了。
+  - 幻读（Phantom Read）：事务A重新执行一个查询，返回一系列符合查询条件的行，发现其中插入了被事务B提交的行。(1select 2insert 1select )
+  - 不可重复读（Unrepeatable Read）：事务A重新读取前面读取过的数据，发现该数据已经被另一个已提交的事务B修改过了。(1select 2update 1select )
 - 2类数据更新问题：
   - 第1类丢失更新：事务A撤销时，把已经提交的事务B的更新数据覆盖了。
   - 第2类丢失更新：事务A覆盖事务B已经提交的数据，造成事务B所做的操作丢失。
@@ -349,7 +351,15 @@ Environment 调用系统环境的属性值
 
 声明式事务主要是得益于Spring AOP。使用一个事务拦截器，在方法调用的前后/周围进行事务性增强（advice），来驱动事务完成。
 
-@Transactional注解既可以标注在类上，也可以标注在方法上。当在类上时，默认应用到类里的所有方法。若此时方法上也标注了，则方法上的优先级高。另外注意方法一定要是public的。
+@Transactional注解既可以标注在类上，也可以标注在方法上。当在类上时，默认应用到类里的所有public方法。若此时方法上也标注了，则方法上的优先级高。另外注意方法一定要是public的。
+
+`Transactional` **的使用注意事项总结**
+
+- `@Transactional` 注解只有作用到 public 方法上事务才生效，不推荐在接口上使用；
+- 避免同一个类中调用 `@Transactional` 注解的方法，这样会导致事务失效；
+- 正确的设置 `@Transactional` 的 `rollbackFor` 和 `propagation` 属性，否则事务可能会回滚失败;
+- 被 `@Transactional` 注解的方法所在的类必须被 Spring 管理，否则不生效；
+- 底层使用的数据库必须支持事务机制，否则不生效；
 
 
 
@@ -401,7 +411,7 @@ Environment 调用系统环境的属性值
 
 总结：我们在获取对象时通过name获取，如果原始对象和代理对象同时存在的话，无法选择获取哪一个。使用lambda表达式代表了一种回调机制，当需要使用当前对象的时候，通过lambda表达式追踪返回一个确定的最终版本对象，而不需要判断有几个对象，因为是替换的过程，最终只会有一个对象。
 
-
+![](images\Spting三级缓存.png)
 
 ## 源码及分析
 
@@ -420,7 +430,8 @@ public class DefaultSingletonBeanRegistry extends SimpleAliasRegistry implements
         //正在创建中的beanName集合
         private final Set<String> singletonsCurrentlyInCreation =
                 Collections.newSetFromMap(new ConcurrentHashMap<>(16));
-        //缓存查找bean  如果第1级缓存没有，那么从第2级缓存获取。如果第2级缓存也没有，那么从第3级缓存创建，并放入第2级缓存。
+        
+    	//缓存查找bean  如果第1级缓存没有，那么从第2级缓存获取。如果第2级缓存也没有，那么从第3级缓存创建，并放入第2级缓存。
         protected Object getSingleton(String beanName, boolean allowEarlyReference) {
             Object singletonObject = this.singletonObjects.get(beanName); //第1级
             if (singletonObject == null && isSingletonCurrentlyInCreation(beanName)) {
@@ -572,6 +583,15 @@ public abstract class AbstractAutoProxyCreator extends ProxyProcessorSupport
 
 
 
+# Spring如何解决循环依赖
+
+- 单例
+  - 构造注入	无解，为避免栈溢出，需要检测有就抛异常(创建时用Set集合做记录，完成后移除。若getBean()时判断有该bean记录就判断为循环依赖并抛异常。)
+  - 设值注入	三级缓存-提前暴露	(代理对象的场景)
+- 原型
+  - 构造注入	无解，为避免栈溢出，需要检测有就抛异常
+  - 设值注入	不支持循环依赖
+
 # Spring 框架中⽤到了哪些设计模式？
 
 ## 单例模式
@@ -638,7 +658,14 @@ AOP中的拦截器链
 
 DelegatingFilterProxy,整合Shiro,SpringSecurity的时候都有用到。
 
-# Autowired和Resource关键字的区别
+# 注入bean的三个注解
+
+- @Autowired是spring自带的，@Inject是JSR330规范实现的，@Resource是JSR250规范实现的，需要导入不同的包
+- @Autowired、@Inject用法基本一样，不同的是@Autowired有一个request属性
+- @Autowired、@Inject是默认按照类型匹配的，@Resource是按照名称匹配的
+- @Autowired如果需要按照名称匹配需要和@Qualifier一起使用，@Inject和@Name一起使用
+
+# @Autowired和@Resource的区别
 
 都是做bean的注入时使用。但后者需要导入javax.annotation.Resource
 
@@ -646,20 +673,12 @@ DelegatingFilterProxy,整合Shiro,SpringSecurity的时候都有用到。
 
 不同点：
 
-@Autowired需要导入org.springframework.beans.factory.annotation.Autowired；只按照byType注入。
-默认情况下要求依赖对象必须存在，若允许null值可设置required为false。若想byName注入需结合
-@Qualifier一起使用。
+- @Autowired需要导入org.springframework.beans.factory.annotation.Autowired；只按照**byType**注入。
+  默认情况下要求依赖对象必须存在，若允许null值可设置required为false。若想byName注入需结合@Qualifier一起使用。
 
-@Resource按照byName注入，J2EE提供。默认
-name:Spring解析为bean名字
-type:bean类型
-
-## 注入bean的三个注解
-
-- @Autowired是spring自带的，@Inject是JSR330规范实现的，@Resource是JSR250规范实现的，需要导入不同的包
-- @Autowired、@Inject用法基本一样，不同的是@Autowired有一个request属性
-- @Autowired、@Inject是默认按照类型匹配的，@Resource是按照名称匹配的
-- @Autowired如果需要按照名称匹配需要和@Qualifier一起使用，@Inject和@Name一起使用
+- @Resource按照**byName**注入，J2EE提供。默认
+  name:Spring解析为bean名字
+  type:bean类型
 
 # 常用注解
 
@@ -671,14 +690,6 @@ type:bean类型
 - @Import是import标签的替换，在SpringBoot的自动装配中非常重要，也是EnableXXX的前置基础。
 
 
-# Spring如何解决循环依赖
-
-- 单例
-  - 构造注入	无解，为避免栈溢出，需要检测有就抛异常(创建时用Set集合做记录，完成后移除。若getBean()时判断有该bean记录就判断为循环依赖并抛异常。)
-  - 设值注入	三级缓存-提前暴露	(代理对象的场景)
-- 原型
-  - 构造注入	无解，为避免栈溢出，需要检测有就抛异常
-  - 设值注入	不支持循环依赖
 
 # Spring和SpringMVC的关系
 

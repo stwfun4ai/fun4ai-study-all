@@ -34,7 +34,9 @@ Spring Boot设计目的是用来简化新 Spring 应用的初始搭建以及开�
 
 　　3、访问 https://start.spring.io 选择依赖后，生成项目并下载，导入到Idea即可。
 
-# 返回统一的数据格式
+# 使用
+
+## 返回统一的数据格式
 
 - Controller：标识一个Spring类是Spring MVC controller处理器。
 
@@ -304,9 +306,9 @@ public class UserController {
 }
 ```
 
-# 资源文件属性配置
+## 资源文件属性配置
 
-## application.properties
+### application.properties
 
 (或者application.yml)中包含系统属性、环境变量、命令参数这类信息。[官方文档](https://docs.spring.io/spring-boot/docs/current/reference/html/application-properties.html#appendix.application-properties) 。
 
@@ -349,7 +351,7 @@ server.tomcat.uri-encoding=UTF-8
 #logging.file=myapp.log
 ```
 
-## 自定义配置
+### 自定义配置
 
 **1、增加自定义的resource.properties 文件**
 
@@ -415,16 +417,16 @@ public class Resource {
     }
 ```
 
-# Thymeleaf ==//todo==
+## Thymeleaf ==//todo==
 
 [Thymeleaf](https://www.cnblogs.com/zhangweizhong/p/12391115.html)
 
-# 整合Mybatis
+## 整合Mybatis
 
 - 注解形式的，也就是没有Mapper.xml文件
 - XML形式的
 
-## xml形式
+### xml形式
 
 **1、pom.xml增加mybatis相关依赖**
 
@@ -518,7 +520,7 @@ public class SpringBootStarterApplication {
 
 > 注意：这一步别忘了，需要在SpringBootStarterApplication 启动类中增加包扫描器，自动扫描加载com.weiz.mapper 里面的mapper 类。
 
-## 代码自动生成工具
+### 代码自动生成工具
 
 Mybatis 整合完之后，接下来就是创建表和pojo类，mybatis提供了强大的自动生成功能。只需简单几步就能生成pojo 类和mapper。Spring Boot有Mybatis  generator自动生成代码插件，能自动生成pojo实体类、接口、mapper.xml 文件，提高开发效率。这里就不介绍怎么安装使用mybatis generator插件。介绍一个简单的GeneratorDisplay自动生成类。
 
@@ -668,7 +670,7 @@ public class GeneratorDisplay {
 
 运行GeneratorDisplay 如下图所示，即可自动生成相关的代码。
 
-## 实现增删改查
+### 实现增删改查
 
 在项目中整合了Mybatis并通过自动生成工具生成了相关的mapper和配置文件之后，下面就开始项目中的调用。
 
@@ -907,7 +909,7 @@ public class MyBatisCRUDController {
 
 在浏览器输入controller里面定义的路径即可。只要你按照上面的步骤一步一步来，基本上就没问题，是不是特别简单。
 
-# 整合Redis
+## 整合Redis
 
 新项目整合 Redis 非常容易，只需要创建项目时勾上 Redis 即可，这里就不说了。
 
@@ -1233,7 +1235,7 @@ public class RedisController {
 
 
 
-# 定时任务Task
+## 定时任务Task
 
 `@EnableScheduling` 为开启定时任务。
 
@@ -1291,7 +1293,7 @@ public class TestTask {
 }
 ```
 
-# 异步执行任务
+## 异步执行任务
 
 `@EnableAsync` 开启异步调用方法
 
@@ -1340,7 +1342,7 @@ public class AsyncTask {
 }
 ```
 
-# 拦截器
+## 拦截器
 
 ```java
 package com.weiz.config;
@@ -1416,7 +1418,7 @@ public class OneInterceptor implements HandlerInterceptor  {
 
 
 
-# 统一异常处理
+## 统一异常处理
 
 Spring Boot 实现统一异常处理的方法主要有以下两种：
 
@@ -1494,7 +1496,7 @@ public class GlobalExceptionHandler  {
 </html>
 ```
 
-# 统一日志
+## 统一日志
 
 在resource下创建logback-spring.xml文件：
 
@@ -1698,9 +1700,9 @@ public class GlobalExceptionHandler  {
 > - 启动后，即可到自定目录查找到生成的日志文件。
 > - 官方推荐使用的xml名字的格式为：logback-spring.xml而不是logback.xml。
 
-# 事务
+## 事务
 
-## 事务传播行为
+### 事务传播行为
 
 - Propagation.REQUIRED -- 支持当前事务，如果当前没有事务，就新建一个事务,最常见的选择。
 - Propagation.SUPPORTS -- 支持当前事务，如果当前没有事务，就以非事务方式执行
@@ -1711,7 +1713,7 @@ public class GlobalExceptionHandler  {
 
 
 
-## 实现
+### 实现
 
 在需要事务的方法上添加 `@Transactional`注解（可以加在类上，则该类所有方法都开启事务），并通过`propagation`指定事务机制。
 
@@ -1731,7 +1733,7 @@ public class GlobalExceptionHandler  {
 
 
 
-# 使用JdbcTemplate操作数据库，配置多数据源！
+## 使用JdbcTemplate操作数据库，配置多数据源！
 
 ​		JDBC（Java Data Base Connectivity， Java 数据库连接）是一种用于执行各种数据库操作的 API，可以为多种数据库提供统一访问接口。所以，JDBC 就像是一套 Java 访问数据库的 API 规范，利用这套规范屏蔽了各种数据库 API 调用的差异性。当应用程序需要访问数据库时，调用 JDBC API 相关代码进新操作，再由JDBC调用各类数据库的驱动包进行数据操作，最后数据库驱动包和对应的数据库通讯协议完成对应的数据库操作。
 
@@ -1901,15 +1903,15 @@ public class ProductServiceImpl implements ProductService  {
 
 
 
-# 热部署
+## 热部署
 
-## 原理
+### 原理
 
 devtools 使用了两个类加载器（ClassLoader），一个是 Base类加载器（base classloader ）：加载那些不会改变的类，如：第三方Jar包等，而另一个是 Restart类加载器（restart classloader）：负责加载那些正在开发的会改变的类。这样在有代码更改的时候，因为重启的时候只是加载了在开发的Class类，没有重新加载第三方的jar包，所以实现了较快的重启时间。
 
 devtools 监听classpath下的文件变动（发生在保存时机），并且会立即重启应用。从而实现类文件和属性文件的热部署。
 
-## 配置
+### 配置
 
 - pom配置引入devtools的依赖
 
@@ -1952,7 +1954,7 @@ spring.devtools.restart.exclude=WEB-INF/**
 
   （2）ctrl + shift + alt + /,选择Registry,勾上 Compiler autoMake allow when app running 
 
-# Pagehelper分页
+## Pagehelper分页
 
 ```xml
  		<!-- pagehelper -->
@@ -2025,7 +2027,7 @@ pagehelper.params=count=countSql
     }
 ```
 
-# Mybatis 自定义Mapper实现多表关联查询
+## Mybatis 自定义Mapper实现多表关联查询
 
 1、创建自定义 mapper
 
@@ -2134,9 +2136,9 @@ public SysUser queryUserByIdCustom(String userId) {
 }
 ```
 
-# 整合mybatis，使用注解的方式实现增删改查
+## 整合mybatis，使用注解的方式实现增删改查
 
-## 整合mybatis
+#### 整合mybatis
 
 1、pom.xml增加mybatis相关依赖
 
@@ -2226,7 +2228,7 @@ public class SpringBootStarterApplication {
 }
 ```
 
-## 代码自动生成工具
+#### 代码自动生成工具
 
 Mybatis 整合完之后，接下来就是创建表和pojo类，mybatis提供了强大的自动生成功能的插件。mybatis generator插件只需简单几步就能生成pojo 类和mapper。操作步骤和xml 配置版也是类似的，唯一要注意的是 **generatorConfig.xml** 的部分配置，要配置按注解的方式生成mapper 。
 
@@ -2366,7 +2368,7 @@ pojo 包里面自动生成了User 实体对象 ，mapper包里面生成了 UserM
 >
 > 　　如：@UpdateProvider(type=UserSqlProvider.class, method="updateByPrimaryKeySelective")。
 
-# 整合mybatis，使用注解实现动态Sql、参数传递等常用操作！
+## 整合mybatis，使用注解实现动态Sql、参数传递等常用操作！
 
 1、@Select 注解
 
@@ -2490,7 +2492,7 @@ User selectByPrimaryKey(String id);
 
 上面的例子可以看到，数据库中的company_id 字段和实体类中定义的 companyId 属性的名称不一致，需要Result 转换。
 
-## 传参方式
+### 传参方式
 
 1、直接传参
 
@@ -2562,7 +2564,7 @@ int updateByPrimaryKey(User record);
 
 以上，就是Mybatis 传参的四种方式。根据方法的参数选择合适的传值方式。
 
-## 动态 SQL
+### 动态 SQL
 
 实际项目中，除了使用一些常用的增删改查的方法之外，有些复杂的需求，可能还需要执行一些自定义的动态sql。mybatis 除了提供了@Insert、@Delete 这些常用的注解，还提供了多个注解如：@InsertProvider,@UpdateProvider,@DeleteProvider和@SelectProvider，用来建立动态sql 和让 mybatis 执行这些sql 的注解。下面就来实现按字段更新的功能。
 
@@ -2660,7 +2662,7 @@ public String updateByPrimaryKeySelective(User record) {
 >
 > 　　method：类中具体的方法名。
 
-# 整合Mybatis 实现多数据源配置
+## 整合Mybatis 实现多数据源配置
 
 1、首先在系统配置文件中，需要配置多个数据源，即在application.properties 文件中增加如下配置：
 
@@ -2857,7 +2859,7 @@ public class UserServiceImpl implements UserService {
 >
 > 4、如果Mybatis使用的是xml 配置版，xml位置需要在每个config显示置顶位置。
 
-# RESTful
+## RESTful
 
 RESTful 是目前最流行的互联网软件架构。 REST（Representational State Transfer，表述性状态转移）一词是由 Roy Thomas Fielding 在他 2000 年博士论文中提出的，定义了他对互联网软件的架构原则，如果一个架构符合 REST 原则，则称它为 RESTful 架构。
 
@@ -2879,7 +2881,7 @@ Restful 特点包括：
 
 　　5、客户端与服务端之间的交互在请求之间是无状态的，从客户端到服务端的每个请求都必须包含理解请求所必需的信息。
 
-## Spring Boot 实现Restful 方案
+### Spring Boot 实现Restful 方案
 
 Spring Boot 开发Restful j接口非常简单，通过不同的注解来支持前端的请求，除了经常使用的@RestController 注解外，Spring Boot 还提了一些组合注解。这些注解来帮助简化常用的 HTTP 方法的映射，并更好地表达被注解方法的语义 。
 
@@ -2895,7 +2897,7 @@ Srping Boot 提供了与Rest 操作方式（GET、POST、PUT、DELETE）对应�
 
 之前我们也介绍过，Spring Boot 提供了专门做数据处理的控制器：@RestController ，其实这些注解就是我们使用的 @RequestMapping 的简写版本：@GetMapping 其实就等于@RequestMapping(value = "/xxx",method = RequestMethod.GET) 。
 
-## Spring Boot 快速实现Restful
+### Spring Boot 快速实现Restful
 
 1、设计接口
 
@@ -2988,7 +2990,7 @@ public class UserController {
  3、测试
 实际开发测试的过程中，一般使用postman测试相关的接口。当然，也可以用单元测试来实现。这里简单起见，直接用postman来测试刚刚定义的人员操作接口。
 
-## 版本号
+### 版本号
 
 Spring Boot如何实现
 
@@ -3195,7 +3197,7 @@ public class UserV2Controller {
 
 
 
-## Swagger2构建API文档
+### Swagger2构建API文档
 
 1、配置Swagger2的依赖
 
@@ -3358,7 +3360,7 @@ public class UserController {
 
 
 
-# 多环境配置
+## 多环境配置
 
 1、首先，在resource 目录下，分别创建 application-dev.properties、application-test.properties 和 application-production.properties 三个配置文件对应：开发环境、测试环境 和 生产环境。
 
@@ -3404,14 +3406,14 @@ spring.profiles.active=dev
 # spring.profiles.active=production
 ```
 
-## 启动项目指定环境
+### 启动项目指定环境
 
 - `java -jar myapp.jar --spring.profiles.active=dev`
 - idea中配置VM参数，`-Dspring.profiles.active=dev`
 
-# 读取配置文件
+## 读取配置文件
 
-## 1、使用@Value注解
+### 1、使用@Value注解
 
 默认读取的是application.properties。如果是自定义的配置文件，则需要用 @PropertySource 来指定具体要读取的配置文件。
 
@@ -3448,7 +3450,7 @@ com.weiz.costum.language=java
 
 上面的代码，可以把@Value 的相关代码封装到单独的类中，在该类增加@Component注解，然后读取配置文件。然后在调用的类中注入该类即可。
 
-## 2、使用Environment读取文件
+### 2、使用Environment读取文件
 
 Environment的使用非常方便，只要在使用的类中注入Environment，就能很方便就读取到相应的配置。
 
@@ -3470,7 +3472,7 @@ Environment的使用非常方便，只要在使用的类中注入Environment，�
 - 使用Environment无需指定配置文件，获取的是系统加载的全部配置文件中的配置。
 - 注意配置文件的编码格式。
 
-## 3、使用@ConfigurationProperties注解
+### 3、使用@ConfigurationProperties注解
 
 在实际项目中，当项目需要注入的变量值很多时，上述所述的@value 和 Environment 两种方法会比较繁琐，这时候我们通常使用基于类型安全的配置方式，将properties属性和一个Bean关联在一起，即使用注解@ConfigurationProperties读取配置文件数据。 
 
@@ -3567,7 +3569,7 @@ public class WebSiteProperties {
 
 　　6、简单值推荐使用@Value，复杂对象推荐使用@ConfigurationProperties。
 
-# Spring Data JPA
+## Spring Data JPA
 
 JPA （Java Persistence API）， Java持久层 API的简称，是JDK 5.0注解或XML描述对象－关系表的映射关系，并将运行期的实体对象持久化到数据库中，JPA是一个基于O/R映射的标准规范。
 
@@ -3581,7 +3583,7 @@ Spring Data JPA 是 Spring 基于 ORM 框架、JPA 规范的基础上封装的�
 
 SpringData：其实Spring Data 就是Spring提供了一个操作数据的框架。而Spring Data JPA只是Spring Data框架下的一个基于JPA标准操作数据的模块。
 
-##  SpringBoot整合SpringData JPA
+###  SpringBoot整合SpringData JPA
 
 1、在pom.xml 中，增加如下配置：注意，需要添加MySql驱动。
 
@@ -3783,7 +3785,7 @@ public class UserController {
 }
 ```
 
-## 自定义查询
+### 自定义查询
 
 1、预定义查询
 
@@ -3860,9 +3862,9 @@ List<User> findUserBySql(String name);
 
 上面示例中的 ?1 表示方法参数中的顺序，nativeQuery = true 表示执行原生sql语句。
 
-## 实体映射关系 一对一 一对多 多对多
+### 实体映射关系 一对一 一对多 多对多
 
-### 常用注解详解
+#### 常用注解详解
 
 @JoinColumn指定该实体类对应的表中引用的表的外键，name属性指定外键名称，referencedColumnName指定应用表中的字段名称
 
@@ -3886,7 +3888,7 @@ List<User> findUserBySql(String name);
 
 > 注意:只有OneToOne，OneToMany，ManyToMany上才有mappedBy属性，ManyToOne不存在该属性；
 
-###  一对一
+####  一对一
 
 首先，一对一的实体关系最常用的场景就是主表与从表，即主表存关键经常使用的字段，从表保存非关键字段，类似 User与UserDetail 的关系。主表和详细表通过外键一一映射。
 
@@ -3983,7 +3985,7 @@ public class UsersDetail {
     }
 ```
 
-### 一对多和对多对一
+#### 一对多和对多对一
 
 一对多和多对一的关系映射，最常见的场景就是：人员角色关系。实体Users：人员。 实体 Roles：角色。 人员 和角色是一对多关系(双向)。那么在JPA中，如何表示一对多的双向关联呢？
 
@@ -4083,7 +4085,7 @@ public class Roles {
 比如 人员和角色，角色是One，人员是Many；cascade = CascadeType.ALL 只能写在 One 端，只有One端改变Many端，不准Many端改变One端。 特别是删除，因为 ALL 里包括更新，删除。
 如果删除一条评论，就把文章删了，那算谁的。所以，在使用的时候要小心。一定要在 One 端使用。
 
-###  三、多对多 
+####  三、多对多 
 
 多对多的映射关系最常见的场景就是：权限和角色关系。角色和权限是多对多的关系。一个角色可以有多个权限，一个权限也可以被很多角色拥有。 JPA中使用@ManyToMany来注解多对多的关系，由一个关联表来维护。这个关联表的表名默认是：主表名+下划线+从表名。(主表是指关系维护端对应的表,从表指关系被维护端对应的表)。这个关联表只有两个外键字段，分别指向主表ID和从表ID。字段的名称默认为：主表名+下划线+主表中的主键列名，从表名+下划线+从表中的主键列名。 
 
@@ -4209,7 +4211,7 @@ public class Permissions {
 
 ​     test3我们可以观察到，我把role.setPermission(null)，就可以解除关系，中间表的对应的记录也没有了。
 
-### 总结
+#### 总结
 
 维护关系是由mapped属性决定，标注在那，那个就不维护关系。级联操作是作用于当前类的操作发生时，对关系类进行级联操作。
 
@@ -4219,7 +4221,7 @@ public class Permissions {
 
 # SpringBoot核心注解及其组成
 
-启动类上的注解是@SpringBootApplication ，组成除了4个原注解外还有下面3种：
+启动类上的注解是`@SpringBootApplication` ，组成除了4个元注解外还有下面3种：
 
 - @SpringBootConfiguration：组合了@Configuration注解，实现配置文件的功能。
 - @EnableAutoConfiguration：打开自动配置的功能，也可以关闭某个自动配置的选项，如关闭数据源自动配置功能 @SpringBootApplication(exclude={DataSourceAutoConfiguration.class})
@@ -4229,7 +4231,7 @@ public class Permissions {
 
 # 自动装配流程
 
-执行Main()方法中的run()方法，它会去做IOC的初始化。注解初始化会将java配置类的类对象传递进去，然后走到@SpringBootApplication注解，其中起作用的是@enableAutoConfiguration注解，它会去加载spring.factories和spring-autoconfigure-metadata.properties配置文件进行候选以及筛选的工作，加载进内存后，实际上我们会在AutoConfigurationSelect中把与之对应的返回类型的全类路径的类型对象加载到容器中。
+执行Main()方法中的run()方法，它会去做IOC的初始化。注解初始化会将java配置类的类对象传递进去，然后走到@SpringBootApplication注解，其中起作用的是@EnableAutoConfiguration注解，它会去加载spring.factories和spring-autoconfigure-metadata.properties配置文件进行候选去重排除过滤的工作，加载进内存后，实际上我们会在AutoConfigurationImportSelector中把与之对应的返回类型的全类路径的类型对象加载到容器中。
 
 
 
