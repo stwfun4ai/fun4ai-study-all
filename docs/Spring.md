@@ -316,7 +316,7 @@ Environment 调用系统环境的属性值
 
 事务隔离级别不是设置得越高越好（意味着要花手段去加锁保证正确性，效率会降低），实际开发中需要在效率和并发正确性之间做取舍，一般会设置READ_COMMITED避免脏读，再通过其他手段去解决幻读和不可重复读。
 
-> 在MYSQL数据库中，支持上面四种隔离级别，默认的为Repeatable read(**可重复读**)；
+> 在MYSQL数据库中，支持上面四种隔离级别，默认的为Repeatable read(**可重复读**)；（innoDB基于MVCC实现）
 >
 > 在Oracle数据库中，只支持Serializeble(串行化)级别和Read committed(**读已提交**)这两种级别，其中默认的为Read committed级别。
 

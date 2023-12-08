@@ -30,7 +30,7 @@ public class LockConditionTest {
                 for (char num : numC) {
                     System.out.print(num);
                     condition2.signal();
-                    condition1.await();
+                    condition1.await();//为当前线程t1产生一个节点并加入等待队列condition1
                 }
                 condition2.signal();
             } catch (InterruptedException e) {

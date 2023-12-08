@@ -1,7 +1,3 @@
----
-typora-root-url: images
----
-
 # IO流
 
 ## 分类
@@ -17,21 +13,15 @@ typora-root-url: images
 
 `RandomAccessFile` 比较常见的一个应用就是实现大文件的 **断点续传** 。何谓断点续传？简单来说就是上传文件中途暂停或失败（比如遇到网络问题）之后，不需要重新上传，只需要上传那些未成功上传的文件分片即可。分片（先将文件切分成多个文件分片）上传是断点续传的基础。
 
-![img](java-io1.png)
-
-
+![img](images/java-io1.png)
 
 **IO-操作方式分类 如下图:**
 
-![img](java-io2.png)
-
-
-
-
+![img](images/java-io2.png)
 
 **IO-操作对象分类 如下图:**
 
-![img](java-io3.png)
+![img](images/java-io3.png)
 
 ## 编程实现文件拷贝
 
@@ -86,7 +76,7 @@ public final class MyUtil {
 
 # IO理论实质
 
-<img src="io理论实质.jpg"  />
+<img src="images/io理论实质.jpg"  />
 
 # IO
 
@@ -96,7 +86,7 @@ I/O（**I**nput/**O**utpu） 即**输入／输出** 。
 
 根据冯.诺依曼结构，计算机结构分为 5 大部分：运算器、控制器、存储器、输入设备、输出设备。
 
-![冯诺依曼体系结构](冯诺依曼体系结构.jpeg)
+![冯诺依曼体系结构](images/冯诺依曼体系结构.jpeg)
 
 输入设备（比如键盘）和输出设备（比如显示器）都属于外部设备。网卡、硬盘这种既可以属于输入设备，也可以属于输出设备。
 
@@ -182,7 +172,7 @@ select系统调用允许程序同时在多个底层文件描述符上，等待�
 
 阻塞IO的执行过程是进程进行**系统调用**，**等待内核**将数据准备好并复制到用户态缓冲区后，进程**放弃使用CPU**并**一直阻塞**在此，直到数据准备好。
 
-![](blocking io.png)
+![](images/blocking io.png)
 
 ## 非阻塞I/O模型
 
@@ -197,7 +187,7 @@ select系统调用允许程序同时在多个底层文件描述符上，等待�
 
 在这两个阶段中，用户进程只有在数据复制阶段被阻塞了，而等待数据阶段没有阻塞，但是用户进程需要盲等，不停地轮询内核，看数据是否准备好。
 
-![](non-blocking io.png)
+![](images/non-blocking io.png)
 
 ## I/O多路复用模型
 
@@ -223,7 +213,7 @@ select负责**轮询等待**，recvfrom负责**拷贝**。当用户进程调用�
 
 ==**IO多路复用其实是阻塞在select、poll、epoll这样的系统调用之上，而没有阻塞在真正的I/O系统调用如recvfrom之上。复用的是执行select，poll，epoll的线程。**==
 
-![输入图片说明](multiplexing io.png)
+![输入图片说明](images/multiplexing io.png)
 
 ## 信号驱动I/O模型
 
@@ -231,7 +221,7 @@ select负责**轮询等待**，recvfrom负责**拷贝**。当用户进程调用�
 
 信号驱动式I/O：首先我们允许Socket进行信号驱动IO,并安装一个信号处理函数，进程继续运行并不阻塞。当数据准备好时，进程会收到一个SIGIO信号，可以在信号处理函数中调用I/O操作函数处理数据。
 
-![](signal-driven IO.png)
+![](images/signal-driven IO.png)
 
 ## 异步I/O模型
 
@@ -239,7 +229,7 @@ select负责**轮询等待**，recvfrom负责**拷贝**。当用户进程调用�
 
 相对于同步IO，异步IO不是顺序执行。用户进程进行aio_read系统调用之后，无论内核数据是否准备好，都会直接返回给用户进程，然后用户态进程可以去做别的事情。等到socket数据准备好了，内核直接复制数据给进程，然后从内核向进程发送通知。**IO两个阶段，进程都是非阻塞的。**
 
-![](asynchronous IO.png)
+![](images/asynchronous IO.png)
 
 ## 买票举例
 
@@ -295,7 +285,7 @@ select负责**轮询等待**，recvfrom负责**拷贝**。当用户进程调用�
 
 ## 总结
 
-![](5种io比较.png)
+![](images/5种io比较.png)
 
 
 
@@ -327,7 +317,7 @@ IO多路复用是指，在一个操作里同时监听多个输入输出源，在
 
 epoll的核心是3个API，核心数据结构是：1个红黑树和1个链表
 
-![](image-20201217221908687.png)
+![](images/image-20201217221908687.png)
 
 #### int epoll_create(int size)
 
@@ -901,7 +891,7 @@ epoll明确指出是哪些文件描述符就绪，接处理即可。
 在NIO库中，所有数据都是用**缓冲区（用户空间缓冲区）**处理的。在读取数据时，它是直接读到缓冲区中的；在写入数据时，也是写入到缓冲区中。任何时候访问NIO中的数据，都是通过缓冲区进行操作。
 缓冲区实际上是一个数组，并提供了对数据的**结构化访问**以及**维护读写位置**等信息。
 
-![640](nio buffer.png)
+![640](images/nio buffer.png)
 
 | **索引** | **说明**                                                     |
 | -------- | ------------------------------------------------------------ |
@@ -1031,7 +1021,7 @@ Channel 最核心的两个方法：
 
 java.nio 定义了以下几个 Buffer 的实现，这个图读者应该也在不少地方见过了吧。
 
-![6](nio-6.png)
+![6](images/nio-6.png)
 
 其实核心是最后的 **ByteBuffer**，前面的一大串类只是包装了一下它而已，我们使用最多的通常也是 ByteBuffer。
 
@@ -1045,7 +1035,7 @@ MappedByteBuffer 用于实现内存映射文件，也不是本文关注的重点
 
 就像数组有数组容量，每次访问元素要指定下标，Buffer 中也有几个重要属性：position、limit、capacity。
 
-![5](nio-5.png)
+![5](images/nio-5.png)
 
 最好理解的当然是 capacity，它代表这个缓冲区的容量，一旦设定就不可以更改。比如 capacity 为 1024 的 IntBuffer，代表其一次可以存放 1024 个 int 类型的值。一旦 Buffer 的容量达到 capacity，需要清空 Buffer，才能重新写入值。
 
@@ -1057,7 +1047,7 @@ position 和 limit 是变化的，我们分别看下读和写操作下，它们�
 
 **Limit**：写操作模式下，limit 代表的是最大能写入的数据，这个时候 limit 等于 capacity。写结束后，切换到读模式，此时的 limit 等于 Buffer 中实际的数据大小，因为 Buffer 不一定被写满了。
 
-![7](nio-7.png)
+![7](images/nio-7.png)
 
 ##### 初始化 Buffer
 
@@ -1204,7 +1194,7 @@ public final Buffer clear() {
 
 所有的 NIO 操作始于通道，通道是数据来源或数据写入的目的地，主要地，我们将关心 java.nio 包中实现的以下几个 Channel：
 
-![8](nio-8.png)
+![8](images/nio-8.png)
 
 - FileChannel：文件通道，用于文件的读和写
 - DatagramChannel：用于 UDP 连接的接收和发送
@@ -1215,9 +1205,9 @@ public final Buffer clear() {
 
 Channel 经常翻译为通道，类似 IO 中的流，用于读取和写入。它与前面介绍的 Buffer 打交道，读操作的时候将 Channel 中的数据填充到 Buffer 中，而写操作时将 Buffer 中的数据写入到 Channel 中。
 
-![9](nio-9.png)
+![9](images/nio-9.png)
 
-![10](nio-10.png)
+![10](images/nio-10.png)
 
 至少读者应该记住一点，这两个方法都是 channel 实例的方法。
 

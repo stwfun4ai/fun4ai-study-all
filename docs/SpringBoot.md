@@ -4323,7 +4323,13 @@ bootstrap.yml在SpringBoot中默认是不支持的，需要在SpringCloud环境�
 
 
 
+# @Configuration和@Component 区别
 
+@Component在Spring中是代表LITE模式的配置注解，这种模式下的注解不会被Spring所代理，就是一个标准类，如果在这个类中有@Bean标注的方法，那么方法间的相互调用，其实就是普通Java类的方法的调用。
+
+@Configuration在Spring中是代表FULL模式的配置注解，这种模式下的类会被Spring所代理，那么在这个类中的@Bean方法的相互调用，就相当于调用了代理方法，那么在代理方法中会判断，是否调用getBean方法还是invokeSuper方法，这里就是这两个注解的最根本的区别。
+
+> 一句话概括就是 @Configuration 中所有带 @Bean 注解的方法都会被动态代理，因此调用该方法返回的都是同一个实例。 
 
 
 

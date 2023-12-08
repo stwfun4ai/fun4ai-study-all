@@ -49,6 +49,7 @@ public class PhaserDemo {
     }
 
     public static void main(String[] args) {
+        //匿名内部类 继承Phaser重写onAdvance方法
         Phaser phaser = new Phaser(4) {
             @Override
             protected boolean onAdvance(int phase, int registeredParties) {

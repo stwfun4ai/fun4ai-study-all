@@ -53,7 +53,9 @@ git config --global user.email "7lfun4ai@gmail.com"
 
 
 
+# 开源项目修改打包
 
+找`contributing.md`文件会告诉你怎么打包
 
 
 

@@ -46,11 +46,7 @@ docker commit -a="fun4ai" -m="add webapps" 容器id 提交镜像名称:版本号
 
 # 安装
 
-
-
 ## 安装步骤
-
-
 
 1. 官网安装参考手册：https://docs.docker.com/engine/install/centos/
 
@@ -144,9 +140,35 @@ sudo systemctl restart docker
 
 
 
+# 使用
+
+## 镜像操作命令
+
+- docker pull 从服务拉取镜像
+- docker push 推送镜像到服务
+- docker build 构建镜像
+- docker images 查看镜像
+- docker rmi 删除镜像
 
 
 
+## 容器操作命令
+
+- docker run 
+  - --name：容器命名
+  - -v [volumeName]:targetContainerPath 容器id ：把容器目录挂载到主机目录上 [具体件容器数据卷](#容器数据卷)
+    volume可省略匿名自动创建
+  - -p：端口映射，宿主机端口 : 容器端口
+  - -d：daemon后台运行
+  - 最后为镜像名称
+- docker rm 删除指定容器
+  - -f：强制删除容器，运行中也能删除
+- docker exec 进入容器执行命令
+  - -it [容器名] [命令]：给当前进入的容器创建一个标准输入输出终端，允许我们与容器交互
+    如 docker exec -it xxx bash
+- docker logs 查看容器运行日志
+- docker ps 查看所有运行的容器及状态
+  - -a：查看所有状态的容器
 
 
 
@@ -156,15 +178,15 @@ sudo systemctl restart docker
 
 # 容器数据卷
 
+将容器与数据分离，解耦合，方便操作容器内数据保证数据安全。
+
 ​	目录挂载，双向绑定
 
 ```bash
-docker run -d -v 主机目录:容器目录 容器id 
+docker run -d -v volumeName:targetContainerPath 容器id 
 ```
 
- 
-
-**具名和匿名挂载**
+ **具名和匿名挂载**
 
 ```bash
 #匿名挂载
@@ -225,8 +247,6 @@ docker run -d -p 3306:3306 -e MYSQL_ROOT_PASSWORD=root --name mysql02 --volume-f
 #这个时候可以实现俩个容器数据同步
 ```
 
-
-
 > 结论
 
 ​	容器之间配置信息的传递，数据卷容器的生命周期一直持续到没有容器使用为止。
@@ -235,19 +255,19 @@ docker run -d -p 3306:3306 -e MYSQL_ROOT_PASSWORD=root --name mysql02 --volume-f
 
 
 
-
-
-
-
 # DockerFile
 
+**自定义镜像**，镜像是将应用程序及其需要的系统函数库、环境、配置、依赖打包而成。
 
+镜像是分层结构，每一层称为一个Layer
+
+- BaseImage层：包含基本的系统函数库、环境变量、文件系统
+- Entrypoint：入口，是镜像中应用启动的命令
+- 其他：在BaseImage基础上添加依赖、安装程序、完成整个应用的安装和配置
 
 ![image-20201115130622102](images/dockerfile1.png)
 
 ## DockerFile指令
-
-
 
 ![image-20201115130854739](images/dockerfile指令.png)
 
@@ -301,11 +321,9 @@ CMD /usr/local/apache-tomcat-9.0.22/bin/startup.sh && tail -F /usr/local/apache-
 
 3. 构建镜像
 
-   ```
+   ```bash
    docker build -t diytomcat
    ```
-
-   
 
 4. 启动镜像
 
